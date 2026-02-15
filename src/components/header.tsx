@@ -30,15 +30,30 @@ export function Header() {
         className="container header-content"
         style={{ position: "relative", zIndex: 30 }}
       >
-        <div className="profile-img-container" style={{ position: 'relative', width: '160px', height: '160px', borderRadius: '1.5rem', overflow: 'hidden', border: '1px solid var(--border-color)', flexShrink: 0 }}>
-          <Image 
-            src="/me.png" 
-            alt="Abhijitam Dubey" 
-            fill 
-            style={{ objectFit: 'cover' }}
-            priority
-          />
-        </div>
+        <a
+          href="https://x.com/Abhijitam_"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Open Twitter profile"
+        >
+          <div className="profile-img-container profile-image-swap" style={{ position: 'relative', width: '160px', height: '160px', borderRadius: '1.5rem', overflow: 'hidden', border: '1px solid var(--border-color)', flexShrink: 0 }}>
+            <Image
+              src="/me.png"
+              alt="Abhijitam Dubey"
+              fill
+              className="profile-image profile-image-default"
+              style={{ objectFit: 'cover' }}
+              priority
+            />
+            <Image
+              src="/profile.jpg"
+              alt="Profile hover avatar"
+              fill
+              className="profile-image profile-image-hover"
+              style={{ objectFit: 'cover' }}
+            />
+          </div>
+        </a>
         <div className="header-info">
           <h1>Abhijitam Dubey</h1>
           <div className="subtitle">

@@ -169,6 +169,30 @@ html.theme-color-transition *::after {
     border: 1px solid var(--border-color);
 }
 
+.profile-image {
+    transition: opacity 0.32s ease, transform 0.32s ease;
+}
+
+.profile-image-default {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.profile-image-hover {
+    opacity: 0;
+    transform: scale(1.03);
+}
+
+.profile-image-swap:hover .profile-image-default {
+    opacity: 0;
+    transform: scale(1.03);
+}
+
+.profile-image-swap:hover .profile-image-hover {
+    opacity: 1;
+    transform: scale(1);
+}
+
 .header-info h1 {
     font-family: var(--font-heading);
     font-size: clamp(2rem, 5vw, 3.5rem);
@@ -236,9 +260,9 @@ html.theme-color-transition *::after {
 }
 
 [data-theme="light"] .hero-link-tooltip {
-    background: linear-gradient(180deg, #f8efdc 0%, #f3e6cc 100%);
-    border: 1px solid #e4d7bc;
-    box-shadow: 0 10px 24px rgba(95, 75, 35, 0.16);
+    background: linear-gradient(180deg, #faf5ea 0%, #f6efe0 100%);
+    border: 1px solid #e8ddc7;
+    box-shadow: 0 6px 16px rgba(95, 75, 35, 0.10);
 }
 
 .hero-link-tooltip p {
@@ -255,11 +279,11 @@ html.theme-color-transition *::after {
 }
 
 [data-theme="light"] .hero-link-tooltip p {
-    color: #5f5136;
+    color: #605438;
 }
 
 [data-theme="light"] .hero-link-tooltip span {
-    color: #7a6640;
+    color: #7d6b46;
 }
 
 .hero-link:hover {
