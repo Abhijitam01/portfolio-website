@@ -46,7 +46,7 @@ export const projects: Project[] = [
     title: "Solana Atlas",
     status: "Live",
     statusClass: "badge-live",
-    image: "/projects/solana-atlas.png",
+    image: "/projects/solana-atlas.png?v=2",
     description: "A comprehensive playground for Solana developers. Experiment, test, and build Solana programs in an interactive environment.",
     fullDescription: "Solana Atlas provides a bridge between low-level blockchain development and high-level developer experience. It offers a suite of interactive tools to test Solana programs on-the-fly, visualize account structures, and debug transactions in real-time. It's the ultimate sandbox for both beginners and experienced Solana architects.",
     techStack: ["Solana", "Web3.js", "TypeScript", "Anchor"],
@@ -62,7 +62,7 @@ export const projects: Project[] = [
     }
   },
   {
-    id: "errika",
+    id: "erica",
     title: "Erica",
     status: "Live",
     statusClass: "badge-live",
@@ -86,7 +86,7 @@ export const projects: Project[] = [
     title: "Chess Platform",
     status: "Building",
     statusClass: "badge-building",
-    image: "/projects/snippet-vault.png", // Reusing a placeholder for now
+    image: "/projects/chess.png",
     description: "A modern chess platform with real-time multiplayer, AI opponents, and analysis tools.",
     fullDescription: "This chess platform is built for serious players who want a sleek, distraction-free environment. Utilizing WebSockets for sub-100ms move latency, it supports ranked matchmaking, real-time move analysis, and a library of tactical puzzles. Currently in active development to integrate Stockfish 16 for advanced AI insights.",
     techStack: ["WebSockets", "React", "Node.js", "Stockfish"],

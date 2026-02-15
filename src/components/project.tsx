@@ -28,7 +28,9 @@ export function ProjectItem({ project, onModalOpenChange }: ProjectItemProps) {
             <Image 
               src={project.image} 
               alt={project.title} 
-              fill 
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              quality={88}
               style={{ objectFit: 'cover' }}
             />
           </div>

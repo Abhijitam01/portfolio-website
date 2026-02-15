@@ -50,6 +50,8 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
             src={project.image} 
             alt={project.title} 
             fill 
+            sizes="(max-width: 900px) 100vw, 800px"
+            quality={90}
             style={{ objectFit: 'cover' }}
             priority
           />
