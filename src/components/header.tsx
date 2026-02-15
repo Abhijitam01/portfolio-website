@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Roles } from "./roles";
 import { HoverTag } from "./hover-tag";
+import { HoverBorderGradient } from "./ui/hover-border-gradient";
 
 const heroSocials = [
   {
@@ -70,11 +71,17 @@ export function Header() {
               <a
                 key={social.label}
                 href={social.href}
-                className="hero-link"
+                className="hero-link-anchor"
                 target={social.href.startsWith("http") ? "_blank" : undefined}
                 rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
               >
-                <span>{social.label}</span>
+                <HoverBorderGradient
+                  as="div"
+                  containerClassName="hero-link-gradient"
+                  className="hero-link"
+                >
+                  <span>{social.label}</span>
+                </HoverBorderGradient>
                 <div className="hero-link-tooltip" role="presentation">
                   <p>{social.description}</p>
                   <span>{social.stat}</span>
