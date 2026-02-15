@@ -37,13 +37,13 @@ export function Header() {
           rel="noopener noreferrer"
           aria-label="Open Twitter profile"
         >
-          <div className="profile-img-container profile-image-swap" style={{ position: 'relative', width: '160px', height: '160px', borderRadius: '1.5rem', overflow: 'hidden', border: '1px solid var(--border-color)', flexShrink: 0 }}>
+          <div className="profile-img-container profile-image-swap">
             <Image
               src="/me.png"
               alt="Abhijitam Dubey"
               fill
               className="profile-image profile-image-default"
-              style={{ objectFit: 'cover' }}
+              style={{ objectFit: "cover" }}
               priority
             />
             <Image
@@ -51,7 +51,7 @@ export function Header() {
               alt="Profile hover avatar"
               fill
               className="profile-image profile-image-hover"
-              style={{ objectFit: 'cover' }}
+              style={{ objectFit: "cover" }}
             />
           </div>
         </a>
