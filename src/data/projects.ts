@@ -62,11 +62,11 @@ export const projects: Project[] = [
     }
   },
   {
-    id: "erica",
+    id: "errika",
     title: "Erica",
     status: "Live",
     statusClass: "badge-live",
-    image: "/projects/erica.png",
+    image: "/projects/erika.png",
     description: "A package manager that scaffolds production-ready Turborepo Next.js projects. Install and start building immediately.",
     fullDescription: "Erica is a powerful CLI tool that eliminates the boilerplate friction of starting new projects. It scaffolds a fully configured Turborepo environment with Next.js, Tailwind, and Prisma out of the box. Designed for speed, it automates the setup of shared UI components and API layers, getting developers from zero to code in seconds.",
     techStack: ["CLI", "Node.js", "Turborepo", "Rust"],

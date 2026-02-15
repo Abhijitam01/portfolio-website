@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 :root {
     --bg-primary: #050505;
     --bg-secondary: #0e0e0e;
@@ -35,6 +39,26 @@ body {
     line-height: 1.6;
     font-size: 1rem;
     overflow-x: hidden;
+}
+
+html::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: var(--theme-wave-color, transparent);
+    transform: translateY(0);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+html.theme-wave-active::before {
+    opacity: 1;
+}
+
+html.theme-wave-active.theme-wave-sweep::before {
+    transform: translateY(100%);
+    transition: transform 0.82s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .main-wrapper {
@@ -189,6 +213,12 @@ body {
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
 }
 
+[data-theme="light"] .hero-link-tooltip {
+    background: linear-gradient(180deg, #f8efdc 0%, #f3e6cc 100%);
+    border: 1px solid #e4d7bc;
+    box-shadow: 0 10px 24px rgba(95, 75, 35, 0.16);
+}
+
 .hero-link-tooltip p {
     margin: 0;
     font-size: 0.8rem;
@@ -200,6 +230,14 @@ body {
     color: var(--text-secondary);
     display: block;
     margin-top: 0.25rem;
+}
+
+[data-theme="light"] .hero-link-tooltip p {
+    color: #5f5136;
+}
+
+[data-theme="light"] .hero-link-tooltip span {
+    color: #7a6640;
 }
 
 .hero-link:hover {
