@@ -882,21 +882,24 @@ html.theme-color-transition *::after {
 
     .hero-socials {
         width: 100%;
+        display: flex;
         justify-content: flex-start;
-        gap: 0.6rem;
+        gap: 0.55rem;
         flex-wrap: wrap;
         margin-top: 1rem;
     }
 
     .hero-link-anchor {
-        flex: 0 0 auto;
-        max-width: none;
-        min-width: 5.4rem;
+        flex: 0 0 calc(50% - 0.275rem);
+        max-width: calc(50% - 0.275rem);
+        min-width: 0;
+        margin-right: 0;
     }
 
     .hero-link {
-        padding: 0.55rem 0.25rem;
-        font-size: 0.74rem;
+        padding: 0.55rem 1.3rem;
+        font-size: 0.8rem;
         white-space: nowrap;
+        min-width: 0;
     }
 }
