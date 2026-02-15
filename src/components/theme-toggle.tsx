@@ -4,6 +4,15 @@ import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react";
 
+type ThemeViewTransition = {
+  ready: Promise<void>;
+  finished: Promise<void>;
+};
+
+type ThemeTransitionDocument = Document & {
+  startViewTransition?: (updateCallback: () => void) => ThemeViewTransition;
+};
+
 export function ThemeToggle() {
   const [mounted, setMounted] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -28,25 +37,32 @@ export function ThemeToggle() {
     const activeTheme = resolvedTheme ?? theme ?? "light";
     const nextTheme = activeTheme === "dark" ? "light" : "dark";
     const root = document.documentElement;
-    const rootStyles = getComputedStyle(root);
-    const waveColor = rootStyles.getPropertyValue("--bg-primary").trim();
+    const themedDocument = document as ThemeTransitionDocument;
+    const endTransition = () => {
+      root.classList.remove("theme-color-transition", "theme-reveal-active");
+      setIsTransitioning(false);
+    };
 
     setIsTransitioning(true);
-    root.style.setProperty("--theme-wave-color", waveColor);
-    root.classList.add("theme-wave-active");
-    root.classList.remove("theme-wave-sweep");
+    root.classList.add("theme-color-transition");
+
+    if (themedDocument.startViewTransition) {
+      const viewTransition = themedDocument.startViewTransition(() => {
+        setTheme(nextTheme);
+      });
+
+      viewTransition.ready
+        .then(() => {
+          root.classList.add("theme-reveal-active");
+        })
+        .catch(() => {});
+
+      viewTransition.finished.finally(endTransition);
+      return;
+    }
 
     setTheme(nextTheme);
-
-    requestAnimationFrame(() => {
-      root.classList.add("theme-wave-sweep");
-    });
-
-    window.setTimeout(() => {
-      root.classList.remove("theme-wave-active", "theme-wave-sweep");
-      root.style.removeProperty("--theme-wave-color");
-      setIsTransitioning(false);
-    }, 820);
+    window.setTimeout(endTransition, 520);
   };
 
   return (

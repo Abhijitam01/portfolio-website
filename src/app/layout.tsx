@@ -23,7 +23,6 @@ export default function RootLayout({
           attribute="data-theme"
           defaultTheme="light"
           enableSystem
-          disableTransitionOnChange
         >
           <div className="main-wrapper">
             {children}

@@ -41,24 +41,46 @@ body {
     overflow-x: hidden;
 }
 
-html::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background: var(--theme-wave-color, transparent);
-    transform: translateY(0);
-    opacity: 0;
-    pointer-events: none;
-    z-index: 9999;
+html.theme-color-transition *,
+html.theme-color-transition *::before,
+html.theme-color-transition *::after {
+    transition: background-color 0.45s ease, color 0.45s ease, border-color 0.45s ease, box-shadow 0.45s ease, fill 0.45s ease, stroke 0.45s ease;
 }
 
-html.theme-wave-active::before {
-    opacity: 1;
+@supports (view-transition-name: root) {
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+        animation-duration: 0.62s;
+        animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    html.theme-reveal-active::view-transition-old(root) {
+        animation-name: theme-fade-soft;
+    }
+
+    html.theme-reveal-active::view-transition-new(root) {
+        animation-name: theme-reveal-down;
+    }
 }
 
-html.theme-wave-active.theme-wave-sweep::before {
-    transform: translateY(100%);
-    transition: transform 0.82s cubic-bezier(0.22, 1, 0.36, 1);
+@keyframes theme-reveal-down {
+    from {
+        clip-path: inset(0 0 100% 0);
+        filter: blur(2px);
+    }
+    to {
+        clip-path: inset(0 0 0 0);
+        filter: blur(0);
+    }
+}
+
+@keyframes theme-fade-soft {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0.6;
+    }
 }
 
 .main-wrapper {
