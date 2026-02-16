@@ -1,19 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import React from "react";
 import { GitHubCalendar } from "react-github-calendar";
+import { useTheme } from "next-themes";
 
 export function GitHubGraph() {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
+  const { resolvedTheme } = useTheme();
 
   const currentYear = new Date().getFullYear();
+  const colorScheme = resolvedTheme === "dark" ? "dark" : "light";
 
   const theme = {
     light: [
@@ -61,6 +56,7 @@ export function GitHubGraph() {
             username="Abhijitam01"
             year={currentYear}
             theme={theme}
+            colorScheme={colorScheme}
             fontSize={12}
             blockSize={11}
             blockMargin={4}

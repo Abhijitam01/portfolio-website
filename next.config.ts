@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   /* config options here */
   reactCompiler: true,
   images: {
-    qualities: [75, 88],
+    qualities: [100, 75, 88],
     localPatterns: [
       {
         pathname: '/**',
