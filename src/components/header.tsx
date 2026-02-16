@@ -6,10 +6,10 @@ import { HoverBorderGradient } from "./ui/hover-border-gradient";
 const heroSocials = [
   {
     label: "Resume",
-    href: "/Abhijitam_Dubey_Resume_Formatted.docx",
+    href: "/AbhijitamDubey.pdf",
     description: "Download my latest resume.",
-    stat: "DOCX file",
-    downloadName: "Abhijitam_Dubey_Resume_Formatted.docx",
+    stat: "PDF file",
+    downloadName: "AbhijitamDubey.pdf",
   },
   {
     label: "Email",
