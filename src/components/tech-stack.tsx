@@ -8,7 +8,7 @@ export function TechStack() {
     },
     {
       label: "Backend",
-      items: ["Node.js", "Express", "Django", "Bun", "Prisma"],
+      items: ["Node.js", "Express", "Prisma"],
     },
     {
       label: "Database",
@@ -16,7 +16,7 @@ export function TechStack() {
     },
     {
       label: "Languages",
-      items: ["JavaScript", "TypeScript", "Python", "Java", "C/C++"],
+      items: ["JavaScript", "TypeScript", "C++"],
     },
     {
       label: "Tools",
