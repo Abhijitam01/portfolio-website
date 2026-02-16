@@ -1,3 +1,29 @@
+export interface ProjectLink {
+  url: string;
+  text: string;
+  primary: boolean;
+}
+
+export interface ProjectCaseStudy {
+  why: string;
+  useCase: string;
+  learned: string;
+  stuck: string;
+}
+
+export interface Project {
+  id: string;
+  title: string;
+  status: string;
+  statusClass: string;
+  image: string;
+  description: string;
+  fullDescription: string;
+  techStack: string[];
+  links: ProjectLink[];
+  caseStudy: ProjectCaseStudy;
+}
+
 export const projects: Project[] = [
   {
     id: "snippet-vault",

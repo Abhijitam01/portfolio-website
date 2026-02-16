@@ -88,7 +88,7 @@ html.theme-color-transition *::after {
 
 .main-wrapper {
     min-height: 100vh;
-    max-width: clamp(360px, 95vw, 960px);
+    max-width: clamp(360px, 85.5vw, 864px);
     margin: 0 auto;
     position: relative;
     background-color: var(--bg-primary);
@@ -878,7 +878,7 @@ html.theme-color-transition *::after {
 
 /* RESPONSIVE */
 @media (max-width: 1100px) {
-    .main-wrapper { max-width: 90%; }
+    .main-wrapper { max-width: 81%; }
 }
 
 @media (max-width: 768px) {
