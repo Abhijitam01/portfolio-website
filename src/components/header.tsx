@@ -5,6 +5,13 @@ import { HoverBorderGradient } from "./ui/hover-border-gradient";
 
 const heroSocials = [
   {
+    label: "Resume",
+    href: "/Abhijitam_Dubey_Resume_Formatted.docx",
+    description: "Download my latest resume.",
+    stat: "DOCX file",
+    downloadName: "Abhijitam_Dubey_Resume_Formatted.docx",
+  },
+  {
     label: "Email",
     href: "mailto:work.abhijitam@gmail.com",
     description: "Open for thoughtful collaboration.",
@@ -71,9 +78,18 @@ export function Header() {
               <a
                 key={social.label}
                 href={social.href}
+                download={social.downloadName}
                 className="hero-link-anchor"
-                target={social.href.startsWith("http") ? "_blank" : undefined}
-                rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                target={
+                  social.href.startsWith("http") && !social.downloadName
+                    ? "_blank"
+                    : undefined
+                }
+                rel={
+                  social.href.startsWith("http") && !social.downloadName
+                    ? "noopener noreferrer"
+                    : undefined
+                }
               >
                 <HoverBorderGradient
                   as="div"
