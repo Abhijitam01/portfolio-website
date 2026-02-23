@@ -2,9 +2,8 @@
 
 import { useEffect, useCallback } from "react";
 import Image from "next/image";
-import { ChevronLeft, Github, Globe, Share2, Sun, Moon } from "lucide-react";
+import { Github, Globe, Share2 } from "lucide-react";
 import { Project } from "@/data/projects";
-import { useTheme } from "next-themes";
 import { HoverTag } from "./hover-tag";
 
 interface ProjectModalProps {
@@ -13,8 +12,6 @@ interface ProjectModalProps {
 }
 
 export function ProjectModal({ project, onClose }: ProjectModalProps) {
-  const { theme, setTheme } = useTheme();
-
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (e.key === "Escape") onClose();
   }, [onClose]);
@@ -29,22 +26,8 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
   }, [handleKeyDown]);
 
   return (
-    <div className="modal-overlay">
-      <nav className="modal-nav">
-        <button className="modal-back" onClick={onClose}>
-          <ChevronLeft size={20} />
-          Back to Home
-        </button>
-        <button 
-          className="theme-toggle" 
-          onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-          style={{ position: 'relative', top: '0', right: '-1px', borderRight: 'none', borderTop: 'none', borderBottom: 'none', borderRadius: '0' }}
-        >
-          {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
-        </button>
-      </nav>
-
-      <div className="modal-container">
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-container" onClick={(e) => e.stopPropagation()}>
         <div className="modal-hero">
           <Image 
             src={project.image} 

@@ -586,49 +586,13 @@ html.theme-color-transition *::after {
     animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.modal-nav {
-    max-width: clamp(320px, 90vw, 800px);
-    margin: 0 auto;
-    height: 72px;
-    border-bottom: 1px dashed var(--border-dotted);
-    border-left: 1px dashed var(--border-dotted);
-    border-right: 1px dashed var(--border-dotted);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0;
-    position: relative;
-    background-color: var(--bg-primary);
-    z-index: 100;
-}
-
-.modal-back {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    background: none;
-    border: none;
-    color: var(--text-primary);
-    font-weight: 700;
-    cursor: pointer;
-    font-size: 0.875rem;
-    padding: 0 1.5rem;
-    height: 100%;
-    border-right: 1px dashed var(--border-dotted);
-    transition: all 0.2s ease;
-}
-
-.modal-back:hover {
-    background-color: var(--bg-secondary);
-}
-
 .modal-container {
     max-width: 800px;
     margin: 0 auto;
     padding: 4rem 2rem;
     border-left: 1px dashed var(--border-dotted);
     border-right: 1px dashed var(--border-dotted);
-    min-height: calc(100vh - 60px);
+    min-height: 100vh;
 }
 
 .modal-hero {
