@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useCallback } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import { Github, Globe, Share2 } from "lucide-react";
 import { Project } from "@/data/projects";
@@ -17,41 +18,68 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
   }, [onClose]);
 
   useEffect(() => {
-    document.body.style.overflow = "hidden";
+    const scrollY = window.scrollY;
+    const { body, documentElement } = document;
+    const previousBodyOverflow = body.style.overflow;
+    const previousBodyPosition = body.style.position;
+    const previousBodyTop = body.style.top;
+    const previousBodyWidth = body.style.width;
+    const previousHtmlOverflow = documentElement.style.overflow;
+
+    body.style.overflow = "hidden";
+    body.style.position = "fixed";
+    body.style.top = `-${scrollY}px`;
+    body.style.width = "100%";
+    documentElement.style.overflow = "hidden";
+
     window.addEventListener("keydown", handleKeyDown);
+
     return () => {
-      document.body.style.overflow = "unset";
+      body.style.overflow = previousBodyOverflow;
+      body.style.position = previousBodyPosition;
+      body.style.top = previousBodyTop;
+      body.style.width = previousBodyWidth;
+      documentElement.style.overflow = previousHtmlOverflow;
       window.removeEventListener("keydown", handleKeyDown);
+      window.scrollTo(0, scrollY);
     };
   }, [handleKeyDown]);
 
-  return (
+  if (typeof document === "undefined") {
+    return null;
+  }
+
+  return createPortal(
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-container" onClick={(e) => e.stopPropagation()}>
         <div className="modal-hero">
-          <Image 
-            src={project.image} 
-            alt={project.title} 
-            fill 
+          <Image
+            src={project.image}
+            alt={project.title}
+            fill
             sizes="(max-width: 900px) 100vw, 800px"
             quality={90}
-            style={{ objectFit: 'cover' }}
+            style={{ objectFit: "cover" }}
             priority
           />
         </div>
 
         <div className="modal-action-bar">
-          <a href={project.links.find(l => l.text === "GitHub")?.url || "#"} target="_blank" rel="noopener noreferrer" className="modal-action-btn">
+          <a href={project.links.find((l) => l.text === "GitHub")?.url || "#"} target="_blank" rel="noopener noreferrer" className="modal-action-btn">
             <Github size={18} />
             Github
           </a>
-          <a href={project.links.find(l => l.primary)?.url || "#"} target="_blank" rel="noopener noreferrer" className="modal-action-btn">
+          <a href={project.links.find((l) => l.primary)?.url || "#"} target="_blank" rel="noopener noreferrer" className="modal-action-btn">
             <Globe size={18} />
             Website
           </a>
-          <button type="button" className="modal-action-btn" onClick={() => {
-            navigator.clipboard.writeText(window.location.href);
-          }}>
+          <button
+            type="button"
+            className="modal-action-btn"
+            onClick={() => {
+              navigator.clipboard.writeText(window.location.href);
+            }}
+          >
             <Share2 size={18} />
             Share
           </button>
@@ -67,7 +95,8 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
 
         <p className="modal-description">
           {project.fullDescription}
-          <br /><br />
+          <br />
+          <br />
           For early access, please <strong>contact me!</strong>
         </p>
 
@@ -97,31 +126,27 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
           <h3 className="modal-stack-title">Stack used</h3>
           <div className="stack-pill-grid">
             {project.techStack.map((tech) => {
-              // Map tech name to image path if exists
               const techImages: Record<string, string> = {
-                "TypeScript": "/tags/typescript.png",
-                "React": "/tags/react.png",
+                TypeScript: "/tags/typescript.png",
+                React: "/tags/react.png",
                 "Next.js": "/tags/nextjs.png",
-                "Solana": "/tags/solana.png",
+                Solana: "/tags/solana.png",
                 "Node.js": "/tags/nodejs.png",
                 "Tailwind CSS": "/tags/tailwind.png",
-                "Rust": "/tags/rust.png"
+                Rust: "/tags/rust.png",
               };
               const imageSrc = techImages[tech];
-              
+
               return (
                 <span key={tech} className="stack-pill">
-                  {imageSrc ? (
-                    <HoverTag text={tech} imageSrc={imageSrc} />
-                  ) : (
-                    tech
-                  )}
+                  {imageSrc ? <HoverTag text={tech} imageSrc={imageSrc} /> : tech}
                 </span>
               );
             })}
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

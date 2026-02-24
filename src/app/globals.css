@@ -583,6 +583,8 @@ html.theme-color-transition *::after {
     background-color: var(--bg-primary);
     z-index: 5000;
     overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
     animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
