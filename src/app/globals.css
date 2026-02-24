@@ -464,6 +464,12 @@ html.theme-color-transition *::after {
     cursor: pointer;
     display: flex;
     flex-direction: column;
+    text-decoration: none;
+    color: var(--text-primary);
+}
+
+.project-card:visited {
+    color: var(--text-primary);
 }
 
 .project-card:hover {
@@ -501,6 +507,7 @@ html.theme-color-transition *::after {
     font-family: var(--font-heading);
     font-size: clamp(1.1rem, 2vw, 1.5rem);
     font-weight: 700;
+    color: var(--text-primary);
 }
 
 .project-status {
@@ -535,6 +542,11 @@ html.theme-color-transition *::after {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    color: var(--text-secondary);
+}
+
+.project-card:hover .view-project {
+    color: var(--text-primary);
 }
 
 /* TECH STACK & SKILLS */
