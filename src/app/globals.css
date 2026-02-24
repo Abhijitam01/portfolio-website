@@ -327,6 +327,25 @@ html.theme-color-transition *::after {
     transform: translate(-50%, 4px);
 }
 
+.hero-link-anchor:first-child .hero-link-tooltip {
+    left: 0;
+    transform: translate(0, 0);
+}
+
+.hero-link-anchor:first-child:hover .hero-link-tooltip {
+    transform: translate(0, 4px);
+}
+
+.hero-link-anchor:last-child .hero-link-tooltip {
+    left: auto;
+    right: 0;
+    transform: translate(0, 0);
+}
+
+.hero-link-anchor:last-child:hover .hero-link-tooltip {
+    transform: translate(0, 4px);
+}
+
 [data-theme="light"] .hero-link {
     color: var(--text-primary);
     background-color: var(--bg-secondary);
@@ -1050,5 +1069,22 @@ html.theme-color-transition *::after {
         font-size: 0.8rem;
         white-space: nowrap;
         min-width: 0;
+    }
+
+    .hero-link-anchor:nth-child(2n + 1) .hero-link-tooltip {
+        left: 0;
+        right: auto;
+        transform: translate(0, 0);
+    }
+
+    .hero-link-anchor:nth-child(2n) .hero-link-tooltip {
+        left: auto;
+        right: 0;
+        transform: translate(0, 0);
+    }
+
+    .hero-link-anchor:nth-child(2n + 1):hover .hero-link-tooltip,
+    .hero-link-anchor:nth-child(2n):hover .hero-link-tooltip {
+        transform: translate(0, 4px);
     }
 }
