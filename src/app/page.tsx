@@ -1,6 +1,3 @@
-"use client";
-
-import { useState } from "react";
 import { Header } from "@/components/header";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Section } from "@/components/section";
@@ -12,8 +9,6 @@ import { HoverTag } from "@/components/hover-tag";
 import { TechStack } from "@/components/tech-stack";
 
 export default function Home() {
-  const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
-
   return (
     <main>
       <ThemeToggle />
@@ -46,13 +41,12 @@ export default function Home() {
             <ProjectItem
               key={project.id}
               project={project}
-              onModalOpenChange={setIsProjectModalOpen}
             />
           ))}
         </ProjectList>
       </Section>
 
-      {!isProjectModalOpen && <Footer />}
+      <Footer />
     </main>
   );
 }
