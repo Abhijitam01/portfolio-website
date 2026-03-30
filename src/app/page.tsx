@@ -7,28 +7,41 @@ import { Footer } from "@/components/footer";
 import { projects } from "@/data/projects";
 import { HoverTag } from "@/components/hover-tag";
 import { TechStack } from "@/components/tech-stack";
+import { Experience } from "@/components/experience";
+import { ScrollReveal } from "@/components/scroll-reveal";
+import { experience } from "@/data/experience";
 
 export default function Home() {
   return (
     <main>
       <ThemeToggle />
       <Header />
-      
+
       <Section title="ABOUT">
-        <p>
-          I&apos;m a software developer focused on building tools and platforms that make developers&apos; lives easier. 
-          I work across the stack, specializing in <HoverTag text="TypeScript" imageSrc="/tags/typescript.png" />, <HoverTag text="React" imageSrc="/tags/react.png" />, and <HoverTag text="Solana" imageSrc="/tags/solana.png" /> development.
-          Currently exploring new ways to streamline development workflows and experimenting with interactive tools.
-        </p>
-        <div style={{ display: 'flex', gap: '2rem', marginTop: '2rem' }}>
-          <a href="https://github.com/Abhijitam01" className="underline-link" target="_blank" rel="noopener noreferrer">GitHub</a>
-          <a href="https://x.com/Abhijitam_" className="underline-link" target="_blank" rel="noopener noreferrer">Twitter</a>
-          <a href="mailto:work.abhijitam@gmail.com" className="underline-link">Email</a>
-        </div>
+        <ScrollReveal>
+          <p>
+            I&apos;m a software developer focused on building tools and platforms that make developers&apos; lives easier.
+            I work across the stack, specializing in <HoverTag text="TypeScript" imageSrc="/tags/typescript.png" />, <HoverTag text="React" imageSrc="/tags/react.png" />, and <HoverTag text="Solana" imageSrc="/tags/solana.png" /> development.
+            Currently exploring new ways to streamline development workflows and experimenting with interactive tools.
+          </p>
+          <div style={{ display: 'flex', gap: '2rem', marginTop: '2rem' }}>
+            <a href="https://github.com/Abhijitam01" className="underline-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="https://x.com/Abhijitam_" className="underline-link" target="_blank" rel="noopener noreferrer">Twitter</a>
+            <a href="mailto:work.abhijitam@gmail.com" className="underline-link">Email</a>
+          </div>
+        </ScrollReveal>
+      </Section>
+
+      <Section title="EXPERIENCE">
+        <ScrollReveal>
+          <Experience items={experience} />
+        </ScrollReveal>
       </Section>
 
       <Section title="STACK">
-        <TechStack />
+        <ScrollReveal>
+          <TechStack />
+        </ScrollReveal>
       </Section>
 
       <Section title="GITHUB">
@@ -36,14 +49,16 @@ export default function Home() {
       </Section>
 
       <Section title="PROJECTS">
-        <ProjectList>
-          {projects.map((project) => (
-            <ProjectItem
-              key={project.id}
-              project={project}
-            />
-          ))}
-        </ProjectList>
+        <ScrollReveal>
+          <ProjectList>
+            {projects.map((project) => (
+              <ProjectItem
+                key={project.id}
+                project={project}
+              />
+            ))}
+          </ProjectList>
+        </ScrollReveal>
       </Section>
 
       <Footer />
