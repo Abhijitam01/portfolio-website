@@ -59,7 +59,7 @@ export const projects: Project[] = [
       { url: "https://eyeswitch.abhijitamdubey.site", text: "Visit Site", primary: true },
       { url: "https://github.com/Abhijitam01", text: "GitHub", primary: false }
     ],
-    launchTweetUrl: "https://x.com/Abhijitam_",
+    launchTweetUrl: "https://x.com/abhijitam_tw",
     caseStudy: {
       why: "I wanted to challenge the assumption that keyboards and mice are the only natural way to interact with software. EyeSwitch started as a question: what if the interface stepped out of the way entirely?",
       useCase: "Useful for accessibility research, HCI experimentation, and any context where traditional input is limiting or unavailable. It demonstrates that frictionless interaction is achievable without sacrificing system responsiveness.",
@@ -170,13 +170,13 @@ export const projects: Project[] = [
     }
   },
   {
-    id: "erica",
-    title: "Erica",
+    id: "errika",
+    title: "Errika",
     status: "Live",
     statusClass: "badge-live",
-    image: "/projects/erika.png",
+    image: "/projects/errika.png",
     description: "A zero-friction CLI that scaffolds production-ready Turborepo + Next.js workspaces in seconds.",
-    fullDescription: "Erica is an opinionated CLI tool built to eliminate repetitive project setup. With a single command, it scaffolds a fully configured Turborepo workspace powered by Next.js, Tailwind, and Prisma. It automates shared UI layers, API foundations, and sensible defaults — allowing developers to skip boilerplate and start building immediately.",
+    fullDescription: "Errika is an opinionated CLI tool built to eliminate repetitive project setup. With a single command, it scaffolds a fully configured Turborepo workspace powered by Next.js, Tailwind, and Prisma. It automates shared UI layers, API foundations, and sensible defaults — allowing developers to skip boilerplate and start building immediately.",
     techStack: ["CLI", "Node.js", "Turborepo", "Rust"],
     links: [
       { url: "https://github.com/Abhijitam01", text: "Visit Site", primary: true },

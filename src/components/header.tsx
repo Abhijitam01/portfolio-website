@@ -19,7 +19,7 @@ const heroSocials = [
   },
   {
     label: "Twitter",
-    href: "https://x.com/Abhijitam_",
+    href: "https://x.com/abhijitam_tw",
     description: "Building in public & sharing experiments.",
     stat: "Live updates",
   },
@@ -47,7 +47,7 @@ export function Header() {
       >
         <div className="header-main">
           <a
-            href="https://x.com/Abhijitam_"
+            href="https://x.com/abhijitam_tw"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Open Twitter profile"

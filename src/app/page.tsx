@@ -10,6 +10,7 @@ import { TechStack } from "@/components/tech-stack";
 import { Experience } from "@/components/experience";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { experience } from "@/data/experience";
+import { ReadingSection } from "@/components/reading";
 
 export default function Home() {
   return (
@@ -26,7 +27,7 @@ export default function Home() {
           </p>
           <div style={{ display: 'flex', gap: '2rem', marginTop: '2rem' }}>
             <a href="https://github.com/Abhijitam01" className="underline-link" target="_blank" rel="noopener noreferrer">GitHub</a>
-            <a href="https://x.com/Abhijitam_" className="underline-link" target="_blank" rel="noopener noreferrer">Twitter</a>
+            <a href="https://x.com/abhijitam_tw" className="underline-link" target="_blank" rel="noopener noreferrer">Twitter</a>
             <a href="mailto:work.abhijitam@gmail.com" className="underline-link">Email</a>
           </div>
         </ScrollReveal>
@@ -58,6 +59,12 @@ export default function Home() {
               />
             ))}
           </ProjectList>
+        </ScrollReveal>
+      </Section>
+
+      <Section title="WHAT I'M READING">
+        <ScrollReveal>
+          <ReadingSection />
         </ScrollReveal>
       </Section>
 

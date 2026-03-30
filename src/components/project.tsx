@@ -49,8 +49,22 @@ export function ProjectItem({ project }: ProjectItemProps) {
 
           <p className="project-desc">{project.description}</p>
 
-          <div className="view-project">
-            View Project <ArrowUpRight size={16} />
+          <div style={{ display: "flex", gap: "1rem", marginTop: "auto" }}>
+            <div className="view-project">
+              View Project <ArrowUpRight size={16} />
+            </div>
+            {project.launchTweetUrl && project.launchTweetUrl !== "#" && (
+              <a 
+                href={project.launchTweetUrl} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="view-project"
+                style={{ color: "var(--accent)", zIndex: 10, position: "relative" }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                Launch Tweet <ArrowUpRight size={16} />
+              </a>
+            )}
           </div>
       </Link>
     </motion.div>

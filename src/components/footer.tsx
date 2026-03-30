@@ -6,7 +6,7 @@ export function Footer() {
           <p className="footer-text">© 2026 Abhijitam Dubey</p>
           <div className="footer-links" style={{ display: 'flex', gap: '2rem' }}>
             <a href="https://github.com/Abhijitam01" className="underline-link" target="_blank" rel="noopener noreferrer">GitHub</a>
-            <a href="https://x.com/Abhijitam_" className="underline-link" target="_blank" rel="noopener noreferrer">Twitter</a>
+            <a href="https://x.com/abhijitam_tw" className="underline-link" target="_blank" rel="noopener noreferrer">Twitter</a>
           </div>
         </div>
       </div>
