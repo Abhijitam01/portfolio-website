@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Github, Globe } from "lucide-react";
+import { ArrowLeft, Github, Globe, ExternalLink } from "lucide-react";
 import { projects } from "@/data/projects";
 import { HoverTag } from "@/components/hover-tag";
 
@@ -43,7 +43,10 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           />
         </div>
 
-        <div className="project-page-action-bar">
+        <div
+          className="project-page-action-bar"
+          style={{ gridTemplateColumns: project.launchTweetUrl ? "repeat(3, 1fr)" : "repeat(2, 1fr)" }}
+        >
           <a
             href={project.links.find((link) => link.text === "GitHub")?.url || "#"}
             target="_blank"
@@ -62,6 +65,17 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             <Globe size={18} />
             Website
           </a>
+          {project.launchTweetUrl && (
+            <a
+              href={project.launchTweetUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="project-page-action-btn"
+            >
+              <ExternalLink size={18} />
+              Launch Tweet
+            </a>
+          )}
         </div>
 
         <div className="project-page-title-row">

@@ -3,7 +3,7 @@
 import { useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
-import { Github, Globe, Share2 } from "lucide-react";
+import { Github, Globe, Share2, ExternalLink } from "lucide-react";
 import { Project } from "@/data/projects";
 import { HoverTag } from "./hover-tag";
 
@@ -64,7 +64,10 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
           />
         </div>
 
-        <div className="modal-action-bar">
+        <div
+          className="modal-action-bar"
+          style={{ gridTemplateColumns: project.launchTweetUrl ? "repeat(4, 1fr)" : "repeat(3, 1fr)" }}
+        >
           <a href={project.links.find((l) => l.text === "GitHub")?.url || "#"} target="_blank" rel="noopener noreferrer" className="modal-action-btn">
             <Github size={18} />
             Github
@@ -73,6 +76,12 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
             <Globe size={18} />
             Website
           </a>
+          {project.launchTweetUrl && (
+            <a href={project.launchTweetUrl} target="_blank" rel="noopener noreferrer" className="modal-action-btn">
+              <ExternalLink size={18} />
+              Launch Tweet
+            </a>
+          )}
           <button
             type="button"
             className="modal-action-btn"
