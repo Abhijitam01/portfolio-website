@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useState } from "react";
 import { Briefcase, Code, MapPin, Clock, Mail, Globe, ArrowUpRight } from "lucide-react";
 
 const socialCards = [
@@ -56,7 +59,24 @@ const InfoRow = ({ icon, text }: { icon: React.ReactNode; text: React.ReactNode 
   </div>
 );
 
+// X (Twitter) icon for the toggle button
+const XIcon = () => (
+  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.732-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+  </svg>
+);
+
+// Person icon for switching back to real identity
+const PersonIcon = () => (
+  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+    <circle cx="12" cy="7" r="4" />
+  </svg>
+);
+
 export function Header() {
+  const [isTwitter, setIsTwitter] = useState(false);
+
   return (
     <header className="header-hero">
       {/* Banner — cursive name centered over dot-grid bg */}
@@ -70,18 +90,38 @@ export function Header() {
         <div className="hero-avatar-col">
           <div className="hero-avatar-outer">
             <div className="hero-avatar-circle">
-              <Image
-                src="/me.png"
-                alt="Abhijitam Dubey"
-                fill
-                style={{ objectFit: "cover" }}
-                sizes="130px"
-                priority
-              />
+              {isTwitter ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src="https://unavatar.io/x/abhijitam_tw"
+                  alt="@abhijitam_tw"
+                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                />
+              ) : (
+                <Image
+                  src="/me.png"
+                  alt="Abhijitam Dubey"
+                  fill
+                  style={{ objectFit: "cover" }}
+                  sizes="160px"
+                  priority
+                />
+              )}
             </div>
-            <div className="hero-flag-badge">
-              <span className="hero-flag-emoji">🇮🇳</span>
-            </div>
+            {/* Identity toggle button */}
+            <button
+              onClick={() => setIsTwitter((v) => !v)}
+              className={`hero-identity-toggle${isTwitter ? " active" : ""}`}
+              aria-label={isTwitter ? "Switch to real identity" : "Switch to Twitter identity"}
+              title={isTwitter ? "Show real profile" : "Show Twitter profile"}
+            >
+              {isTwitter ? <PersonIcon /> : <XIcon />}
+            </button>
+            {!isTwitter && (
+              <div className="hero-flag-badge">
+                <span className="hero-flag-emoji">🇮🇳</span>
+              </div>
+            )}
           </div>
         </div>
 
@@ -89,12 +129,21 @@ export function Header() {
         <div className="hero-name-block">
           <div className="hero-code-hint">text-3xl text-zinc-50 font-medium</div>
           <div className="hero-name-row">
-            <h2 className="hero-name">Abhijitam Dubey</h2>
-            <svg viewBox="0 0 24 24" aria-label="Verified" className="hero-verified" fill="currentColor">
+            <h2 className="hero-name">
+              {isTwitter ? "@abhijitam_tw" : "Abhijitam Dubey"}
+            </h2>
+            <svg
+              viewBox="0 0 24 24"
+              aria-label="Verified"
+              className={`hero-verified${isTwitter ? " hero-verified-twitter" : ""}`}
+              fill="currentColor"
+            >
               <g><path d="M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.154-.435.238-.905.238-1.4 0-2.21-1.71-3.998-3.918-3.998-.47 0-.92.084-1.336.25C14.818 2.415 13.51 1.5 12 1.5s-2.816.917-3.337 2.25c-.416-.165-.866-.25-1.336-.25-2.21 0-3.918 1.792-3.918 4 0 .495.084.965.238 1.4-1.273.65-2.148 2.02-2.148 3.6 0 1.46.756 2.76 1.88 3.42-.047.24-.072.49-.072.74 0 2.21 1.71 3.998 3.918 3.998.47 0 .92-.084 1.336-.25C9.182 21.585 10.49 22.5 12 22.5s2.816-.917 3.337-2.25c.416.165.866.25 1.336.25 2.21 0 3.918-1.792 3.918-4 0-.25-.025-.5-.072-.74 1.124-.66 1.88-1.96 1.88-3.42zm-12.722 3.1l-3.328-3.33 1.414-1.41 1.914 1.91 4.586-4.59 1.414 1.41-6 6z"></path></g>
             </svg>
           </div>
-          <p className="hero-subtitle">Software Developer</p>
+          <p className="hero-subtitle">
+            {isTwitter ? "Software Developer · Builder" : "Software Developer"}
+          </p>
         </div>
       </div>
 

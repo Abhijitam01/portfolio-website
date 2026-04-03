@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Outfit, Dancing_Script } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
+import { AgentModeProvider } from "@/contexts/agent-mode";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -27,15 +28,17 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} ${outfit.variable} ${dancing.variable}`}>
-        <ThemeProvider
-          attribute="data-theme"
-          defaultTheme="dark"
-          enableSystem={false}
-        >
-          <div className="main-wrapper">
-            {children}
-          </div>
-        </ThemeProvider>
+        <AgentModeProvider>
+          <ThemeProvider
+            attribute="data-theme"
+            defaultTheme="dark"
+            enableSystem={false}
+          >
+            <div className="main-wrapper">
+              {children}
+            </div>
+          </ThemeProvider>
+        </AgentModeProvider>
       </body>
     </html>
   );

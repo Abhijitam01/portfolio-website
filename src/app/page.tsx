@@ -10,39 +10,42 @@ import { TechStack } from "@/components/tech-stack";
 import { Experience } from "@/components/experience";
 import { experience } from "@/data/experience";
 import { ReadingSection } from "@/components/reading";
+import { PageContent } from "@/components/page-content";
 
 export default function Home() {
   return (
     <main>
       <SiteNav />
-      <Header />
+      <PageContent>
+        <Header />
 
-      <AboutSection />
+        <AboutSection />
 
-      <GitHubGraph />
+        <GitHubGraph />
 
-      <TechStack />
+        <TechStack />
 
-      <Section title="Experience">
-        <Experience items={experience} />
-      </Section>
+        <Section title="Experience">
+          <Experience items={experience} />
+        </Section>
 
-      <Section title="Projects">
-        <ProjectList>
-          {projects.slice(0, 4).map((project) => (
-            <ProjectItem
-              key={project.id}
-              project={project}
-            />
-          ))}
-        </ProjectList>
-      </Section>
+        <Section title="Projects">
+          <ProjectList>
+            {projects.slice(0, 4).map((project) => (
+              <ProjectItem
+                key={project.id}
+                project={project}
+              />
+            ))}
+          </ProjectList>
+        </Section>
 
-      <Section title="What I'm Reading">
-        <ReadingSection />
-      </Section>
+        <Section title="What I'm Reading">
+          <ReadingSection />
+        </Section>
 
-      <Footer />
+        <Footer />
+      </PageContent>
     </main>
   );
 }
