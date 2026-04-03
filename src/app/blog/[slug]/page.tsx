@@ -1,6 +1,8 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SiteNav } from "@/components/site-nav";
 import { Footer } from "@/components/footer";
+import { ArrowLeft } from "lucide-react";
 import { blogPosts } from "@/data/blog";
 
 const contentMap: Record<string, () => Promise<{ default: React.ComponentType }>> = {
@@ -32,6 +34,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     <main>
       <SiteNav />
       <div className="main-wrapper">
+        <Link href="/blog" className="projects-back-link" style={{ display: "inline-flex", marginTop: "1.5rem" }}>
+          <ArrowLeft size={14} />
+          All posts
+        </Link>
         <div className="blog-article-header">
           <div className="blog-article-meta">
             <time dateTime={meta.isoDate}>{meta.date}</time>

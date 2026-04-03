@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { SiteNav } from "@/components/site-nav";
 import { Footer } from "@/components/footer";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ArrowLeft } from "lucide-react";
 import { blogPosts } from "@/data/blog";
 
 export default function BlogPage() {
@@ -10,6 +10,10 @@ export default function BlogPage() {
       <SiteNav />
 
       <div className="blog-page-header">
+        <Link href="/" className="projects-back-link">
+          <ArrowLeft size={14} />
+          Back
+        </Link>
         <h1 className="blog-page-title">Writing</h1>
         <p className="blog-page-subtitle">
           Notes on building software, shipping products, and things I pick up along the way.
