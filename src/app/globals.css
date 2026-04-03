@@ -696,22 +696,16 @@ html.theme-color-transition *::after {
 
 .hero-flag-badge {
     position: absolute;
-    top: 6px;
-    left: 6px;
-    width: 36px;
-    height: 26px;
-    border-radius: 5px;
-    overflow: hidden;
+    top: 4px;
+    left: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.1rem;
-    line-height: 1;
-    background: var(--bg-secondary);
+    background: none;
 }
 
 .hero-flag-emoji {
-    font-size: 1.6rem;
+    font-size: 2rem;
     line-height: 1;
 }
 
@@ -801,10 +795,8 @@ html.theme-color-transition *::after {
 }
 
 .hero-subtitle {
-    font-family: 'Courier New', monospace;
     font-size: 0.8rem;
     color: var(--text-secondary);
-    font-style: italic;
 }
 
 /* Role flip animation */
@@ -898,6 +890,18 @@ html.theme-color-transition *::after {
 .info-time {
     color: var(--text-primary);
     font-weight: 600;
+}
+
+.info-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+}
+
+.info-link:hover {
+    color: var(--text-primary);
+    border-bottom-color: var(--border-color);
 }
 
 /* Social cards grid */
@@ -1280,6 +1284,24 @@ html.theme-color-transition *::after {
     margin: 1rem 0;
     position: relative;
     z-index: 10;
+    overflow: hidden;
+}
+
+.footer-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.18) 1.2px, transparent 1.2px);
+    background-size: 10px 10px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+[data-theme="light"] .footer-section::before {
+    background-image: radial-gradient(circle, rgba(0,0,0,0.13) 1.2px, transparent 1.2px);
 }
 
 
@@ -1387,23 +1409,9 @@ html.theme-color-transition *::after {
     position: relative;
 }
 
-.footer-bottom::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: radial-gradient(circle, rgba(255,255,255,0.18) 1.2px, transparent 1.2px);
-    background-size: 10px 10px;
-    pointer-events: none;
-    z-index: 0;
-}
-
 .footer-bottom > * {
     position: relative;
     z-index: 1;
-}
-
-[data-theme="light"] .footer-bottom::before {
-    background-image: radial-gradient(circle, rgba(0,0,0,0.13) 1.2px, transparent 1.2px);
 }
 
 .footer-copyright {
@@ -1450,16 +1458,30 @@ html.theme-color-transition *::after {
     letter-spacing: 0.1em;
     color: var(--text-gray);
     margin-bottom: 2rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+    position: relative;
+    padding: 0.75rem 0;
+}
+
+.section-title::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    border-top: 1px dashed var(--border-dotted);
+    pointer-events: none;
 }
 
 .section-title::after {
     content: "";
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--line-color), transparent);
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    border-bottom: 1px dashed var(--border-dotted);
+    pointer-events: none;
 }
 
 .section-content {
@@ -1840,7 +1862,7 @@ html.theme-color-transition *::after {
 .projects-page-header {
     max-width: 760px;
     margin: 0 auto;
-    padding: 2rem 1.5rem 1.5rem;
+    padding: 1rem 1.5rem 0.75rem;
     display: flex;
     align-items: center;
     gap: 1rem;

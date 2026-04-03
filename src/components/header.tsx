@@ -75,11 +75,6 @@ export function Header() {
 
   return (
     <header className="header-hero">
-      {/* Banner — cursive name centered over dot-grid bg */}
-      <div className="hero-banner">
-        <span className="hero-banner-name">Abhijitam Dubey</span>
-      </div>
-
       {/* Profile Row: avatar left | name right */}
       <div className="hero-profile-row">
         {/* Avatar column */}
@@ -110,21 +105,21 @@ export function Header() {
                 <span className="hero-flag-emoji">🇮🇳</span>
               </div>
             )}
-            {/* Identity swap button — bottom-right */}
-            <button
-              onClick={() => setIsTwitter((v) => !v)}
-              className={`hero-identity-toggle${isTwitter ? " active" : ""}`}
-              aria-label={isTwitter ? "Switch to real identity" : "Switch to Twitter identity"}
-              title={isTwitter ? "Show real profile" : "Show Twitter profile"}
-            >
-              <SwapIcon />
-            </button>
           </div>
         </div>
 
         {/* Name + subtitle column */}
         <div className="hero-name-block">
-          <div className="hero-code-hint">text-3xl text-zinc-50 font-medium</div>
+          {/* Identity swap button — above name */}
+          <button
+            onClick={() => setIsTwitter((v) => !v)}
+            className={`hero-identity-toggle${isTwitter ? " active" : ""}`}
+            aria-label={isTwitter ? "Switch to real identity" : "Switch to Twitter identity"}
+            title={isTwitter ? "Show real profile" : "Show Twitter profile"}
+            style={{ position: "static", marginBottom: "0.5rem", alignSelf: "flex-start" }}
+          >
+            <SwapIcon />
+          </button>
           <div className="hero-name-row">
             <h2 className="hero-name">
               {isTwitter ? "@abhijitam_tw" : "Abhijitam Dubey"}
@@ -154,8 +149,8 @@ export function Header() {
           <InfoRow icon={<Clock size={13} />} text={<><span className="info-time">18:35</span> // same time</>} />
         </div>
         <div className="hero-info-grid">
-          <InfoRow icon={<Mail size={13} />} text="work.abhijitam@gmail.com" />
-          <InfoRow icon={<Globe size={13} />} text="abhijitamdubey.site" />
+          <InfoRow icon={<Mail size={13} />} text={<a href="mailto:work.abhijitam@gmail.com" className="info-link">work.abhijitam@gmail.com</a>} />
+          <InfoRow icon={<Globe size={13} />} text={<a href="https://abhijitamdubey.site" target="_blank" rel="noopener noreferrer" className="info-link">abhijitamdubey.site</a>} />
         </div>
       </div>
 
