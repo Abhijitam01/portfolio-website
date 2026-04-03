@@ -86,7 +86,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     ({ lat, lng, city, country }) => ({ lat, lng, city, country })
   );
 
-  return NextResponse.json(publicRecords);
+  return NextResponse.json({ count: records.length, visitors: publicRecords });
 }
 
 export async function GET(): Promise<NextResponse> {

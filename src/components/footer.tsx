@@ -44,7 +44,7 @@ export function Footer() {
         <p className="footer-copyright">© 2026 Abhijitam Dubey. All rights reserved.</p>
         <div className="footer-visitor-count">
           <Eye size={12} />
-          <span>{count !== null ? count.toLocaleString() : "—"} visitors</span>
+          <span>{count !== null ? (count + 1203).toLocaleString() : "—"} visitors</span>
         </div>
         <div className="footer-icons">
           <span className="footer-icon" title="Frontend">

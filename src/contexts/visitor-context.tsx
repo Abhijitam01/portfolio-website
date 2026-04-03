@@ -33,9 +33,9 @@ export function VisitorProvider({ children }: { children: ReactNode }) {
       sessionStorage.setItem("visitorRecorded", "true");
       fetch("/api/visitors/record", { method: "POST" })
         .then((r) => r.json())
-        .then((data: Visitor[]) => {
-          setVisitors(data);
-          setCount(data.length);
+        .then((d) => {
+          setCount(d.count);
+          if (Array.isArray(d.visitors)) setVisitors(d.visitors);
         })
         .catch(() => {});
     }
