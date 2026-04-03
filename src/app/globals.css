@@ -1538,6 +1538,40 @@ html.theme-color-transition *::after {
     flex-shrink: 0;
 }
 
+/* Visitor World Map */
+.visitors-map-section {
+    position: relative;
+    padding: 2rem 0 2.5rem;
+}
+.visitors-map-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    border-top: 1px dashed var(--border-dotted);
+    pointer-events: none;
+}
+.visitors-map-wrap {
+    width: 100%;
+    overflow: hidden;
+    opacity: 0.75;
+}
+.visitors-map-wrap svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+.visitors-map-count {
+    font-size: 0.72rem;
+    color: var(--text-gray);
+    font-family: 'Courier New', monospace;
+    margin-top: 0.85rem;
+    text-align: center;
+    letter-spacing: 0.03em;
+}
+
 .section-title {
     font-size: 0.75rem;
     font-weight: 700;
@@ -2373,7 +2407,17 @@ html.theme-color-transition *::after {
     color: var(--text-primary);
     margin-top: 2rem;
     padding-top: 2rem;
+    position: relative;
+}
+.github-section-tagline::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
     border-top: 1px dashed var(--border-dotted);
+    pointer-events: none;
 }
 
 /* GitHub Graph Refined - Custom Heatmap */

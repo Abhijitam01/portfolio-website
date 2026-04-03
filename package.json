@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "clsx": "^2.1.1",
+    "dotted-map": "^3.1.0",
     "lucide-react": "^0.564.0",
     "mermaid": "^11.14.0",
     "motion": "^12.34.0",

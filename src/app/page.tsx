@@ -11,6 +11,7 @@ import { Experience } from "@/components/experience";
 import { experience } from "@/data/experience";
 import { ReadingSection } from "@/components/reading";
 import { PageContent } from "@/components/page-content";
+import { VisitorsMap } from "@/components/visitors-map";
 
 export default function Home() {
   return (
@@ -45,6 +46,8 @@ export default function Home() {
         </Section>
 
         <Footer />
+
+        <VisitorsMap />
       </PageContent>
     </main>
   );
