@@ -1343,6 +1343,26 @@ html.theme-color-transition *::after {
     align-items: center;
     gap: 1rem;
     padding: 1.5rem 0;
+    position: relative;
+}
+
+.footer-bottom::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.18) 1.2px, transparent 1.2px);
+    background-size: 10px 10px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.footer-bottom > * {
+    position: relative;
+    z-index: 1;
+}
+
+[data-theme="light"] .footer-bottom::before {
+    background-image: radial-gradient(circle, rgba(0,0,0,0.13) 1.2px, transparent 1.2px);
 }
 
 .footer-copyright {
