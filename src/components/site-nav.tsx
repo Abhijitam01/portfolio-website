@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ThemeToggle } from "./theme-toggle";
-import { Search, Eye, Bot, User } from "lucide-react";
+import { Eye, Bot, User } from "lucide-react";
 import { useAgentMode } from "@/contexts/agent-mode";
 
 export function SiteNav() {
@@ -66,11 +66,6 @@ export function SiteNav() {
         </div>
 
         <div className="site-nav-right">
-          <button className="site-nav-search">
-            <Search size={14} />
-            <span className="site-nav-search-kbd">⌘ K</span>
-          </button>
-
           <div className="site-nav-views-btn">
             <Eye size={12} />
             <span className="site-nav-views-count">{views !== null ? views.toLocaleString() : "—"}</span>

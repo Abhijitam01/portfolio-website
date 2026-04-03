@@ -49,6 +49,11 @@ export function ProjectItem({ project }: ProjectItemProps) {
           </div>
         </div>
         <p className="project-card-desc">{project.description}</p>
+        <div className="project-card-tags">
+          {project.techStack.slice(0, 4).map((tag) => (
+            <span key={tag} className="project-card-tag">{tag}</span>
+          ))}
+        </div>
         <span className="project-card-view-link">
           View Project <ArrowUpRight size={13} />
         </span>

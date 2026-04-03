@@ -15,7 +15,7 @@ const portfolioData = {
     website: "abhijitamdubey.site",
     github: "https://github.com/Abhijitam01",
     twitter: "https://x.com/abhijitam_tw",
-    linkedin: "https://linkedin.com/in/abhijitam-dubey",
+    linkedin: "https://www.linkedin.com/in/abhijitam-dubey-3ab794263/",
   },
   about:
     "Full-Stack Engineer focused on performance, scalability, and shipping production-grade software. Currently building tools and platforms that make developers' lives easier. Specialized in TypeScript, React, and Solana development.",

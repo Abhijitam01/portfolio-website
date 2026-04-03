@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { Briefcase, Code, MapPin, Clock, Mail, Globe, ArrowUpRight } from "lucide-react";
+import { RoleFlip } from "@/components/role-flip";
 
 const socialCards = [
   {
@@ -30,7 +31,7 @@ const socialCards = [
   {
     platform: "LinkedIn",
     handle: "abhijitam-dubey",
-    href: "https://linkedin.com/in/abhijitam-dubey",
+    href: "https://www.linkedin.com/in/abhijitam-dubey-3ab794263/",
     bg: "#0A66C2",
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
@@ -138,7 +139,7 @@ export function Header() {
             </svg>
           </div>
           <p className="hero-subtitle">
-            {isTwitter ? "Software Developer · Builder" : "Software Developer"}
+            {isTwitter ? "Software Developer · Builder" : <RoleFlip />}
           </p>
         </div>
       </div>

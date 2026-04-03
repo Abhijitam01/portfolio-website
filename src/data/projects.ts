@@ -34,7 +34,7 @@ export const projects: Project[] = [
     image: "/projects/chess.png",
     description: "A real-time chess platform focused on performance, competitive play, and deep analysis.",
     fullDescription: "This chess platform is designed for players who want competitive matchmaking, fast move latency, and serious analysis tools. Built with WebSockets for real-time synchronization, it supports ranked multiplayer, tactical puzzles, and advanced engine-backed analysis. The goal is to combine performance-grade infrastructure with a clean, distraction-free playing experience.",
-    techStack: ["WebSockets", "React", "Node.js", "Stockfish"],
+    techStack: ["TypeScript", "Next.js", "WebSockets", "Redis", "chess.js", "Tailwind CSS", "Turborepo", "Docker"],
     links: [
       { url: "#", text: "Coming Soon", primary: true },
       { url: "https://github.com/Abhijitam01/chess", text: "GitHub", primary: false }
@@ -54,7 +54,7 @@ export const projects: Project[] = [
     image: "/projects/eyeswitch.png",
     description: "An interaction-first system exploring alternative human-computer interfaces — frictionless navigation without traditional input patterns.",
     fullDescription: "EyeSwitch is an exploration of what human-computer interaction looks like when you strip away conventional input assumptions. Built around real-time responsiveness, it reimagines navigation as a seamless, low-friction experience. The architecture prioritizes experience over features — every design decision is measured by how invisible the interface feels during use.",
-    techStack: ["TypeScript", "React", "Node.js", "WebSockets"],
+    techStack: ["TypeScript", "TensorFlow.js", "Node.js", "Canvas API", "CLI"],
     links: [
       { url: "https://eyeswitch.abhijitamdubey.site", text: "Visit Site", primary: true },
       { url: "https://github.com/Abhijitam01", text: "GitHub", primary: false }
@@ -75,7 +75,7 @@ export const projects: Project[] = [
     image: "/projects/sketchy.png",
     description: "An Excalidraw-like canvas drawing tool with real-time rendering and interactive shape handling.",
     fullDescription: "Sketchy is a canvas-based drawing system built around performance and intuitive visual interaction. It supports real-time shape rendering with smooth, responsive input handling — giving it the feel of drawing on actual paper. The focus throughout was on keeping the rendering loop fast and the interaction model simple enough that the tool stays out of the way.",
-    techStack: ["TypeScript", "React", "Canvas API"],
+    techStack: ["TypeScript", "React", "Next.js", "WebSockets", "PostgreSQL", "Rough.js", "Tailwind CSS", "Canvas API"],
     links: [
       { url: "https://github.com/Abhijitam01/sketchy", text: "Visit Site", primary: true },
       { url: "https://github.com/Abhijitam01/sketchy", text: "GitHub", primary: false }
@@ -95,7 +95,7 @@ export const projects: Project[] = [
     image: "/projects/solana-atlas.png",
     description: "An interactive Solana playground that makes blockchain mechanics visible, testable, and understandable.",
     fullDescription: "Solana Atlas bridges the gap between low-level blockchain concepts and real developer workflows. Instead of reading fragmented documentation, developers can experiment with accounts, instructions, and transactions in a live environment. It exposes internal state in a way that makes Solana programs easier to reason about — whether you're learning fundamentals or validating production ideas.",
-    techStack: ["Solana", "Web3.js", "TypeScript", "Anchor"],
+    techStack: ["TypeScript", "Solana", "Anchor", "Web3.js", "React", "developer-tools"],
     links: [
       { url: "https://solana-atlas.xyz", text: "Visit Site", primary: true },
       { url: "https://github.com/Abhijitam01", text: "GitHub", primary: false }
@@ -115,7 +115,7 @@ export const projects: Project[] = [
     image: "/projects/vizzy.png",
     description: "A drag-and-drop canvas that turns Express.js from intimidating code into a visual flow — and generates a working server.js as you build.",
     fullDescription: "Vizzy is a visual learning tool for Express.js. Every endpoint is a linear chain — Route, Middleware, Handler, Response — and Vizzy makes that chain literal. You drag four block types onto a canvas, connect them with wires, and a live code panel generates real, annotated server.js code as you build. The generated code includes comments that explain req, res, what each block does, and how to run it. Hit Export and the browser downloads a server.js and package.json. Open a terminal, run npm install && node server.js, and you have a working server on port 3000. The goal: a junior dev who has never written Express ships a working GET endpoint in under 5 minutes. There's also a Run button that simulates a request traveling through your route — blocks light up in sequence so you can see the flow before exporting.",
-    techStack: ["React", "TypeScript", "Zustand", "Vite"],
+    techStack: ["TypeScript", "React", "ReactFlow", "Zustand", "Vite"],
     links: [
       { url: "#", text: "Coming Soon", primary: true },
       { url: "https://github.com/Abhijitam01", text: "GitHub", primary: false }
@@ -136,7 +136,7 @@ export const projects: Project[] = [
     image: "/projects/photobooth.png",
     description: "Walk up, take 4 shots, get a beautiful film strip in seconds. No signup, no install — just a URL.",
     fullDescription: "Photobooth is as simple as it sounds: open a URL, take four shots with your camera, and walk away with a beautiful film strip. No account required, no app to install, no friction. The entire experience is designed around the joy of the moment — you show up, click, and share. The output is a classic photo strip layout, instantly shareable with one tap.",
-    techStack: ["React", "TypeScript", "Next.js", "Tailwind CSS"],
+    techStack: ["TypeScript", "React", "Vite", "Tailwind CSS", "PWA", "html2canvas"],
     links: [
       { url: "#", text: "Coming Soon", primary: true },
       { url: "https://github.com/Abhijitam01", text: "GitHub", primary: false }
@@ -157,7 +157,7 @@ export const projects: Project[] = [
     image: "/projects/snippet-vault.png",
     description: "Your personal code memory system. Save, tag, and instantly retrieve battle-tested snippets without digging through chats or old repos.",
     fullDescription: "Snippet Vault is a high-performance snippet management system built for developers who value speed and mental clarity. Instead of losing reusable code across notes, chats, and repositories, Snippet Vault centralizes your proven patterns in a searchable, structured vault. It prioritizes retrieval speed, relevance ranking, and distraction-free UI — turning repeated coding tasks into instant actions.",
-    techStack: ["React", "Node.js", "PostgreSQL", "Tailwind CSS"],
+    techStack: ["TypeScript", "Next.js", "Prisma", "SQLite", "CodeMirror", "Tailwind CSS", "Zustand"],
     links: [
       { url: "https://snippetvault.abhijitamdubey.site", text: "Visit Site", primary: true },
       { url: "https://github.com/Abhijitam01", text: "GitHub", primary: false }
@@ -177,7 +177,7 @@ export const projects: Project[] = [
     image: "/projects/errika.png",
     description: "A zero-friction CLI that scaffolds production-ready Turborepo + Next.js workspaces in seconds.",
     fullDescription: "Errika is an opinionated CLI tool built to eliminate repetitive project setup. With a single command, it scaffolds a fully configured Turborepo workspace powered by Next.js, Tailwind, and Prisma. It automates shared UI layers, API foundations, and sensible defaults — allowing developers to skip boilerplate and start building immediately.",
-    techStack: ["CLI", "Node.js", "Turborepo", "Rust"],
+    techStack: ["TypeScript", "Node.js", "CLI", "Commander.js", "Handlebars"],
     links: [
       { url: "https://github.com/Abhijitam01", text: "Visit Site", primary: true },
       { url: "https://github.com/Abhijitam01", text: "GitHub", primary: false }
@@ -197,7 +197,7 @@ export const projects: Project[] = [
     image: "/projects/loadzen.png",
     description: "Self-hosted load testing — enter a URL, set concurrent users and duration, get real-time metrics and AI-powered diagnosis.",
     fullDescription: "LoadZen is a self-hosted load testing tool designed for developers who want real answers about their system's limits. Enter a URL, configure concurrent users and test duration, and watch real-time metrics roll in as k6 runs load against your endpoint. When the test finishes, an AI-powered diagnosis interprets the results — surfacing bottlenecks, error patterns, and actionable recommendations. The stack is a pnpm monorepo: Next.js frontend, Fastify API, BullMQ + Redis worker queue, k6 spawned as a subprocess for the actual load generation, and PostgreSQL + Drizzle ORM for persistence. TanStack Query handles all server state on the frontend.",
-    techStack: ["Next.js", "TypeScript", "Node.js", "PostgreSQL"],
+    techStack: ["TypeScript", "Next.js", "Fastify", "BullMQ", "Redis", "PostgreSQL", "k6"],
     links: [
       { url: "#", text: "Coming Soon", primary: true },
       { url: "https://github.com/Abhijitam01", text: "GitHub", primary: false }
