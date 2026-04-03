@@ -22,7 +22,7 @@ export function SiteNav() {
 
   useEffect(() => {
     const fetchViews = () => {
-      fetch("https://api.counterapi.dev/v1/abhijitam/portfolio")
+      fetch("https://api.counterapi.dev/v1/abhijitam/portfolio/")
         .then((r) => r.json())
         .then((d) => setViews(d.count))
         .catch(() => {});
@@ -30,7 +30,7 @@ export function SiteNav() {
     const hasVisited = sessionStorage.getItem("hasVisited");
     if (!hasVisited) {
       sessionStorage.setItem("hasVisited", "true");
-      fetch("https://api.counterapi.dev/v1/abhijitam/portfolio/up")
+      fetch("https://api.counterapi.dev/v1/abhijitam/portfolio/up/")
         .then((r) => r.json())
         .then((d) => setViews(d.count))
         .catch(() => {});
