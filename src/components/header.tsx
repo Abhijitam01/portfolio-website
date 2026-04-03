@@ -59,18 +59,13 @@ const InfoRow = ({ icon, text }: { icon: React.ReactNode; text: React.ReactNode 
   </div>
 );
 
-// X (Twitter) icon for the toggle button
-const XIcon = () => (
-  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.732-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-  </svg>
-);
-
-// Person icon for switching back to real identity
-const PersonIcon = () => (
-  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-    <circle cx="12" cy="7" r="4" />
+// Swap / rotating arrows icon for identity toggle
+const SwapIcon = () => (
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
+    <path d="M21 3v5h-5" />
+    <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" />
+    <path d="M3 21v-5h5" />
   </svg>
 );
 
@@ -108,20 +103,21 @@ export function Header() {
                 />
               )}
             </div>
-            {/* Identity toggle button */}
+            {/* Flag badge — top-left */}
+            {!isTwitter && (
+              <div className="hero-flag-badge">
+                <span className="hero-flag-emoji">🇮🇳</span>
+              </div>
+            )}
+            {/* Identity swap button — bottom-right */}
             <button
               onClick={() => setIsTwitter((v) => !v)}
               className={`hero-identity-toggle${isTwitter ? " active" : ""}`}
               aria-label={isTwitter ? "Switch to real identity" : "Switch to Twitter identity"}
               title={isTwitter ? "Show real profile" : "Show Twitter profile"}
             >
-              {isTwitter ? <PersonIcon /> : <XIcon />}
+              <SwapIcon />
             </button>
-            {!isTwitter && (
-              <div className="hero-flag-badge">
-                <span className="hero-flag-emoji">🇮🇳</span>
-              </div>
-            )}
           </div>
         </div>
 

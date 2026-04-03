@@ -632,35 +632,34 @@ html.theme-color-transition *::after {
 }
 
 .hero-avatar-col {
-    width: 200px;
+    width: 210px;
     flex-shrink: 0;
-    padding: 0 1.25rem 1.25rem 1.5rem;
+    padding: 1rem 1.25rem 1.25rem 1.5rem;
     border-right: 1px dashed var(--border-dotted);
 }
 
 .hero-avatar-outer {
     position: relative;
     display: inline-block;
-    margin-top: -60px; /* overlap the banner border */
 }
 
 .hero-avatar-circle {
     position: relative;
-    width: 148px;
-    height: 148px;
-    border-radius: 50%;
+    width: 160px;
+    height: 160px;
+    border-radius: 14px;
     overflow: hidden;
-    border: 3px solid var(--bg-primary); /* gap ring */
+    border: 2px solid var(--border-color);
     background: var(--bg-secondary);
 }
 
 .hero-flag-badge {
     position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 30px;
-    height: 22px;
-    border-radius: 4px;
+    top: 6px;
+    left: 6px;
+    width: 36px;
+    height: 26px;
+    border-radius: 5px;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -671,16 +670,16 @@ html.theme-color-transition *::after {
 }
 
 .hero-flag-emoji {
-    font-size: 1.35rem;
+    font-size: 1.6rem;
     line-height: 1;
 }
 
 .hero-identity-toggle {
     position: absolute;
-    top: 6px;
-    right: 6px;
-    width: 26px;
-    height: 26px;
+    bottom: 8px;
+    right: 8px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
     background: var(--bg-secondary);
     border: 1px solid var(--border-color);
@@ -690,20 +689,29 @@ html.theme-color-transition *::after {
     justify-content: center;
     color: var(--text-secondary);
     z-index: 10;
-    transition: all 0.15s ease;
+    transition: all 0.2s ease;
     padding: 0;
 }
 
 .hero-identity-toggle:hover {
-    background: var(--bg-primary);
+    background: var(--bg-secondary);
     color: var(--text-primary);
     border-color: var(--text-secondary);
+}
+
+.hero-identity-toggle:hover svg {
+    animation: swap-spin 0.45s ease-in-out;
 }
 
 .hero-identity-toggle.active {
     background: #1d9bf0;
     border-color: #1d9bf0;
     color: #fff;
+}
+
+@keyframes swap-spin {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(180deg); }
 }
 
 .hero-verified-twitter {
