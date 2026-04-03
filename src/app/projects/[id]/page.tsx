@@ -1,9 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Github, Globe, ExternalLink } from "lucide-react";
+import { ArrowLeft, Github, Globe, FileText } from "lucide-react";
 import { projects } from "@/data/projects";
-import { HoverTag } from "@/components/hover-tag";
 
 interface ProjectPageProps {
   params: Promise<{ id: string }>;
@@ -15,6 +14,23 @@ export function generateStaticParams() {
   return projects.map((project) => ({ id: project.id }));
 }
 
+const techIconMap: Record<string, string> = {
+  TypeScript: "/tags/typescript.png",
+  React: "/tags/react.png",
+  "Next.js": "/tags/nextjs.png",
+  "Node.js": "/tags/nodejs.png",
+  "Tailwind CSS": "/tags/tailwind.png",
+  Tailwind: "/tags/tailwind.png",
+  Solana: "/tags/solana.png",
+  Rust: "/tags/rust.png",
+  PostgreSQL: "/tags/postgresql.svg",
+  MongoDB: "/tags/mongodb.svg",
+  Docker: "/tags/docker.svg",
+  Git: "/tags/git.svg",
+  Redis: "/tags/redis.svg",
+  Figma: "/tags/figma.svg",
+};
+
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const { id } = await params;
   const project = projects.find((item) => item.id === id);
@@ -23,12 +39,16 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     notFound();
   }
 
+  const githubUrl = project.links.find((link) => link.text === "GitHub")?.url || "#";
+  const websiteUrl = project.links.find((link) => link.primary)?.url || "#";
+  const hasPost = !!project.launchTweetUrl && project.launchTweetUrl !== "#";
+
   return (
     <main className="project-page">
       <div className="project-page-shell">
         <Link href="/" className="project-page-back">
           <ArrowLeft size={16} />
-          Back to projects
+          Projects
         </Link>
 
         <div className="project-page-hero">
@@ -45,35 +65,35 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
         <div
           className="project-page-action-bar"
-          style={{ gridTemplateColumns: project.launchTweetUrl ? "repeat(3, 1fr)" : "repeat(2, 1fr)" }}
+          style={{ gridTemplateColumns: hasPost ? "repeat(3, 1fr)" : "repeat(2, 1fr)" }}
         >
           <a
-            href={project.links.find((link) => link.text === "GitHub")?.url || "#"}
+            href={githubUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="project-page-action-btn"
           >
-            <Github size={18} />
-            GitHub
+            <Github size={17} />
+            Github
           </a>
           <a
-            href={project.links.find((link) => link.primary)?.url || "#"}
+            href={websiteUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="project-page-action-btn"
           >
-            <Globe size={18} />
+            <Globe size={17} />
             Website
           </a>
-          {project.launchTweetUrl && (
+          {hasPost && (
             <a
               href={project.launchTweetUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="project-page-action-btn"
             >
-              <ExternalLink size={18} />
-              Launch Tweet
+              <FileText size={17} />
+              Post
             </a>
           )}
         </div>
@@ -86,6 +106,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </div>
         </div>
 
+        <p className="project-page-description">{project.description}</p>
         <p className="project-page-description">{project.fullDescription}</p>
 
         <div className="project-page-case-study">
@@ -111,20 +132,19 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           <h2 className="project-page-stack-title">Stack used</h2>
           <div className="stack-pill-grid">
             {project.techStack.map((tech) => {
-              const techImages: Record<string, string> = {
-                TypeScript: "/tags/typescript.png",
-                React: "/tags/react.png",
-                "Next.js": "/tags/nextjs.png",
-                Solana: "/tags/solana.png",
-                "Node.js": "/tags/nodejs.png",
-                "Tailwind CSS": "/tags/tailwind.png",
-                Rust: "/tags/rust.png",
-              };
-              const imageSrc = techImages[tech];
-
+              const iconSrc = techIconMap[tech];
               return (
                 <span key={tech} className="stack-pill">
-                  {imageSrc ? <HoverTag text={tech} imageSrc={imageSrc} /> : tech}
+                  {iconSrc && (
+                    <Image
+                      src={iconSrc}
+                      alt={tech}
+                      width={16}
+                      height={16}
+                      style={{ objectFit: "contain", flexShrink: 0 }}
+                    />
+                  )}
+                  {tech}
                 </span>
               );
             })}
