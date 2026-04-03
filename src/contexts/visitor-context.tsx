@@ -39,18 +39,6 @@ export function VisitorProvider({ children }: { children: ReactNode }) {
         })
         .catch(() => {});
     }
-
-    const interval = setInterval(() => {
-      fetch("/api/visitors/record")
-        .then((r) => r.json())
-        .then((d) => {
-          setCount(d.count);
-          if (Array.isArray(d.visitors)) setVisitors(d.visitors);
-        })
-        .catch(() => {});
-    }, 30_000);
-
-    return () => clearInterval(interval);
   }, []);
 
   return (

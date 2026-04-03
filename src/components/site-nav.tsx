@@ -4,14 +4,12 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { ThemeToggle } from "./theme-toggle";
-import { Eye, Bot, User } from "lucide-react";
+import { Bot, User } from "lucide-react";
 import { useAgentMode } from "@/contexts/agent-mode";
-import { useVisitors } from "@/contexts/visitor-context";
 
 export function SiteNav() {
   const pathname = usePathname();
   const { isAgentMode, toggle } = useAgentMode();
-  const { count: views } = useVisitors();
   const [followers, setFollowers] = useState<number | null>(null);
 
   useEffect(() => {
@@ -42,10 +40,6 @@ export function SiteNav() {
 
 
         <div className="site-nav-right">
-          <div className="site-nav-views-btn">
-            <Eye size={13} />
-            <span>{views !== null ? views.toLocaleString() : "—"}</span>
-          </div>
           <a
             href="https://github.com/Abhijitam01"
             target="_blank"
