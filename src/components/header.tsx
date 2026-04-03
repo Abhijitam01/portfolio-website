@@ -102,12 +102,6 @@ export function Header() {
                 />
               )}
             </div>
-            {/* Flag badge — top-left */}
-            {!isTwitter && (
-              <div className="hero-flag-badge">
-                <span className="hero-flag-emoji">🇮🇳</span>
-              </div>
-            )}
           </div>
         </div>
 
