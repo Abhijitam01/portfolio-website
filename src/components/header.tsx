@@ -60,7 +60,7 @@ const InfoRow = ({ icon, text }: { icon: React.ReactNode; text: React.ReactNode 
   </div>
 );
 
-// Swap / rotating arrows icon for identity toggle
+
 const SwapIcon = () => (
   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
@@ -75,39 +75,40 @@ export function Header() {
 
   return (
     <header className="header-hero">
-      {/* Banner — dot-grid bg */}
+      {}
       <div className="hero-banner" />
 
-      {/* Profile Row: avatar left | name center | widgets right */}
+      {}
       <div className="hero-profile-row">
-        {/* Avatar column */}
+        {}
         <div className="hero-avatar-col">
           <div className="hero-avatar-outer">
-            <div className="hero-avatar-circle">
-              {isTwitter ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src="https://unavatar.io/x/abhijitam_tw"
-                  alt="@abhijitam_tw"
-                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                />
-              ) : (
-                <Image
-                  src="/me.png"
-                  alt="Abhijitam Dubey"
-                  fill
-                  style={{ objectFit: "cover" }}
-                  sizes="160px"
-                  priority
-                />
-              )}
+            <div className="hero-avatar-container">
+              <div className="hero-avatar-img">
+                {isTwitter ? (
+                  <img
+                    src="https://unavatar.io/x/abhijitam_tw"
+                    alt="@abhijitam_tw"
+                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                  />
+                ) : (
+                  <Image
+                    src="/me.png"
+                    alt="Abhijitam Dubey"
+                    fill
+                    style={{ objectFit: "cover" }}
+                    sizes="200px"
+                    priority
+                  />
+                )}
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Name + subtitle column */}
+        {}
         <div className="hero-name-block">
-          {/* Identity swap button — above name */}
+          {}
           <button
             onClick={() => setIsTwitter((v) => !v)}
             className={`hero-identity-toggle${isTwitter ? " active" : ""}`}
@@ -137,14 +138,14 @@ export function Header() {
 
       </div>
 
-      {/* Info Box */}
+      {}
       <div className="hero-info-box">
         <InfoRow icon={<Briefcase size={13} />} text="Software Developer" />
         <InfoRow icon={<Code size={13} />} text="Full Stack · Builder" />
         <div className="hero-info-divider" />
         <div className="hero-info-grid">
           <InfoRow icon={<MapPin size={13} />} text="New Delhi, India" />
-          <InfoRow icon={<Clock size={13} />} text={<><span className="info-time">18:35</span> // same time</>} />
+          <InfoRow icon={<Clock size={13} />} text={<><span className="info-time">18:35</span> IST (UTC+5:30)</>} />
         </div>
         <div className="hero-info-grid">
           <InfoRow icon={<Mail size={13} />} text={<a href="mailto:work.abhijitam@gmail.com" className="info-link">work.abhijitam@gmail.com</a>} />
@@ -152,7 +153,7 @@ export function Header() {
         </div>
       </div>
 
-      {/* Social Cards 2×2 */}
+      {}
       <div className="hero-social-grid">
         {socialCards.map((card) => (
           <a

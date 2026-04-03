@@ -82,10 +82,6 @@ export function AgentView() {
         <div className="agent-view-meta">
           <span className="agent-view-comment">Content-Type: application/json</span>
           <span className="agent-view-comment">Cache-Control: max-age=86400</span>
-          <button className="agent-view-exit-btn" onClick={toggle}>
-            <User size={12} />
-            Switch to Human
-          </button>
         </div>
       </div>
       <pre className="agent-view-pre">

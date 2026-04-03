@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Inter, Outfit, Dancing_Script } from "next/font/google";
+import { Inter, Outfit, Coming_Soon } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { AgentModeProvider } from "@/contexts/agent-mode";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
-const dancing = Dancing_Script({ subsets: ["latin"], variable: "--font-dancing", weight: ["400", "700"] });
+const comingSoon = Coming_Soon({ subsets: ["latin"], weight: ["400"], variable: "--font-signature" });
 
 export const metadata: Metadata = {
   title: "Abhijitam Dubey - Developer",
@@ -27,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} ${outfit.variable} ${dancing.variable}`}>
+      <body className={`${inter.className} ${outfit.variable} ${comingSoon.variable}`}>
         <AgentModeProvider>
           <ThemeProvider
             attribute="data-theme"

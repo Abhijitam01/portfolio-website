@@ -35,9 +35,8 @@ export function SiteNav() {
   return (
     <nav className="site-nav">
       <div className="site-nav-inner">
-        <div style={{ flex: 1 }} />
 
-        <div className="site-nav-center">
+        <div className="site-nav-left">
           <Link
             href="/"
             className={`site-nav-link${pathname === "/" ? " active" : ""}`}
@@ -51,6 +50,7 @@ export function SiteNav() {
             Blog
           </Link>
         </div>
+
 
         <div className="site-nav-right">
           <div className="site-nav-views-btn">

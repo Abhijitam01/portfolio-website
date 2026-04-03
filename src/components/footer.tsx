@@ -1,26 +1,40 @@
+import Image from "next/image";
+
 export function Footer() {
   return (
     <footer className="footer-section">
 
-      {/* Brand section */}
+      {}
       <div className="footer-brand">
         <div className="footer-brand-row">
           <span className="footer-brand-label">Mark</span>
           <div className="footer-brand-mark">
-            <span className="footer-signature">Abhijitam Dubey</span>
+            <Image 
+              src="/signature.png" 
+              alt="Abhijitam Dubey" 
+              width={200} 
+              height={60} 
+              className="footer-signature"
+            />
           </div>
         </div>
         <div className="footer-brand-divider" />
         <div className="footer-brand-row">
           <span className="footer-brand-label">Logotype</span>
           <div className="footer-brand-logotype">
-            <span className="footer-logotype-mark">AD</span>
+            <Image 
+              src="/favicon.svg" 
+              alt="AD" 
+              width={48} 
+              height={48} 
+              className="footer-logotype-mark"
+            />
             <span className="footer-logotype-name">Abhijitam Dubey</span>
           </div>
         </div>
       </div>
 
-      {/* Bottom bar */}
+      {}
       <div className="footer-bottom">
         <p className="footer-copyright">© 2026 Abhijitam Dubey. All rights reserved.</p>
         <div className="footer-icons">
