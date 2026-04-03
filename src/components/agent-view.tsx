@@ -1,7 +1,9 @@
 "use client";
 
+import { User } from "lucide-react";
 import { projects } from "@/data/projects";
 import { experience } from "@/data/experience";
+import { useAgentMode } from "@/contexts/agent-mode";
 
 const portfolioData = {
   identity: {
@@ -64,6 +66,7 @@ function highlight(json: string): string {
 }
 
 export function AgentView() {
+  const { toggle } = useAgentMode();
   const json = JSON.stringify(portfolioData, null, 2);
   const html = highlight(json);
   const lines = html.split("\n");
@@ -79,6 +82,10 @@ export function AgentView() {
         <div className="agent-view-meta">
           <span className="agent-view-comment">Content-Type: application/json</span>
           <span className="agent-view-comment">Cache-Control: max-age=86400</span>
+          <button className="agent-view-exit-btn" onClick={toggle}>
+            <User size={12} />
+            Switch to Human
+          </button>
         </div>
       </div>
       <pre className="agent-view-pre">
