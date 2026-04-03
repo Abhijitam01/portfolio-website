@@ -44,7 +44,7 @@ export function SiteNav() {
         <div className="site-nav-right">
           <div className="site-nav-views-btn">
             <Eye size={13} />
-            <span>{views !== null ? (views + 1203).toLocaleString() : "—"}</span>
+            <span>{views !== null ? views.toLocaleString() : "—"}</span>
           </div>
           <a
             href="https://github.com/Abhijitam01"
