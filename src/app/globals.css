@@ -1576,6 +1576,7 @@ html.theme-color-transition *::after {
 }
 
 .section-title {
+    display: block;
     font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;

@@ -57,18 +57,16 @@ export function VisitorsMap() {
 
   return (
     <section className="visitors-map-section">
-      <div className="main-wrapper">
-        <div
-          className="visitors-map-wrap"
-          dangerouslySetInnerHTML={{ __html: svg }}
-        />
-        {visitors.length > 0 && (
-          <p className="visitors-map-count">
-            {visitors.length} {visitors.length === 1 ? "visitor" : "visitors"}{" "}
-            from {countryCount} {countryCount === 1 ? "country" : "countries"}
-          </p>
-        )}
-      </div>
+      <div
+        className="visitors-map-wrap"
+        dangerouslySetInnerHTML={{ __html: svg }}
+      />
+      {visitors.length > 0 && (
+        <p className="visitors-map-count">
+          {visitors.length} {visitors.length === 1 ? "visitor" : "visitors"}{" "}
+          from {countryCount} {countryCount === 1 ? "country" : "countries"}
+        </p>
+      )}
     </section>
   );
 }
