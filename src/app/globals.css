@@ -105,7 +105,13 @@ html.theme-color-transition *::after {
     top: 0;
     bottom: 0;
     width: 1px;
-    background: var(--line-color);
+    background: repeating-linear-gradient(
+        to bottom,
+        var(--border-dotted) 0px,
+        var(--border-dotted) 6px,
+        transparent 6px,
+        transparent 14px
+    );
     pointer-events: none;
     z-index: 300;
 }
@@ -152,7 +158,7 @@ html.theme-color-transition *::after {
 /* HEADER */
 .header {
     padding: 2rem 0 1.75rem;
-    border-bottom: 1px solid var(--line-color);
+    border-bottom: 1px dashed var(--border-dotted);
     position: relative;
     z-index: 50;
 }
@@ -416,27 +422,40 @@ html.theme-color-transition *::after {
 /* Banner */
 .hero-banner {
     margin: 0 -1.5rem;
-    padding: 3.25rem 2rem;
+    padding: 4.5rem 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     border-bottom: 1px solid var(--border-color);
     overflow: hidden;
-    min-height: 190px;
+    min-height: 260px;
 }
 
+/* dot grid */
 .hero-banner::before {
     content: "";
     position: absolute;
     inset: 0;
-    background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
-    background-size: 22px 22px;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.18) 1.2px, transparent 1.2px);
+    background-size: 24px 24px;
     pointer-events: none;
+    z-index: 0;
+}
+
+/* dashed vertical side lines */
+.hero-banner::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-left: 1px dashed var(--border-dotted);
+    border-right: 1px dashed var(--border-dotted);
+    pointer-events: none;
+    z-index: 0;
 }
 
 [data-theme="light"] .hero-banner::before {
-    background-image: radial-gradient(circle, rgba(0,0,0,0.08) 1px, transparent 1px);
+    background-image: radial-gradient(circle, rgba(0,0,0,0.13) 1.2px, transparent 1.2px);
 }
 
 .hero-banner-name {
@@ -700,7 +719,7 @@ html.theme-color-transition *::after {
 /* TECH PILL GRID */
 .tech-stack-section {
     padding: 2.5rem 0;
-    border-top: 1px solid var(--line-color);
+    border-top: 1px dashed var(--border-dotted);
 }
 
 .tech-pill-grid {
@@ -894,7 +913,7 @@ html.theme-color-transition *::after {
 /* SECTION */
 .section-minimal {
     padding: 3rem 0;
-    border-top: 1px solid var(--line-color);
+    border-top: 1px dashed var(--border-dotted);
     position: relative;
     z-index: 1;
 }
@@ -911,7 +930,7 @@ html.theme-color-transition *::after {
 /* ABOUT */
 .about-section {
     padding: 3rem 0;
-    border-top: 1px solid var(--line-color);
+    border-top: 1px dashed var(--border-dotted);
 }
 
 .about-body {
@@ -957,14 +976,14 @@ html.theme-color-transition *::after {
 /* FOOTER */
 .footer-section {
     padding: 0;
-    border-top: 1px solid var(--line-color);
+    border-top: 1px dashed var(--border-dotted);
     margin: 1rem 0;
     position: relative;
     z-index: 10;
 }
 
 .footer-brand {
-    border-bottom: 1px solid var(--line-color);
+    border-bottom: 1px dashed var(--border-dotted);
 }
 
 .footer-brand-row {
@@ -1111,7 +1130,7 @@ html.theme-color-transition *::after {
 
 .section-divider {
     border: none;
-    border-top: 1px solid var(--line-color);
+    border-top: 1px dashed var(--border-dotted);
     opacity: 0.5;
     margin: 2.5rem 0 0;
 }
@@ -1799,7 +1818,7 @@ html.theme-color-transition *::after {
 /* GITHUB SECTION */
 .github-section {
     padding: 3rem 0;
-    border-top: 1px solid var(--line-color);
+    border-top: 1px dashed var(--border-dotted);
 }
 
 .github-section-header {
@@ -1842,7 +1861,7 @@ html.theme-color-transition *::after {
     color: var(--text-primary);
     margin-top: 2rem;
     padding-top: 2rem;
-    border-top: 1px solid var(--line-color);
+    border-top: 1px dashed var(--border-dotted);
 }
 
 /* GitHub Graph Refined - Custom Heatmap */
@@ -2057,7 +2076,7 @@ html.theme-color-transition *::after {
 /* BLOG PAGE */
 .blog-page-header {
     padding: 2.5rem 0 2rem;
-    border-bottom: 1px solid var(--line-color);
+    border-bottom: 1px dashed var(--border-dotted);
 }
 
 .blog-page-title {
@@ -2085,7 +2104,7 @@ html.theme-color-transition *::after {
     grid-template-columns: 130px 1fr;
     gap: 2rem;
     padding: 2rem 0;
-    border-bottom: 1px solid var(--line-color);
+    border-bottom: 1px dashed var(--border-dotted);
     cursor: pointer;
     transition: background-color 0.15s ease;
 }
