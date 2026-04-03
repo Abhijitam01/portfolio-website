@@ -27,13 +27,13 @@ html {
 }
 
 [data-theme="light"] {
-    --bg-primary: #F7F5F0;
-    --bg-secondary: #FFFFFF;
+    --bg-primary: #fafafa;
+    --bg-secondary: #ffffff;
     --text-primary: #000000;
-    --text-secondary: #57554C;
+    --text-secondary: #3f3f46;
     --text-gray: #71717a;
-    --border-color: #E2DDD5;
-    --border-dotted: #CDC6BE;
+    --border-color: #b8bfc8;
+    --border-dotted: #9aaab8;
     --line-color: #b8bfc8;
 }
 
@@ -56,8 +56,8 @@ html.theme-color-transition *::after {
 @supports (view-transition-name: root) {
     ::view-transition-old(root),
     ::view-transition-new(root) {
-        animation-duration: 0.65s;
-        animation-timing-function: cubic-bezier(0.25, 1, 0.3, 1);
+        animation-duration: 0.35s;
+        animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     html.theme-reveal-active::view-transition-old(root) {
@@ -72,7 +72,7 @@ html.theme-color-transition *::after {
 @keyframes theme-reveal-down {
     from {
         clip-path: inset(0 0 100% 0);
-        
+        filter: blur(2px);
     }
     to {
         clip-path: inset(0 0 0 0);
@@ -108,9 +108,9 @@ html.theme-color-transition *::after {
     background: repeating-linear-gradient(
         to bottom,
         var(--border-dotted) 0px,
-        var(--border-dotted) 10px,
-        transparent 10px,
-        transparent 18px
+        var(--border-dotted) 6px,
+        transparent 6px,
+        transparent 14px
     );
     pointer-events: none;
     z-index: 300;
@@ -168,9 +168,11 @@ html.theme-color-transition *::after {
     left: 50%;
     transform: translateX(-50%);
     width: 100vw;
-    border-bottom: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to right, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
+    height: 1px;
+    border: none;
+    background-color: var(--border-dotted);
+    mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
+    -webkit-mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
     pointer-events: none;
 }
 
@@ -330,9 +332,11 @@ html.theme-color-transition *::after {
     left: 50%;
     transform: translateX(-50%);
     width: 100vw;
-    border-bottom: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to right, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
+    height: 1px;
+    border: none;
+    background-color: var(--border-dotted);
+    mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
+    -webkit-mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
     pointer-events: none;
 }
 
@@ -512,9 +516,11 @@ html.theme-color-transition *::after {
     left: 50%;
     transform: translateX(-50%);
     width: 100vw;
-    border-top: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to right, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
+    height: 1px;
+    border: none;
+    background-color: var(--border-dotted);
+    mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
+    -webkit-mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
     pointer-events: none;
 }
 
@@ -532,9 +538,11 @@ html.theme-color-transition *::after {
     left: 50%;
     transform: translateX(-50%);
     width: 100vw;
-    border-bottom: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to right, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
+    height: 1px;
+    border: none;
+    background-color: var(--border-dotted);
+    mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
+    -webkit-mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
     pointer-events: none;
 }
 
@@ -656,12 +664,12 @@ html.theme-color-transition *::after {
 /* Banner */
 .hero-banner {
     margin: 0 -1.5rem;
-    padding: 1.5rem 2rem;
+    padding: 4.72rem 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    min-height: 100px;
+    min-height: 310px;
 }
 
 /* dot grid */
@@ -684,12 +692,16 @@ html.theme-color-transition *::after {
     left: 50%;
     transform: translateX(-50%);
     width: 100vw;
-    border-top: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to right, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
-    border-bottom: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to right, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
+    height: 1px;
+    border: none;
+    background-color: var(--border-dotted);
+    mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
+    -webkit-mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
+    height: 1px;
+    border: none;
+    background-color: var(--border-dotted);
+    mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
+    -webkit-mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
     pointer-events: none;
     z-index: 0;
 }
@@ -723,19 +735,23 @@ html.theme-color-transition *::after {
     left: 50%;
     transform: translateX(-50%);
     width: 100vw;
-    border-bottom: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to right, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
+    height: 1px;
+    border: none;
+    background-color: var(--border-dotted);
+    mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
+    -webkit-mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
     pointer-events: none;
 }
 
 .hero-avatar-col {
-    width: 200px;
+    width: 210px;
     flex-shrink: 0;
-    padding: 0.5rem 0.5rem 0.5rem 0;
-    border-right: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to bottom, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
+    padding: 1rem 1.25rem 1.25rem 1.5rem;
+    width: 1px;
+    border: none;
+    background-color: var(--border-dotted);
+    mask-image: repeating-linear-gradient(to bottom, black 0, black 10px, transparent 10px, transparent 18px);
+    -webkit-mask-image: repeating-linear-gradient(to bottom, black 0, black 10px, transparent 10px, transparent 18px);
 }
 
 .hero-avatar-outer {
@@ -745,8 +761,8 @@ html.theme-color-transition *::after {
 
 .hero-avatar-circle {
     position: relative;
-    width: 185px;
-    height: 185px;
+    width: 160px;
+    height: 160px;
     border-radius: 14px;
     overflow: hidden;
     border: 2px solid var(--border-color);
@@ -864,9 +880,11 @@ html.theme-color-transition *::after {
     flex-direction: column;
     gap: 0.4rem;
     padding: 0.85rem 1rem 1rem 0.85rem;
-    border-left: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to bottom, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
+    width: 1px;
+    border: none;
+    background-color: var(--border-dotted);
+    mask-image: repeating-linear-gradient(to bottom, black 0, black 10px, transparent 10px, transparent 18px);
+    -webkit-mask-image: repeating-linear-gradient(to bottom, black 0, black 10px, transparent 10px, transparent 18px);
     flex-shrink: 0;
     align-items: flex-start;
 }
@@ -928,7 +946,7 @@ html.theme-color-transition *::after {
 }
 
 .hero-role-in {
-    animation: role-flip-in 0.36s cubic-bezier(0.25, 1, 0.3, 1) forwards;
+    animation: role-flip-in 0.36s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .hero-role-out {
@@ -1314,9 +1332,11 @@ html.theme-color-transition *::after {
     left: 50%;
     transform: translateX(-50%);
     width: 100vw;
-    border-top: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to right, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
+    height: 1px;
+    border: none;
+    background-color: var(--border-dotted);
+    mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
+    -webkit-mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
     pointer-events: none;
 }
 
@@ -1337,9 +1357,11 @@ html.theme-color-transition *::after {
     left: 50%;
     transform: translateX(-50%);
     width: 100vw;
-    border-bottom: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to right, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
+    height: 1px;
+    border: none;
+    background-color: var(--border-dotted);
+    mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
+    -webkit-mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
     pointer-events: none;
 }
 
@@ -1414,9 +1436,9 @@ html.theme-color-transition *::after {
     background: repeating-linear-gradient(
         to right,
         var(--border-dotted) 0px,
-        var(--border-dotted) 10px,
-        transparent 10px,
-        transparent 18px
+        var(--border-dotted) 6px,
+        transparent 6px,
+        transparent 14px
     );
     pointer-events: none;
 }
@@ -1572,9 +1594,11 @@ html.theme-color-transition *::after {
     left: 50%;
     transform: translateX(-50%);
     width: 100vw;
-    border-top: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to right, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
+    height: 1px;
+    border: none;
+    background-color: var(--border-dotted);
+    mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
+    -webkit-mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
     pointer-events: none;
 }
 .visitors-map-wrap {
@@ -1618,9 +1642,11 @@ html.theme-color-transition *::after {
     left: 50%;
     transform: translateX(-50%);
     width: 100vw;
-    border-top: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to right, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
+    height: 1px;
+    border: none;
+    background-color: var(--border-dotted);
+    mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
+    -webkit-mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
     pointer-events: none;
 }
 
@@ -1631,9 +1657,11 @@ html.theme-color-transition *::after {
     left: 50%;
     transform: translateX(-50%);
     width: 100vw;
-    border-bottom: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to right, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
+    height: 1px;
+    border: none;
+    background-color: var(--border-dotted);
+    mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
+    -webkit-mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
     pointer-events: none;
 }
 
@@ -1644,9 +1672,11 @@ html.theme-color-transition *::after {
 
 .section-divider {
     border: none;
-    border-top: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to right, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
+    height: 1px;
+    border: none;
+    background-color: var(--border-dotted);
+    mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
+    -webkit-mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
     opacity: 0.5;
     margin: 2.5rem calc(-50vw + 50%) 0;
     width: 100vw;
@@ -1696,8 +1726,6 @@ html.theme-color-transition *::after {
 .project-card {
     padding: 0;
     border: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to right, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
     border-radius: 10px;
     overflow: hidden;
     transition: background-color 0.2s ease;
@@ -1858,8 +1886,6 @@ html.theme-color-transition *::after {
     display: flex;
     flex-direction: column;
     border: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to right, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
     border-radius: 10px;
     overflow: hidden;
     text-decoration: none;
@@ -2118,12 +2144,16 @@ html.theme-color-transition *::after {
     max-width: 800px;
     margin: 0 auto;
     padding: 4rem 2rem;
-    border-left: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to bottom, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
-    border-right: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to bottom, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
+    width: 1px;
+    border: none;
+    background-color: var(--border-dotted);
+    mask-image: repeating-linear-gradient(to bottom, black 0, black 10px, transparent 10px, transparent 18px);
+    -webkit-mask-image: repeating-linear-gradient(to bottom, black 0, black 10px, transparent 10px, transparent 18px);
+    width: 1px;
+    border: none;
+    background-color: var(--border-dotted);
+    mask-image: repeating-linear-gradient(to bottom, black 0, black 10px, transparent 10px, transparent 18px);
+    -webkit-mask-image: repeating-linear-gradient(to bottom, black 0, black 10px, transparent 10px, transparent 18px);
     min-height: 100vh;
 }
 
@@ -2142,8 +2172,6 @@ html.theme-color-transition *::after {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     border: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to right, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
     margin-bottom: 3rem;
 }
 
@@ -2160,9 +2188,11 @@ html.theme-color-transition *::after {
     font-weight: 600;
     font-size: 0.9rem;
     cursor: pointer;
-    border-right: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to bottom, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
+    width: 1px;
+    border: none;
+    background-color: var(--border-dotted);
+    mask-image: repeating-linear-gradient(to bottom, black 0, black 10px, transparent 10px, transparent 18px);
+    -webkit-mask-image: repeating-linear-gradient(to bottom, black 0, black 10px, transparent 10px, transparent 18px);
     transition: all 0.2s ease;
 }
 
@@ -2183,12 +2213,16 @@ html.theme-color-transition *::after {
 .project-page-shell {
     max-width: 860px;
     margin: 0 auto;
-    border-left: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to bottom, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
-    border-right: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to bottom, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
+    width: 1px;
+    border: none;
+    background-color: var(--border-dotted);
+    mask-image: repeating-linear-gradient(to bottom, black 0, black 10px, transparent 10px, transparent 18px);
+    -webkit-mask-image: repeating-linear-gradient(to bottom, black 0, black 10px, transparent 10px, transparent 18px);
+    width: 1px;
+    border: none;
+    background-color: var(--border-dotted);
+    mask-image: repeating-linear-gradient(to bottom, black 0, black 10px, transparent 10px, transparent 18px);
+    -webkit-mask-image: repeating-linear-gradient(to bottom, black 0, black 10px, transparent 10px, transparent 18px);
     padding: 1rem 2rem 3rem;
 }
 
@@ -2221,8 +2255,6 @@ html.theme-color-transition *::after {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     border: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to right, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
     margin-bottom: 2rem;
 }
 
@@ -2238,9 +2270,11 @@ html.theme-color-transition *::after {
     text-decoration: none;
     font-weight: 600;
     font-size: 0.9rem;
-    border-right: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to bottom, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
+    width: 1px;
+    border: none;
+    background-color: var(--border-dotted);
+    mask-image: repeating-linear-gradient(to bottom, black 0, black 10px, transparent 10px, transparent 18px);
+    -webkit-mask-image: repeating-linear-gradient(to bottom, black 0, black 10px, transparent 10px, transparent 18px);
     transition: all 0.2s ease;
 }
 
@@ -2300,9 +2334,11 @@ html.theme-color-transition *::after {
     left: 50%;
     transform: translateX(-50%);
     width: 100vw;
-    border-top: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to right, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
+    height: 1px;
+    border: none;
+    background-color: var(--border-dotted);
+    mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
+    -webkit-mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
     pointer-events: none;
 }
 .project-page-stack-title::after {
@@ -2312,9 +2348,11 @@ html.theme-color-transition *::after {
     left: 50%;
     transform: translateX(-50%);
     width: 100vw;
-    border-bottom: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to right, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
+    height: 1px;
+    border: none;
+    background-color: var(--border-dotted);
+    mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
+    -webkit-mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
     pointer-events: none;
 }
 
@@ -2347,8 +2385,6 @@ html.theme-color-transition *::after {
 
 .case-study-block {
     border: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to right, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
     background: rgba(255, 255, 255, 0.02);
     padding: 1rem 1.1rem;
 }
@@ -2368,9 +2404,11 @@ html.theme-color-transition *::after {
     top: 0;
     left: -1.1rem;
     width: calc(100% + 2.2rem);
-    border-top: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to right, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
+    height: 1px;
+    border: none;
+    background-color: var(--border-dotted);
+    mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
+    -webkit-mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
     pointer-events: none;
 }
 .case-study-title::after {
@@ -2379,9 +2417,11 @@ html.theme-color-transition *::after {
     bottom: 0;
     left: -1.1rem;
     width: calc(100% + 2.2rem);
-    border-bottom: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to right, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
+    height: 1px;
+    border: none;
+    background-color: var(--border-dotted);
+    mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
+    -webkit-mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
     pointer-events: none;
 }
 .case-study-title + .case-study-text {
@@ -2396,9 +2436,11 @@ html.theme-color-transition *::after {
 
 .modal-stack-section {
     padding-top: 2rem;
-    border-top: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to right, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
+    height: 1px;
+    border: none;
+    background-color: var(--border-dotted);
+    mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
+    -webkit-mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
 }
 
 .modal-stack-title {
@@ -2482,9 +2524,11 @@ html.theme-color-transition *::after {
     left: 50%;
     transform: translateX(-50%);
     width: 100vw;
-    border-top: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to right, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
+    height: 1px;
+    border: none;
+    background-color: var(--border-dotted);
+    mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
+    -webkit-mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
     pointer-events: none;
 }
 
@@ -2561,8 +2605,6 @@ html.theme-color-transition *::after {
     display: flex;
     gap: 0;
     border: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to right, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
     border-radius: 4px;
     overflow: hidden;
 }
@@ -2576,9 +2618,11 @@ html.theme-color-transition *::after {
     color: var(--text-gray);
     cursor: pointer;
     transition: all 0.2s ease;
-    border-right: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to bottom, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
+    width: 1px;
+    border: none;
+    background-color: var(--border-dotted);
+    mask-image: repeating-linear-gradient(to bottom, black 0, black 10px, transparent 10px, transparent 18px);
+    -webkit-mask-image: repeating-linear-gradient(to bottom, black 0, black 10px, transparent 10px, transparent 18px);
 }
 
 .year-pill:last-child {
@@ -2713,9 +2757,11 @@ html.theme-color-transition *::after {
     left: 50%;
     transform: translateX(-50%);
     width: 100vw;
-    border-bottom: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to right, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
+    height: 1px;
+    border: none;
+    background-color: var(--border-dotted);
+    mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
+    -webkit-mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
     pointer-events: none;
 }
 
@@ -2761,9 +2807,11 @@ html.theme-color-transition *::after {
     left: 50%;
     transform: translateX(-50%);
     width: 100vw;
-    border-bottom: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to right, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
+    height: 1px;
+    border: none;
+    background-color: var(--border-dotted);
+    mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
+    -webkit-mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
     pointer-events: none;
 }
 
@@ -2855,9 +2903,11 @@ html.theme-color-transition *::after {
     left: 50%;
     transform: translateX(-50%);
     width: 100vw;
-    border-bottom: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to right, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
+    height: 1px;
+    border: none;
+    background-color: var(--border-dotted);
+    mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
+    -webkit-mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
     pointer-events: none;
 }
 
@@ -2907,9 +2957,11 @@ html.theme-color-transition *::after {
     left: 50%;
     transform: translateX(-50%);
     width: 100vw;
-    border-top: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to right, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
+    height: 1px;
+    border: none;
+    background-color: var(--border-dotted);
+    mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
+    -webkit-mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
     pointer-events: none;
 }
 .blog-article-body h2::after {
@@ -2919,9 +2971,11 @@ html.theme-color-transition *::after {
     left: 50%;
     transform: translateX(-50%);
     width: 100vw;
-    border-bottom: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to right, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
+    height: 1px;
+    border: none;
+    background-color: var(--border-dotted);
+    mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
+    -webkit-mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
     pointer-events: none;
 }
 
@@ -2940,9 +2994,11 @@ html.theme-color-transition *::after {
     left: 50%;
     transform: translateX(-50%);
     width: 100vw;
-    border-top: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to right, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
+    height: 1px;
+    border: none;
+    background-color: var(--border-dotted);
+    mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
+    -webkit-mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
     pointer-events: none;
     opacity: 0.5;
 }
@@ -2953,9 +3009,11 @@ html.theme-color-transition *::after {
     left: 50%;
     transform: translateX(-50%);
     width: 100vw;
-    border-bottom: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to right, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
+    height: 1px;
+    border: none;
+    background-color: var(--border-dotted);
+    mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
+    -webkit-mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
     pointer-events: none;
     opacity: 0.5;
 }
@@ -2991,8 +3049,6 @@ html.theme-color-transition *::after {
 .blog-article-body pre {
     background: var(--bg-secondary);
     border: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to right, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
     border-radius: 8px;
     padding: 1.35rem 1.5rem;
     overflow-x: auto;
@@ -3034,8 +3090,6 @@ html.theme-color-transition *::after {
     padding: 2rem 1.5rem;
     background: var(--bg-secondary);
     border: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to right, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1;
     border-radius: 8px;
     overflow-x: auto;
     display: flex;
@@ -3074,9 +3128,11 @@ html.theme-color-transition *::after {
 
     /* Hero profile */
     .hero-profile-row { flex-direction: column; }
-    .hero-avatar-col { width: 100%; border-right: none; border-bottom: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to right, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1; padding: 0 1.5rem 1rem; }
+    .hero-avatar-col { width: 100%; border-right: none; height: 1px;
+    border: none;
+    background-color: var(--border-dotted);
+    mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
+    -webkit-mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px); padding: 0 1.5rem 1rem; }
     .hero-name-block { padding: 0.65rem 1rem 0.85rem; min-height: unset; }
     .hero-code-hint { display: none; }
     .hero-name { font-size: 1.35rem; }
@@ -3103,9 +3159,11 @@ html.theme-color-transition *::after {
 
     /* Modals */
     .modal-action-bar { grid-template-columns: 1fr; }
-    .modal-action-btn { border-right: none; border-bottom: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to right, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1; }
+    .modal-action-btn { border-right: none; height: 1px;
+    border: none;
+    background-color: var(--border-dotted);
+    mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
+    -webkit-mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px); }
     .modal-action-btn:last-child { border-bottom: none; }
     .modal-title { font-size: 2rem; }
     .modal-case-study { grid-template-columns: 1fr; }
@@ -3117,9 +3175,11 @@ html.theme-color-transition *::after {
         padding: 0.5rem 0.75rem 2rem;
     }
     .project-page-action-bar { grid-template-columns: 1fr; }
-    .project-page-action-btn { border-right: none; border-bottom: 1px dashed var(--border-dotted);
-    border-image-source: repeating-linear-gradient(to right, var(--border-dotted) 0, var(--border-dotted) 10px, transparent 10px, transparent 18px);
-    border-image-slice: 1; }
+    .project-page-action-btn { border-right: none; height: 1px;
+    border: none;
+    background-color: var(--border-dotted);
+    mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px);
+    -webkit-mask-image: repeating-linear-gradient(to right, black 0, black 10px, transparent 10px, transparent 18px); }
     .project-page-action-btn:last-child { border-bottom: none; }
     .project-page-title-row { align-items: flex-start; flex-direction: column; }
     .project-page-case-study { grid-template-columns: 1fr; }

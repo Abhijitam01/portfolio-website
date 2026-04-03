@@ -90,3 +90,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
   return NextResponse.json(publicRecords);
 }
+
+export async function GET(): Promise<NextResponse> {
+  const records = await readBin();
+  return NextResponse.json({ count: records.length });
+}

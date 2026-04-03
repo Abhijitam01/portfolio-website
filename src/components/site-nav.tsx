@@ -22,21 +22,12 @@ export function SiteNav() {
 
   useEffect(() => {
     const fetchViews = () => {
-      fetch("https://api.counterapi.dev/v1/abhijitam/portfolio/")
+      fetch("/api/visitors/record")
         .then((r) => r.json())
         .then((d) => setViews(d.count))
         .catch(() => {});
     };
-    const hasVisited = sessionStorage.getItem("hasVisited");
-    if (!hasVisited) {
-      sessionStorage.setItem("hasVisited", "true");
-      fetch("https://api.counterapi.dev/v1/abhijitam/portfolio/up/")
-        .then((r) => r.json())
-        .then((d) => setViews(d.count))
-        .catch(() => {});
-    } else {
-      fetchViews();
-    }
+    fetchViews();
     const interval = setInterval(fetchViews, 30_000);
     return () => clearInterval(interval);
   }, []);
