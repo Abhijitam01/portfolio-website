@@ -317,9 +317,19 @@ html.theme-color-transition *::after {
     top: 0;
     z-index: 200;
     background-color: var(--bg-primary);
-    border-bottom: 1px solid var(--border-color);
     margin: 0 -1.5rem;
     padding: 0 1.5rem;
+}
+
+.site-nav::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    border-bottom: 1px dashed var(--border-dotted);
+    pointer-events: none;
 }
 
 .site-nav-inner {
@@ -799,6 +809,44 @@ html.theme-color-transition *::after {
     color: var(--text-secondary);
 }
 
+/* Hero widgets column (right side of profile row) */
+.hero-widgets-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 0.85rem 1rem 1rem 0.85rem;
+    border-left: 1px dashed var(--border-dotted);
+    flex-shrink: 0;
+    align-items: flex-start;
+}
+
+.hero-widget-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.3rem 0.55rem;
+    border-radius: 5px;
+    border: 1px solid var(--border-color);
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: color 0.15s ease, border-color 0.15s ease;
+    white-space: nowrap;
+}
+
+.hero-widget-btn:hover {
+    color: var(--text-primary);
+    border-color: var(--text-secondary);
+}
+
+.hero-widget-btn.active {
+    color: var(--text-primary);
+    border-color: var(--text-secondary);
+    background: var(--bg-secondary);
+}
+
 /* Role flip animation */
 .hero-role-text {
     display: inline-block;
@@ -1207,6 +1255,15 @@ html.theme-color-transition *::after {
     padding: 1.25rem 0;
 }
 
+/* suppress duplicate line when section-heading directly follows section-title */
+.section-title + .section-heading::before {
+    display: none;
+}
+/* remove bottom margin gap so heading sits flush */
+.section-title:has(+ .section-heading) {
+    margin-bottom: 0;
+}
+
 /* line above heading */
 .section-heading::before {
     content: "";
@@ -1284,24 +1341,6 @@ html.theme-color-transition *::after {
     margin: 1rem 0;
     position: relative;
     z-index: 10;
-    overflow: hidden;
-}
-
-.footer-section::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100vw;
-    background-image: radial-gradient(circle, rgba(255,255,255,0.18) 1.2px, transparent 1.2px);
-    background-size: 10px 10px;
-    pointer-events: none;
-    z-index: 0;
-}
-
-[data-theme="light"] .footer-section::before {
-    background-image: radial-gradient(circle, rgba(0,0,0,0.13) 1.2px, transparent 1.2px);
 }
 
 
@@ -1407,6 +1446,23 @@ html.theme-color-transition *::after {
     gap: 1rem;
     padding: 1.5rem 0;
     position: relative;
+}
+
+.footer-bottom::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.18) 1.2px, transparent 1.2px);
+    background-size: 10px 10px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+[data-theme="light"] .footer-bottom::before {
+    background-image: radial-gradient(circle, rgba(0,0,0,0.13) 1.2px, transparent 1.2px);
 }
 
 .footer-bottom > * {
