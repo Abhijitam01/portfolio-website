@@ -32,7 +32,7 @@ export function VisitorsMap() {
       .catch(() => {});
   }, []);
 
-  const svg = useMemo(() => {
+  const { svgDark, svgLight } = useMemo(() => {
     const map = new DottedMap({ height: 60, grid: "diagonal" });
     visitors.forEach((v) => {
       map.addPin({
@@ -41,13 +41,14 @@ export function VisitorsMap() {
         svgOptions: { color: "#22c55e", radius: 0.4 },
       });
     });
-    return map.getSVG({
-      radius: 0.22,
-      color: isDark ? "#555560" : "#b0b0b8",
-      shape: "circle",
-      backgroundColor: "transparent",
-    });
-  }, [visitors, isDark]);
+    const base = { radius: 0.22, shape: "circle" as const, backgroundColor: "transparent" };
+    return {
+      svgDark: map.getSVG({ ...base, color: "#555560" }),
+      svgLight: map.getSVG({ ...base, color: "#b0b0b8" }),
+    };
+  }, [visitors]);
+
+  const svg = isDark ? svgDark : svgLight;
 
   const countryCount = useMemo(
     () => new Set(visitors.map((v) => v.country)).size,

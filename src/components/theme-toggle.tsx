@@ -62,7 +62,7 @@ export function ThemeToggle() {
     }
 
     setTheme(nextTheme);
-    window.setTimeout(endTransition, 520);
+    window.setTimeout(endTransition, 300);
   };
 
   return (

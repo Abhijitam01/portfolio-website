@@ -50,13 +50,13 @@ body {
 html.theme-color-transition *,
 html.theme-color-transition *::before,
 html.theme-color-transition *::after {
-    transition: background-color 1.2s ease, color 1.2s ease, border-color 1.2s ease, box-shadow 1.2s ease, fill 1.2s ease, stroke 1.2s ease;
+    transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, fill 0.25s ease, stroke 0.25s ease;
 }
 
 @supports (view-transition-name: root) {
     ::view-transition-old(root),
     ::view-transition-new(root) {
-        animation-duration: 1.8s;
+        animation-duration: 0.35s;
         animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
     }
 
