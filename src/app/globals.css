@@ -2622,8 +2622,18 @@ html.theme-color-transition *::after {
     margin: 2.75rem 0 1rem;
     letter-spacing: -0.01em;
     color: var(--text-primary);
-    padding-bottom: 0.65rem;
+    padding: 0.65rem 0;
     position: relative;
+}
+.blog-article-body h2::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    border-top: 1px dashed var(--border-dotted);
+    pointer-events: none;
 }
 .blog-article-body h2::after {
     content: "";
@@ -2641,8 +2651,19 @@ html.theme-color-transition *::after {
     font-weight: 600;
     margin: 2rem 0 0.65rem;
     color: var(--text-primary);
-    padding-bottom: 0.5rem;
+    padding: 0.5rem 0;
     position: relative;
+}
+.blog-article-body h3::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    border-top: 1px dashed var(--border-dotted);
+    pointer-events: none;
+    opacity: 0.5;
 }
 .blog-article-body h3::after {
     content: "";
