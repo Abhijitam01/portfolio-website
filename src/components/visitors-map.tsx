@@ -12,6 +12,18 @@ interface Visitor {
 
 export function VisitorsMap() {
   const [visitors, setVisitors] = useState<Visitor[]>([]);
+  const [isDark, setIsDark] = useState(true);
+
+  useEffect(() => {
+    const check = () =>
+      setIsDark(
+        document.documentElement.getAttribute("data-theme") !== "light"
+      );
+    check();
+    const observer = new MutationObserver(check);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     fetch("/api/visitors/record", { method: "POST" })
@@ -31,11 +43,11 @@ export function VisitorsMap() {
     });
     return map.getSVG({
       radius: 0.22,
-      color: "#3a3a3a",
+      color: isDark ? "#555560" : "#b0b0b8",
       shape: "circle",
       backgroundColor: "transparent",
     });
-  }, [visitors]);
+  }, [visitors, isDark]);
 
   const countryCount = useMemo(
     () => new Set(visitors.map((v) => v.country)).size,

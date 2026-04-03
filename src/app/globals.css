@@ -1288,15 +1288,6 @@ html.theme-color-transition *::after {
     padding: 1.25rem 0;
 }
 
-/* suppress duplicate line when section-heading directly follows section-title */
-.section-title + .section-heading::before {
-    border-top: none;
-}
-/* remove bottom margin gap so heading sits flush */
-.section-title:has(+ .section-heading) {
-    margin-bottom: 0;
-}
-
 /* line above heading */
 .section-heading::before {
     content: "";
@@ -1307,6 +1298,15 @@ html.theme-color-transition *::after {
     width: 100vw;
     border-top: 1px dashed var(--border-dotted);
     pointer-events: none;
+}
+
+/* suppress duplicate line when section-heading directly follows section-title */
+.section-title + .section-heading::before {
+    border-top: none;
+}
+/* remove bottom margin gap so heading sits flush */
+.section-title:has(+ .section-heading) {
+    margin-bottom: 0;
 }
 
 /* line below heading */
@@ -1541,7 +1541,7 @@ html.theme-color-transition *::after {
 /* Visitor World Map */
 .visitors-map-section {
     position: relative;
-    padding: 2rem 0 2.5rem;
+    padding: 2rem 0 0;
 }
 .visitors-map-section::before {
     content: "";
@@ -1555,19 +1555,22 @@ html.theme-color-transition *::after {
 }
 .visitors-map-wrap {
     width: 100%;
+    /* viewBox is 119×60 — lock the aspect ratio so SVG has height */
+    aspect-ratio: 119 / 60;
     overflow: hidden;
-    opacity: 0.75;
+    opacity: 0.8;
 }
 .visitors-map-wrap svg {
     width: 100%;
-    height: auto;
+    height: 100%;
     display: block;
 }
 .visitors-map-count {
     font-size: 0.72rem;
     color: var(--text-gray);
     font-family: 'Courier New', monospace;
-    margin-top: 0.85rem;
+    margin: 0.75rem 0 0;
+    padding-bottom: 1.5rem;
     text-align: center;
     letter-spacing: 0.03em;
 }
