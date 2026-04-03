@@ -5,7 +5,7 @@ import { GitHubGraph } from "@/components/github-graph";
 import { ProjectList, ProjectItem } from "@/components/project";
 import { Footer } from "@/components/footer";
 import { projects } from "@/data/projects";
-import { HoverTag } from "@/components/hover-tag";
+import { AboutSection } from "@/components/about-section";
 import { TechStack } from "@/components/tech-stack";
 import { Experience } from "@/components/experience";
 import { experience } from "@/data/experience";
@@ -17,25 +17,19 @@ export default function Home() {
       <SiteNav />
       <Header />
 
-      <Section title="ABOUT">
-        <p>
-          I&apos;m a software developer focused on building tools and platforms that make developers&apos; lives easier.
-          I work across the stack, specializing in <HoverTag text="TypeScript" imageSrc="/tags/typescript.png" />, <HoverTag text="React" imageSrc="/tags/react.png" />, and <HoverTag text="Solana" imageSrc="/tags/solana.png" /> development.
-          Currently exploring new ways to streamline development workflows and experimenting with interactive tools.
-        </p>
-      </Section>
+      <AboutSection />
 
-      <Section title="EXPERIENCE">
+      <GitHubGraph />
+
+      <TechStack />
+
+      <Section title="Experience">
         <Experience items={experience} />
       </Section>
 
-      <Section title="STACK">
-        <TechStack />
-      </Section>
-
-      <Section title="PROJECTS">
+      <Section title="Projects">
         <ProjectList>
-          {projects.map((project) => (
+          {projects.slice(0, 4).map((project) => (
             <ProjectItem
               key={project.id}
               project={project}
@@ -44,11 +38,7 @@ export default function Home() {
         </ProjectList>
       </Section>
 
-      <Section title="GITHUB">
-        <GitHubGraph />
-      </Section>
-
-      <Section title="WHAT I'M READING">
+      <Section title="What I'm Reading">
         <ReadingSection />
       </Section>
 
