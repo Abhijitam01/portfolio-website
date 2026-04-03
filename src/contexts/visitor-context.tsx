@@ -21,23 +21,21 @@ export function VisitorProvider({ children }: { children: ReactNode }) {
   const [visitors, setVisitors] = useState<Visitor[]>([]);
 
   useEffect(() => {
-    fetch("/api/visitors/record")
-      .then((r) => r.json())
-      .then((d) => {
-        setCount(d.count);
-        if (Array.isArray(d.visitors)) setVisitors(d.visitors);
-      })
-      .catch(() => {});
+    const apply = (d: { count: number; visitors: Visitor[] }) => {
+      setCount(d.count);
+      if (Array.isArray(d.visitors)) setVisitors(d.visitors);
+    };
 
     if (!sessionStorage.getItem("visitorRecorded")) {
       sessionStorage.setItem("visitorRecorded", "true");
       fetch("/api/visitors/record", { method: "POST" })
         .then((r) => r.json())
-        .then((d) => {
-          setCount(d.count);
-          if (Array.isArray(d.visitors)) setVisitors(d.visitors);
-        })
-        .catch(() => {});
+        .then(apply)
+        .catch(() => {
+          fetch("/api/visitors/record").then((r) => r.json()).then(apply).catch(() => {});
+        });
+    } else {
+      fetch("/api/visitors/record").then((r) => r.json()).then(apply).catch(() => {});
     }
   }, []);
 
