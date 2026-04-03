@@ -993,20 +993,8 @@ html.theme-color-transition *::after {
 
 /* TECH PILL GRID */
 .tech-stack-section {
-    padding: 2.5rem 0;
+    padding: 0 0 2.5rem;
     position: relative;
-}
-
-.tech-stack-section::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100vw;
-    border-top: 1px dashed var(--border-dotted);
-    pointer-events: none;
-    z-index: 0;
 }
 
 .tech-pill-grid {
@@ -1199,21 +1187,9 @@ html.theme-color-transition *::after {
 
 /* SECTION */
 .section-minimal {
-    padding: 3rem 0;
+    padding: 0 0 3rem;
     position: relative;
     z-index: 1;
-}
-
-.section-minimal::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100vw;
-    border-top: 1px dashed var(--border-dotted);
-    pointer-events: none;
-    z-index: 0;
 }
 
 .section-heading {
@@ -1224,9 +1200,22 @@ html.theme-color-transition *::after {
     letter-spacing: -0.01em;
     line-height: 1.25;
     position: relative;
-    padding-bottom: 0.9rem;
+    padding: 1.25rem 0;
 }
 
+/* line above heading */
+.section-heading::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    border-top: 1px dashed var(--border-dotted);
+    pointer-events: none;
+}
+
+/* line below heading */
 .section-heading::after {
     content: "";
     position: absolute;
@@ -1240,21 +1229,10 @@ html.theme-color-transition *::after {
 
 /* ABOUT */
 .about-section {
-    padding: 3rem 0;
+    padding: 0 0 3rem;
     position: relative;
 }
 
-.about-section::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100vw;
-    border-top: 1px dashed var(--border-dotted);
-    pointer-events: none;
-    z-index: 0;
-}
 
 .about-body {
     display: flex;
@@ -1304,17 +1282,6 @@ html.theme-color-transition *::after {
     z-index: 10;
 }
 
-.footer-section::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100vw;
-    border-top: 1px dashed var(--border-dotted);
-    pointer-events: none;
-    z-index: 0;
-}
 
 .footer-brand {
     position: relative;
@@ -2208,20 +2175,8 @@ html.theme-color-transition *::after {
 
 /* GITHUB SECTION */
 .github-section {
-    padding: 3rem 0;
+    padding: 0 0 3rem;
     position: relative;
-}
-
-.github-section::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100vw;
-    border-top: 1px dashed var(--border-dotted);
-    pointer-events: none;
-    z-index: 0;
 }
 
 
@@ -2667,6 +2622,18 @@ html.theme-color-transition *::after {
     margin: 2.75rem 0 1rem;
     letter-spacing: -0.01em;
     color: var(--text-primary);
+    padding-bottom: 0.65rem;
+    position: relative;
+}
+.blog-article-body h2::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    border-bottom: 1px dashed var(--border-dotted);
+    pointer-events: none;
 }
 
 .blog-article-body h3 {
@@ -2674,6 +2641,19 @@ html.theme-color-transition *::after {
     font-weight: 600;
     margin: 2rem 0 0.65rem;
     color: var(--text-primary);
+    padding-bottom: 0.5rem;
+    position: relative;
+}
+.blog-article-body h3::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    border-bottom: 1px dashed var(--border-dotted);
+    pointer-events: none;
+    opacity: 0.5;
 }
 
 .blog-article-body p {
