@@ -135,12 +135,10 @@ export function VisitorsMap() {
         </div>
       )}
 
-      {visitors.length > 0 && (
-        <p className="visitors-map-count">
-          {visitors.length} {visitors.length === 1 ? "visitor" : "visitors"}{" "}
-          from {countryCount} {countryCount === 1 ? "country" : "countries"}
-        </p>
-      )}
+      <p className="visitors-map-count">
+        {visitors.length} {visitors.length === 1 ? "visitor" : "visitors"}{" "}
+        from {countryCount} {countryCount === 1 ? "country" : "countries"}
+      </p>
     </section>
   );
 }
