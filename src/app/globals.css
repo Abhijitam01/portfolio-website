@@ -592,7 +592,7 @@ html.theme-color-transition *::after {
     position: absolute;
     inset: 0;
     background-image: radial-gradient(circle, rgba(255,255,255,0.18) 1.2px, transparent 1.2px);
-    background-size: 16px 16px;
+    background-size: 10px 10px;
     pointer-events: none;
     z-index: 0;
 }
