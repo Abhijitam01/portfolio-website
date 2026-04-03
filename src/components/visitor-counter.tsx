@@ -7,21 +7,19 @@ export function VisitorCounter() {
   const [visits, setVisits] = useState<number | null>(null);
 
   useEffect(() => {
-    // Only fetch once per session using sessionStorage
     const hasVisited = sessionStorage.getItem("hasVisited");
-    
+
     if (!hasVisited) {
       sessionStorage.setItem("hasVisited", "true");
       fetch("https://api.counterapi.dev/v1/abhijitam/portfolio/up")
         .then((res) => res.json())
         .then((data) => setVisits(data.count))
-        .catch(() => console.error("Failed to fetch visit count"));
+        .catch(() => {});
     } else {
-      // If already visited this session, just get the current count without bumping
       fetch("https://api.counterapi.dev/v1/abhijitam/portfolio")
         .then((res) => res.json())
         .then((data) => setVisits(data.count))
-        .catch(() => console.error("Failed to fetch visit count"));
+        .catch(() => {});
     }
   }, []);
 

@@ -23,7 +23,6 @@ export const BackgroundRippleEffect = ({
   const [rippleKey, setRippleKey] = useState(0);
   const clearRippleTimerRef = useRef<number | null>(null);
 
-  // Auto-ripple effect
   useEffect(() => {
     if (!autoRipple) return;
 

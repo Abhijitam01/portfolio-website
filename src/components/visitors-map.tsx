@@ -2,13 +2,7 @@
 
 import { useEffect, useState, useMemo } from "react";
 import DottedMap from "dotted-map";
-
-interface Visitor {
-  lat: number;
-  lng: number;
-  city: string;
-  country: string;
-}
+import { useVisitors, Visitor } from "@/contexts/visitor-context";
 
 interface TooltipState {
   text: string;
@@ -17,7 +11,7 @@ interface TooltipState {
 }
 
 export function VisitorsMap() {
-  const [visitors, setVisitors] = useState<Visitor[]>([]);
+  const { visitors } = useVisitors();
   const [isDark, setIsDark] = useState(true);
   const [tooltip, setTooltip] = useState<TooltipState | null>(null);
 
@@ -30,13 +24,6 @@ export function VisitorsMap() {
     const observer = new MutationObserver(check);
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
     return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    fetch("/api/visitors/record", { method: "POST" })
-      .then((r) => r.json())
-      .then((data: Visitor[]) => setVisitors(data))
-      .catch(() => {});
   }, []);
 
   const { svgDark, svgLight, mapPins, mapDimensions } = useMemo(() => {
@@ -101,7 +88,7 @@ export function VisitorsMap() {
                 key={i}
                 cx={pin.x}
                 cy={pin.y}
-                r={0.8}
+                r={2}
                 fill="transparent"
                 style={{ cursor: "pointer", pointerEvents: "all" }}
                 onMouseEnter={(e) => {

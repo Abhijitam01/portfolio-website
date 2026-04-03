@@ -46,7 +46,6 @@ async function writeBin(records: VisitorRecord[]): Promise<void> {
       body: JSON.stringify({ visitors: records }),
     });
   } catch {
-    // non-fatal — map still renders with stale data
   }
 }
 
@@ -80,7 +79,6 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         await writeBin(records);
       }
     } catch {
-      // geolocation failed — skip this visitor, still return existing records
     }
   }
 
@@ -93,5 +91,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
 export async function GET(): Promise<NextResponse> {
   const records = await readBin();
-  return NextResponse.json({ count: records.length });
+  const publicRecords: PublicVisitor[] = records.map(
+    ({ lat, lng, city, country }) => ({ lat, lng, city, country })
+  );
+  return NextResponse.json({ count: records.length, visitors: publicRecords });
 }

@@ -6,30 +6,19 @@ import { usePathname } from "next/navigation";
 import { ThemeToggle } from "./theme-toggle";
 import { Eye, Bot, User } from "lucide-react";
 import { useAgentMode } from "@/contexts/agent-mode";
+import { useVisitors } from "@/contexts/visitor-context";
 
 export function SiteNav() {
   const pathname = usePathname();
   const { isAgentMode, toggle } = useAgentMode();
+  const { count: views } = useVisitors();
   const [followers, setFollowers] = useState<number | null>(null);
-  const [views, setViews] = useState<number | null>(null);
 
   useEffect(() => {
     fetch("https://api.github.com/users/Abhijitam01")
       .then((r) => r.json())
       .then((d) => setFollowers(d.followers))
       .catch(() => {});
-  }, []);
-
-  useEffect(() => {
-    const fetchViews = () => {
-      fetch("/api/visitors/record")
-        .then((r) => r.json())
-        .then((d) => setViews(d.count))
-        .catch(() => {});
-    };
-    fetchViews();
-    const interval = setInterval(fetchViews, 30_000);
-    return () => clearInterval(interval);
   }, []);
 
   return (

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Outfit, Coming_Soon } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { AgentModeProvider } from "@/contexts/agent-mode";
+import { VisitorProvider } from "@/contexts/visitor-context";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -29,15 +30,17 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} ${outfit.variable} ${comingSoon.variable}`}>
         <AgentModeProvider>
-          <ThemeProvider
-            attribute="data-theme"
-            defaultTheme="dark"
-            enableSystem={false}
-          >
-            <div className="main-wrapper">
-              {children}
-            </div>
-          </ThemeProvider>
+          <VisitorProvider>
+            <ThemeProvider
+              attribute="data-theme"
+              defaultTheme="dark"
+              enableSystem={false}
+            >
+              <div className="main-wrapper">
+                {children}
+              </div>
+            </ThemeProvider>
+          </VisitorProvider>
         </AgentModeProvider>
       </body>
     </html>

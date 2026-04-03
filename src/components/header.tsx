@@ -75,12 +75,9 @@ export function Header() {
 
   return (
     <header className="header-hero">
-      {}
       <div className="hero-banner" />
 
-      {}
       <div className="hero-profile-row">
-        {}
         <div className="hero-avatar-col">
           <div className="hero-avatar-outer">
             <div className="hero-avatar-container">
@@ -106,9 +103,7 @@ export function Header() {
           </div>
         </div>
 
-        {}
         <div className="hero-name-block">
-          {}
           <button
             onClick={() => setIsTwitter((v) => !v)}
             className={`hero-identity-toggle${isTwitter ? " active" : ""}`}
@@ -138,7 +133,6 @@ export function Header() {
 
       </div>
 
-      {}
       <div className="hero-info-box">
         <InfoRow icon={<Briefcase size={13} />} text="Software Developer" />
         <InfoRow icon={<Code size={13} />} text="Full Stack · Builder" />
@@ -153,7 +147,6 @@ export function Header() {
         </div>
       </div>
 
-      {}
       <div className="hero-social-grid">
         {socialCards.map((card) => (
           <a

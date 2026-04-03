@@ -18,7 +18,6 @@ export function ThemeToggle() {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const { theme, resolvedTheme, setTheme } = useTheme();
 
-  // useEffect only runs on the client, so now we can safely show the UI
   useEffect(() => {
     setMounted(true);
   }, []);

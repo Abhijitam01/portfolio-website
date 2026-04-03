@@ -1,6 +1,11 @@
+"use client";
+
 import Image from "next/image";
+import { Eye } from "lucide-react";
+import { useVisitors } from "@/contexts/visitor-context";
 
 export function Footer() {
+  const { count } = useVisitors();
   return (
     <footer className="footer-section">
 
@@ -37,6 +42,10 @@ export function Footer() {
       {}
       <div className="footer-bottom">
         <p className="footer-copyright">© 2026 Abhijitam Dubey. All rights reserved.</p>
+        <div className="footer-visitor-count">
+          <Eye size={12} />
+          <span>{count !== null ? count.toLocaleString() : "—"} visitors</span>
+        </div>
         <div className="footer-icons">
           <span className="footer-icon" title="Frontend">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
