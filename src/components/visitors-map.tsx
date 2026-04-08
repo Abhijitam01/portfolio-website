@@ -11,7 +11,7 @@ interface TooltipState {
 }
 
 export function VisitorsMap() {
-  const { visitors } = useVisitors();
+  const { visitors, count, countryCount: ctxCountryCount } = useVisitors();
   const [isDark, setIsDark] = useState(true);
   const [tooltip, setTooltip] = useState<TooltipState | null>(null);
 
@@ -57,8 +57,6 @@ export function VisitorsMap() {
     });
     return counts;
   }, [visitors]);
-
-  const countryCount = Object.keys(countryCounts).length;
 
   return (
     <section className="visitors-map-section">
@@ -123,8 +121,8 @@ export function VisitorsMap() {
       )}
 
       <p className="visitors-map-count">
-        {visitors.length} {visitors.length === 1 ? "visitor" : "visitors"}{" "}
-        from {countryCount} {countryCount === 1 ? "country" : "countries"}
+        {count ?? 0} {(count ?? 0) === 1 ? "visitor" : "visitors"}{" "}
+        from {ctxCountryCount} {ctxCountryCount === 1 ? "country" : "countries"}
       </p>
     </section>
   );

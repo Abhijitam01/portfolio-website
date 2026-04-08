@@ -97,7 +97,16 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const forwarded = req.headers.get("x-forwarded-for");
   const ip = (forwarded ? forwarded.split(",")[0].trim() : null)
     ?? req.headers.get("x-real-ip")
+    ?? (req as unknown as { ip?: string }).ip
     ?? "unknown";
+
+  const emptyDB: VisitorDB = { totalVisits: 0, uniqueVisitors: 0, countries: {}, recentVisitors: [] };
+
+  // Unknown IP — can't geo-locate, return current stats without counting
+  if (ip === "unknown") {
+    const db = readJSON<VisitorDB>(DB_FILE, emptyDB);
+    return NextResponse.json(buildResponse(db));
+  }
 
   const seenIPs = readJSON<SeenIPs>(SEEN_FILE, {});
   const now = Date.now();
@@ -107,7 +116,9 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
     geo = await geoLocate(ip);
   } catch {
-    return NextResponse.json({ error: "geo lookup failed" }, { status: 500 });
+    // Geo failed — still return current stats so the UI isn't broken
+    const db = readJSON<VisitorDB>(DB_FILE, emptyDB);
+    return NextResponse.json(buildResponse(db));
   }
 
   const emptyDB: VisitorDB = { totalVisits: 0, uniqueVisitors: 0, countries: {}, recentVisitors: [] };
