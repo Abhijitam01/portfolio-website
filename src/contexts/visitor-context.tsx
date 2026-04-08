@@ -37,33 +37,38 @@ export function VisitorProvider({ children }: { children: ReactNode }) {
   const [countries, setCountries] = useState<Record<string, CountryEntry>>({});
 
   useEffect(() => {
-    const apply = (d: {
-      count: number;
-      visitors: Visitor[];
+    const COUNTER_BASE = "https://api.counterapi.dev/v1/abhijitam/portfolio";
+
+    const applyGeo = (d: {
+      visitors?: Visitor[];
       countryCount?: number;
       countries?: Record<string, CountryEntry>;
     }) => {
-      setCount(d.count);
       if (Array.isArray(d.visitors)) setVisitors(d.visitors);
       if (d.countryCount !== undefined) setCountryCount(d.countryCount);
       if (d.countries) setCountries(d.countries);
     };
 
-    if (!sessionStorage.getItem("visitorRecorded")) {
+    const recorded = sessionStorage.getItem("visitorRecorded");
+
+    // Count: counterapi.dev persists across deployments — increment on first visit per session
+    const countUrl = recorded ? COUNTER_BASE : `${COUNTER_BASE}/up`;
+    fetch(countUrl)
+      .then((r) => r.json())
+      .then((d) => { if (typeof d.count === "number") setCount(d.count); })
+      .catch(() => {});
+
+    // Geo: best-effort for map dots — uses /tmp on Vercel (ephemeral but writable)
+    if (!recorded) {
       sessionStorage.setItem("visitorRecorded", "true");
       fetch("/api/visitors/record", { method: "POST" })
         .then((r) => r.json())
-        .then(apply)
-        .catch(() => {
-          fetch("/api/visitors/record")
-            .then((r) => r.json())
-            .then(apply)
-            .catch(() => {});
-        });
+        .then(applyGeo)
+        .catch(() => {});
     } else {
       fetch("/api/visitors/record")
         .then((r) => r.json())
-        .then(apply)
+        .then(applyGeo)
         .catch(() => {});
     }
   }, []);

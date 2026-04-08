@@ -1,10 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
-import path from "path";
 
-const DATA_DIR = path.join(process.cwd(), "data");
-const DB_FILE = path.join(DATA_DIR, "visitors.json");
-const SEEN_FILE = path.join(DATA_DIR, "seen_ips.json");
+const DB_FILE = "/tmp/visitors.json";
+const SEEN_FILE = "/tmp/seen_ips.json";
 
 const LOCAL_IPS = new Set(["::1", "127.0.0.1", "::ffff:127.0.0.1"]);
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -52,7 +50,6 @@ function readJSON<T>(file: string, fallback: T): T {
 }
 
 function writeJSON(file: string, data: unknown): void {
-  fs.mkdirSync(path.dirname(file), { recursive: true });
   fs.writeFileSync(file, JSON.stringify(data, null, 2));
 }
 
