@@ -3188,6 +3188,18 @@ body {
     .footer-brand-label { display: none; }
     .site-nav-right { gap: 0.35rem; }
     .site-nav-sep { display: none; }
+    .site-nav-views-btn:first-child { display: none; }
+    .hero-visitor-badge { display: flex; }
+}
+
+.hero-visitor-badge {
+    display: none;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.78rem;
+    color: var(--text-gray);
+    margin-bottom: 0.5rem;
+    align-self: flex-start;
 }
 
 

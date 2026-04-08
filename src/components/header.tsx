@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { Briefcase, Code, MapPin, Clock, Mail, Globe, ArrowUpRight } from "lucide-react";
+import { Briefcase, Code, MapPin, Clock, Mail, Globe, ArrowUpRight, Eye } from "lucide-react";
 import { RoleFlip } from "@/components/role-flip";
+import { useVisitors } from "@/contexts/visitor-context";
 
 const socialCards = [
   {
@@ -72,6 +73,7 @@ const SwapIcon = () => (
 
 export function Header() {
   const [isTwitter, setIsTwitter] = useState(false);
+  const { count } = useVisitors();
 
   return (
     <header className="header-hero">
@@ -104,6 +106,10 @@ export function Header() {
         </div>
 
         <div className="hero-name-block">
+          <div className="hero-visitor-badge">
+            <Eye size={13} />
+            <span>{count !== null ? count.toLocaleString() : "—"}</span>
+          </div>
           <button
             onClick={() => setIsTwitter((v) => !v)}
             className={`hero-identity-toggle${isTwitter ? " active" : ""}`}
