@@ -121,7 +121,6 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     return NextResponse.json(buildResponse(db));
   }
 
-  const emptyDB: VisitorDB = { totalVisits: 0, uniqueVisitors: 0, countries: {}, recentVisitors: [] };
   const db = readJSON<VisitorDB>(DB_FILE, emptyDB);
 
   const updatedDB: VisitorDB = {
