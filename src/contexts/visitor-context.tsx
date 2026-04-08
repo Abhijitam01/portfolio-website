@@ -51,26 +51,19 @@ export function VisitorProvider({ children }: { children: ReactNode }) {
 
     const recorded = sessionStorage.getItem("visitorRecorded");
 
-    // Count: counterapi.dev persists across deployments — increment on first visit per session
+    // Count: increment only on first visit per session; counterapi.dev persists across deployments
     const countUrl = recorded ? COUNTER_BASE : `${COUNTER_BASE}/up`;
+    if (!recorded) sessionStorage.setItem("visitorRecorded", "true");
     fetch(countUrl)
       .then((r) => r.json())
       .then((d) => { if (typeof d.count === "number") setCount(d.count); })
       .catch(() => {});
 
-    // Geo: best-effort for map dots — uses /tmp on Vercel (ephemeral but writable)
-    if (!recorded) {
-      sessionStorage.setItem("visitorRecorded", "true");
-      fetch("/api/visitors/record", { method: "POST" })
-        .then((r) => r.json())
-        .then(applyGeo)
-        .catch(() => {});
-    } else {
-      fetch("/api/visitors/record")
-        .then((r) => r.json())
-        .then(applyGeo)
-        .catch(() => {});
-    }
+    // Geo: always POST so the route geolocates the current visitor — map always has ≥1 dot
+    fetch("/api/visitors/record", { method: "POST" })
+      .then((r) => r.json())
+      .then(applyGeo)
+      .catch(() => {});
   }, []);
 
   return (
