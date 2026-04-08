@@ -3190,3 +3190,196 @@ body {
     .site-nav-sep { display: none; }
     .site-nav-views-btn:first-child { display: none; }
 }
+
+
+/* ─── OSS page ─────────────────────────────────────────────────── */
+
+.oss-page-header {
+    padding: 2.5rem 0 0;
+    position: relative;
+}
+
+.oss-page-title {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.oss-page-subtitle {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    max-width: 480px;
+    margin-bottom: 1.5rem;
+}
+
+.oss-tabs {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-bottom: 1.5rem;
+    position: relative;
+}
+
+.oss-tabs::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    border-bottom: 1px dashed var(--border-dotted);
+    border-image-source: repeating-linear-gradient(to right, var(--border-dotted) 0, var(--border-dotted) 6px, transparent 6px, transparent 14px);
+    border-image-slice: 1;
+    pointer-events: none;
+}
+
+.oss-tab-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 5px;
+    border: 1px solid var(--border-color);
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 0.8125rem;
+    cursor: pointer;
+    transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.oss-tab-btn:hover {
+    color: var(--text-primary);
+    border-color: var(--text-secondary);
+    background: var(--bg-secondary);
+}
+
+.oss-tab-btn.active {
+    color: var(--text-primary);
+    border-color: var(--text-secondary);
+    background: var(--bg-secondary);
+    font-weight: 600;
+}
+
+.oss-tab-count {
+    font-family: 'Courier New', monospace;
+    font-size: 0.72rem;
+    color: var(--text-gray);
+}
+
+.oss-tab-btn.active .oss-tab-count {
+    color: var(--text-secondary);
+}
+
+.oss-pr-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.oss-pr-item-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.oss-pr-item {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 2rem;
+    padding: 2rem 0;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.oss-pr-item::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    border-bottom: 1px dashed var(--border-dotted);
+    border-image-source: repeating-linear-gradient(to right, var(--border-dotted) 0, var(--border-dotted) 6px, transparent 6px, transparent 14px);
+    border-image-slice: 1;
+    pointer-events: none;
+}
+
+.oss-pr-item:last-child::after {
+    display: none;
+}
+
+.oss-pr-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding-top: 0.15rem;
+}
+
+.oss-pr-repo {
+    font-family: 'Courier New', monospace;
+    font-size: 0.78rem;
+    color: var(--text-gray);
+    word-break: break-all;
+}
+
+.oss-pr-date {
+    font-size: 0.78rem;
+    color: var(--text-gray);
+    font-family: 'Courier New', monospace;
+}
+
+.oss-pr-right {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.oss-pr-title {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    line-height: 1.35;
+}
+
+.oss-pr-item-link:hover .oss-pr-title {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.oss-pr-description {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+}
+
+.oss-pr-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-gray);
+    transition: color 0.15s;
+}
+
+.oss-pr-item-link:hover .oss-pr-link {
+    color: var(--text-primary);
+}
+
+.oss-empty {
+    padding: 3rem 0;
+    color: var(--text-gray);
+    font-size: 0.9rem;
+}
+
+@media (max-width: 600px) {
+    .oss-pr-item {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+}
+}

@@ -38,6 +38,12 @@ export function SiteNav() {
           >
             Blog
           </Link>
+          <Link
+            href="/oss"
+            className={`site-nav-link${pathname === "/oss" ? " active" : ""}`}
+          >
+            OSS
+          </Link>
         </div>
 
 
