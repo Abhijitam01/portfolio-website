@@ -9,21 +9,44 @@ export interface Visitor {
   country: string;
 }
 
+export interface CountryEntry {
+  name: string;
+  flag: string;
+  count: number;
+  cities: string[];
+}
+
 interface VisitorContextValue {
   count: number | null;
   visitors: Visitor[];
+  countryCount: number;
+  countries: Record<string, CountryEntry>;
 }
 
-const VisitorContext = createContext<VisitorContextValue>({ count: null, visitors: [] });
+const VisitorContext = createContext<VisitorContextValue>({
+  count: null,
+  visitors: [],
+  countryCount: 0,
+  countries: {},
+});
 
 export function VisitorProvider({ children }: { children: ReactNode }) {
   const [count, setCount] = useState<number | null>(null);
   const [visitors, setVisitors] = useState<Visitor[]>([]);
+  const [countryCount, setCountryCount] = useState(0);
+  const [countries, setCountries] = useState<Record<string, CountryEntry>>({});
 
   useEffect(() => {
-    const apply = (d: { count: number; visitors: Visitor[] }) => {
+    const apply = (d: {
+      count: number;
+      visitors: Visitor[];
+      countryCount?: number;
+      countries?: Record<string, CountryEntry>;
+    }) => {
       setCount(d.count);
       if (Array.isArray(d.visitors)) setVisitors(d.visitors);
+      if (d.countryCount !== undefined) setCountryCount(d.countryCount);
+      if (d.countries) setCountries(d.countries);
     };
 
     if (!sessionStorage.getItem("visitorRecorded")) {
@@ -32,15 +55,21 @@ export function VisitorProvider({ children }: { children: ReactNode }) {
         .then((r) => r.json())
         .then(apply)
         .catch(() => {
-          fetch("/api/visitors/record").then((r) => r.json()).then(apply).catch(() => {});
+          fetch("/api/visitors/record")
+            .then((r) => r.json())
+            .then(apply)
+            .catch(() => {});
         });
     } else {
-      fetch("/api/visitors/record").then((r) => r.json()).then(apply).catch(() => {});
+      fetch("/api/visitors/record")
+        .then((r) => r.json())
+        .then(apply)
+        .catch(() => {});
     }
   }, []);
 
   return (
-    <VisitorContext.Provider value={{ count, visitors }}>
+    <VisitorContext.Provider value={{ count, visitors, countryCount, countries }}>
       {children}
     </VisitorContext.Provider>
   );

@@ -12,6 +12,7 @@ import { experience } from "@/data/experience";
 import { ReadingSection } from "@/components/reading";
 import { PageContent } from "@/components/page-content";
 import { VisitorsMap } from "@/components/visitors-map";
+import { CountryList } from "@/components/country-list";
 
 export default function Home() {
   return (
@@ -48,6 +49,7 @@ export default function Home() {
         <Footer />
 
         <VisitorsMap />
+        <CountryList />
       </PageContent>
     </main>
   );
