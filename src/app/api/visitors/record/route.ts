@@ -1,11 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
-import fs from "fs";
+import { Redis } from "@upstash/redis";
 
-const DB_FILE = "/tmp/visitors.json";
-const SEEN_FILE = "/tmp/seen_ips.json";
+const redis = new Redis({
+  url: process.env.UPSTASH_REDIS_REST_URL!,
+  token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+});
+
+const DB_KEY = "portfolio:visitors";
+const SEEN_KEY = "portfolio:seen_ips";
 
 const LOCAL_IPS = new Set(["::1", "127.0.0.1", "::ffff:127.0.0.1"]);
-const DAY_MS = 24 * 60 * 60 * 1000;
+const DAY_S = 24 * 60 * 60;
 
 interface GeoData {
   country: string;
@@ -37,20 +42,20 @@ interface VisitorDB {
   recentVisitors: RecentVisitor[];
 }
 
-interface SeenIPs {
-  [ip: string]: number;
+const EMPTY_DB: VisitorDB = {
+  totalVisits: 0,
+  uniqueVisitors: 0,
+  countries: {},
+  recentVisitors: [],
+};
+
+async function readDB(): Promise<VisitorDB> {
+  const data = await redis.get<VisitorDB>(DB_KEY);
+  return data ?? EMPTY_DB;
 }
 
-function readJSON<T>(file: string, fallback: T): T {
-  try {
-    return JSON.parse(fs.readFileSync(file, "utf8")) as T;
-  } catch {
-    return fallback;
-  }
-}
-
-function writeJSON(file: string, data: unknown): void {
-  fs.writeFileSync(file, JSON.stringify(data, null, 2));
+async function writeDB(db: VisitorDB): Promise<void> {
+  await redis.set(DB_KEY, db);
 }
 
 async function geoLocate(ip: string): Promise<GeoData> {
@@ -92,44 +97,45 @@ function buildResponse(db: VisitorDB) {
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
   const forwarded = req.headers.get("x-forwarded-for");
-  const ip = (forwarded ? forwarded.split(",")[0].trim() : null)
-    ?? req.headers.get("x-real-ip")
-    ?? (req as unknown as { ip?: string }).ip
-    ?? "unknown";
+  const ip =
+    (forwarded ? forwarded.split(",")[0].trim() : null) ??
+    req.headers.get("x-real-ip") ??
+    (req as unknown as { ip?: string }).ip ??
+    "unknown";
 
-  const emptyDB: VisitorDB = { totalVisits: 0, uniqueVisitors: 0, countries: {}, recentVisitors: [] };
-
-  // Unknown IP — can't geo-locate, return current stats without counting
+  // Unknown IP — return current stats without counting
   if (ip === "unknown") {
-    const db = readJSON<VisitorDB>(DB_FILE, emptyDB);
+    const db = await readDB();
     return NextResponse.json(buildResponse(db));
   }
 
-  const seenIPs = readJSON<SeenIPs>(SEEN_FILE, {});
-  const now = Date.now();
-  const isNew = !seenIPs[ip] || now - seenIPs[ip] > DAY_MS;
+  // Check if this IP was seen in the last 24h (stored as a Redis key with TTL)
+  const seenKey = `${SEEN_KEY}:${ip}`;
+  const alreadySeen = await redis.exists(seenKey);
+  const isNew = !alreadySeen;
 
   let geo: GeoData;
   try {
     geo = await geoLocate(ip);
   } catch {
-    // Geo failed — still return current stats so the UI isn't broken
-    const db = readJSON<VisitorDB>(DB_FILE, emptyDB);
+    const db = await readDB();
     return NextResponse.json(buildResponse(db));
   }
 
-  const db = readJSON<VisitorDB>(DB_FILE, emptyDB);
+  const db = await readDB();
 
   const updatedDB: VisitorDB = {
     ...db,
     totalVisits: db.totalVisits + 1,
-    uniqueVisitors: isNew && !LOCAL_IPS.has(ip) ? db.uniqueVisitors + 1 : db.uniqueVisitors,
+    uniqueVisitors:
+      isNew && !LOCAL_IPS.has(ip) ? db.uniqueVisitors + 1 : db.uniqueVisitors,
     countries: { ...db.countries },
     recentVisitors: [...db.recentVisitors],
   };
 
   if (isNew && !LOCAL_IPS.has(ip)) {
-    writeJSON(SEEN_FILE, { ...seenIPs, [ip]: now });
+    // Mark IP as seen with 24h TTL
+    await redis.set(seenKey, 1, { ex: DAY_S });
   }
 
   if (!LOCAL_IPS.has(ip)) {
@@ -156,13 +162,12 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     updatedDB.recentVisitors = [visitor, ...updatedDB.recentVisitors].slice(0, 200);
   }
 
-  writeJSON(DB_FILE, updatedDB);
+  await writeDB(updatedDB);
 
   return NextResponse.json(buildResponse(updatedDB));
 }
 
 export async function GET(): Promise<NextResponse> {
-  const emptyDB: VisitorDB = { totalVisits: 0, uniqueVisitors: 0, countries: {}, recentVisitors: [] };
-  const db = readJSON<VisitorDB>(DB_FILE, emptyDB);
+  const db = await readDB();
   return NextResponse.json(buildResponse(db));
 }
