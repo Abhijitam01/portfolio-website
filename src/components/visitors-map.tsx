@@ -121,8 +121,9 @@ export function VisitorsMap() {
       )}
 
       <p className="visitors-map-count">
-        {count ?? 0} {(count ?? 0) === 1 ? "visitor" : "visitors"}{" "}
-        from {ctxCountryCount} {ctxCountryCount === 1 ? "country" : "countries"}
+        {count === null
+          ? "..."
+          : `${count} ${count === 1 ? "visitor" : "visitors"} from ${ctxCountryCount} ${ctxCountryCount === 1 ? "country" : "countries"}`}
       </p>
     </section>
   );

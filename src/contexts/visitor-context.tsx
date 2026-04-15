@@ -37,8 +37,6 @@ export function VisitorProvider({ children }: { children: ReactNode }) {
   const [countries, setCountries] = useState<Record<string, CountryEntry>>({});
 
   useEffect(() => {
-    const COUNTER_BASE = "https://api.counterapi.dev/v1/abhijitam/portfolio";
-
     const applyGeo = (d: {
       visitors?: Visitor[];
       countryCount?: number;
@@ -51,8 +49,10 @@ export function VisitorProvider({ children }: { children: ReactNode }) {
 
     const recorded = sessionStorage.getItem("visitorRecorded");
 
-    // Count: increment only on first visit per session; counterapi.dev persists across deployments
-    const countUrl = recorded ? COUNTER_BASE : `${COUNTER_BASE}/up`;
+    // Count: proxy through our API route to avoid CORS issues with counterapi.dev
+    const countUrl = recorded
+      ? "/api/visitors/count"
+      : "/api/visitors/count?increment=1";
     if (!recorded) sessionStorage.setItem("visitorRecorded", "true");
     fetch(countUrl)
       .then((r) => r.json())
