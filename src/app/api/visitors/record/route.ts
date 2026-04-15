@@ -73,24 +73,50 @@ const COUNTRY_NAMES: Record<string, string> = {
   IR: "Iran", IQ: "Iraq", SK: "Slovakia", HR: "Croatia",
 };
 
-function geoLocateFromHeaders(req: NextRequest, ip: string): GeoData {
-  if (LOCAL_IPS.has(ip)) {
-    return { country: "Local", countryCode: "LO", city: "localhost", lat: 0, lon: 0, flag: "" };
-  }
+function geoFromVercelHeaders(req: NextRequest): GeoData | null {
   const countryCode = req.headers.get("x-vercel-ip-country") ?? "";
-  const city = req.headers.get("x-vercel-ip-city") ?? "";
+  if (!countryCode) return null;
+  const city = decodeURIComponent(req.headers.get("x-vercel-ip-city") ?? "");
   const lat = parseFloat(req.headers.get("x-vercel-ip-latitude") ?? "0");
   const lon = parseFloat(req.headers.get("x-vercel-ip-longitude") ?? "0");
-  if (!countryCode) throw new Error("no geo headers");
   const country = COUNTRY_NAMES[countryCode] ?? countryCode;
   return {
     country,
     countryCode,
-    city: decodeURIComponent(city),
+    city,
     lat,
     lon,
     flag: `https://flagcdn.com/24x18/${countryCode.toLowerCase()}.png`,
   };
+}
+
+async function geoFromIpApi(ip: string): Promise<GeoData | null> {
+  try {
+    const res = await fetch(`http://ip-api.com/json/${ip}?fields=status,country,countryCode,city,lat,lon`, {
+      next: { revalidate: 0 },
+    });
+    if (!res.ok) return null;
+    const d = await res.json();
+    if (d.status !== "success" || !d.countryCode) return null;
+    const countryCode: string = d.countryCode;
+    return {
+      country: d.country ?? countryCode,
+      countryCode,
+      city: d.city ?? "",
+      lat: d.lat ?? 0,
+      lon: d.lon ?? 0,
+      flag: `https://flagcdn.com/24x18/${countryCode.toLowerCase()}.png`,
+    };
+  } catch {
+    return null;
+  }
+}
+
+async function geoLocate(req: NextRequest, ip: string): Promise<GeoData | null> {
+  if (LOCAL_IPS.has(ip)) {
+    return { country: "Local", countryCode: "LO", city: "localhost", lat: 0, lon: 0, flag: "" };
+  }
+  return geoFromVercelHeaders(req) ?? await geoFromIpApi(ip);
 }
 
 function buildResponse(db: VisitorDB) {
@@ -127,10 +153,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const alreadySeen = await redis.exists(seenKey);
   const isNew = !alreadySeen;
 
-  let geo: GeoData;
-  try {
-    geo = geoLocateFromHeaders(req, ip);
-  } catch {
+  const geo = await geoLocate(req, ip);
+  if (!geo) {
     const db = await readDB();
     return NextResponse.json(buildResponse(db));
   }
