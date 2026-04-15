@@ -3,6 +3,7 @@ import { Inter, Outfit, Coming_Soon } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { AgentModeProvider } from "@/contexts/agent-mode";
 import { VisitorProvider } from "@/contexts/visitor-context";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -42,6 +43,7 @@ export default function RootLayout({
             </ThemeProvider>
           </VisitorProvider>
         </AgentModeProvider>
+        <Analytics />
       </body>
     </html>
   );
