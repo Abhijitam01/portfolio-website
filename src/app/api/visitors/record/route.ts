@@ -58,25 +58,38 @@ async function writeDB(db: VisitorDB): Promise<void> {
   await redis.set(DB_KEY, db);
 }
 
-async function geoLocate(ip: string): Promise<GeoData> {
+const COUNTRY_NAMES: Record<string, string> = {
+  US: "United States", GB: "United Kingdom", CA: "Canada", AU: "Australia",
+  DE: "Germany", FR: "France", IN: "India", JP: "Japan", CN: "China",
+  BR: "Brazil", MX: "Mexico", KR: "South Korea", RU: "Russia", IT: "Italy",
+  ES: "Spain", NL: "Netherlands", SE: "Sweden", NO: "Norway", DK: "Denmark",
+  FI: "Finland", PL: "Poland", CH: "Switzerland", AT: "Austria", BE: "Belgium",
+  SG: "Singapore", HK: "Hong Kong", TW: "Taiwan", NZ: "New Zealand", ZA: "South Africa",
+  NG: "Nigeria", EG: "Egypt", GH: "Ghana", KE: "Kenya", AR: "Argentina",
+  CO: "Colombia", CL: "Chile", PK: "Pakistan", BD: "Bangladesh", ID: "Indonesia",
+  PH: "Philippines", VN: "Vietnam", TH: "Thailand", MY: "Malaysia",
+  AE: "UAE", SA: "Saudi Arabia", IL: "Israel", TR: "Turkey", UA: "Ukraine",
+  CZ: "Czech Republic", HU: "Hungary", RO: "Romania", PT: "Portugal", GR: "Greece",
+  IR: "Iran", IQ: "Iraq", SK: "Slovakia", HR: "Croatia",
+};
+
+function geoLocateFromHeaders(req: NextRequest, ip: string): GeoData {
   if (LOCAL_IPS.has(ip)) {
     return { country: "Local", countryCode: "LO", city: "localhost", lat: 0, lon: 0, flag: "" };
   }
-  const res = await fetch(
-    `http://ip-api.com/json/${ip}?fields=status,country,countryCode,regionName,city,lat,lon,isp`,
-    { cache: "no-store" }
-  );
-  const data = await res.json();
-  if (data.status !== "success") throw new Error("geo lookup failed");
+  const countryCode = req.headers.get("x-vercel-ip-country") ?? "";
+  const city = req.headers.get("x-vercel-ip-city") ?? "";
+  const lat = parseFloat(req.headers.get("x-vercel-ip-latitude") ?? "0");
+  const lon = parseFloat(req.headers.get("x-vercel-ip-longitude") ?? "0");
+  if (!countryCode) throw new Error("no geo headers");
+  const country = COUNTRY_NAMES[countryCode] ?? countryCode;
   return {
-    country: data.country,
-    countryCode: data.countryCode,
-    region: data.regionName,
-    city: data.city,
-    lat: data.lat,
-    lon: data.lon,
-    isp: data.isp,
-    flag: `https://flagcdn.com/24x18/${(data.countryCode as string).toLowerCase()}.png`,
+    country,
+    countryCode,
+    city: decodeURIComponent(city),
+    lat,
+    lon,
+    flag: `https://flagcdn.com/24x18/${countryCode.toLowerCase()}.png`,
   };
 }
 
@@ -116,7 +129,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
   let geo: GeoData;
   try {
-    geo = await geoLocate(ip);
+    geo = geoLocateFromHeaders(req, ip);
   } catch {
     const db = await readDB();
     return NextResponse.json(buildResponse(db));
