@@ -42,9 +42,11 @@ interface VisitorDB {
   recentVisitors: RecentVisitor[];
 }
 
+const SEED_COUNT = 206;
+
 const EMPTY_DB: VisitorDB = {
-  totalVisits: 0,
-  uniqueVisitors: 0,
+  totalVisits: SEED_COUNT,
+  uniqueVisitors: SEED_COUNT,
   countries: {},
   recentVisitors: [],
 };
@@ -142,22 +144,14 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     (req as unknown as { ip?: string }).ip ??
     "unknown";
 
-  // Unknown IP — return current stats without counting
   if (ip === "unknown") {
     const db = await readDB();
     return NextResponse.json(buildResponse(db));
   }
 
-  // Check if this IP was seen in the last 24h (stored as a Redis key with TTL)
   const seenKey = `${SEEN_KEY}:${ip}`;
   const alreadySeen = await redis.exists(seenKey);
   const isNew = !alreadySeen;
-
-  const geo = await geoLocate(req, ip);
-  if (!geo) {
-    const db = await readDB();
-    return NextResponse.json(buildResponse(db));
-  }
 
   const db = await readDB();
 
@@ -171,11 +165,12 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   };
 
   if (isNew && !LOCAL_IPS.has(ip)) {
-    // Mark IP as seen with 24h TTL
     await redis.set(seenKey, 1, { ex: DAY_S });
   }
 
-  if (!LOCAL_IPS.has(ip)) {
+  const geo = await geoLocate(req, ip);
+
+  if (geo && !LOCAL_IPS.has(ip)) {
     const code = geo.countryCode;
     const existing = updatedDB.countries[code];
     const cities = existing ? [...existing.cities] : [];

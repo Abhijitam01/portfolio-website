@@ -37,32 +37,14 @@ export function VisitorProvider({ children }: { children: ReactNode }) {
   const [countries, setCountries] = useState<Record<string, CountryEntry>>({});
 
   useEffect(() => {
-    const applyGeo = (d: {
-      visitors?: Visitor[];
-      countryCount?: number;
-      countries?: Record<string, CountryEntry>;
-    }) => {
-      if (Array.isArray(d.visitors)) setVisitors(d.visitors);
-      if (d.countryCount !== undefined) setCountryCount(d.countryCount);
-      if (d.countries) setCountries(d.countries);
-    };
-
-    const recorded = sessionStorage.getItem("visitorRecorded");
-
-    // Count: proxy through our API route to avoid CORS issues with counterapi.dev
-    const countUrl = recorded
-      ? "/api/visitors/count"
-      : "/api/visitors/count?increment=1";
-    if (!recorded) sessionStorage.setItem("visitorRecorded", "true");
-    fetch(countUrl)
-      .then((r) => r.json())
-      .then((d) => { if (typeof d.count === "number") setCount(d.count); })
-      .catch(() => {});
-
-    // Geo: always POST so the route geolocates the current visitor — map always has ≥1 dot
     fetch("/api/visitors/record", { method: "POST" })
       .then((r) => r.json())
-      .then(applyGeo)
+      .then((d) => {
+        if (typeof d.count === "number") setCount(d.count);
+        if (Array.isArray(d.visitors)) setVisitors(d.visitors);
+        if (d.countryCount !== undefined) setCountryCount(d.countryCount);
+        if (d.countries) setCountries(d.countries);
+      })
       .catch(() => {});
   }, []);
 
