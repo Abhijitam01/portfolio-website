@@ -71,9 +71,28 @@ const SwapIcon = () => (
   </svg>
 );
 
+function useISTTime() {
+  const fmt = new Intl.DateTimeFormat("en-IN", {
+    timeZone: "Asia/Kolkata",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
+  const [time, setTime] = useState(() => fmt.format(new Date()));
+
+  useEffect(() => {
+    const tick = () => setTime(fmt.format(new Date()));
+    const id = setInterval(tick, 60_000);
+    return () => clearInterval(id);
+  }, []);
+
+  return time;
+}
+
 export function Header() {
   const [isTwitter, setIsTwitter] = useState(false);
   const { count } = useVisitors();
+  const istTime = useISTTime();
 
   return (
     <header className="header-hero">
@@ -145,7 +164,7 @@ export function Header() {
         <div className="hero-info-divider" />
         <div className="hero-info-grid">
           <InfoRow icon={<MapPin size={13} />} text="New Delhi, India" />
-          <InfoRow icon={<Clock size={13} />} text={<><span className="info-time">18:35</span> IST (UTC+5:30)</>} />
+          <InfoRow icon={<Clock size={13} />} text={<><span className="info-time">{istTime}</span> IST (UTC+5:30)</>} />
         </div>
         <div className="hero-info-grid">
           <InfoRow icon={<Mail size={13} />} text={<a href="mailto:work.abhijitam@gmail.com" className="info-link">work.abhijitam@gmail.com</a>} />

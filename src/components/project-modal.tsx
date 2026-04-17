@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Github, Globe, Share2, ExternalLink } from "lucide-react";
 import { Project } from "@/data/projects";
 import { HoverTag } from "./hover-tag";
+import { TECH_ICONS } from "@/data/tech-icons";
 
 interface ProjectModalProps {
   project: Project;
@@ -64,19 +65,33 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
           />
         </div>
 
+        {(() => {
+          const githubUrl = project.links.find((l) => l.text === "GitHub")?.url || "#";
+          const websiteUrl = project.links.find((l) => l.primary)?.url || "#";
+          const hasLaunchTweet = !!project.launchTweetUrl && project.launchTweetUrl !== "#";
+          const hasWebsite = websiteUrl !== "#";
+          const colCount = [true, hasWebsite, hasLaunchTweet, true].filter(Boolean).length;
+          return (
         <div
           className="modal-action-bar"
-          style={{ gridTemplateColumns: project.launchTweetUrl ? "repeat(4, 1fr)" : "repeat(3, 1fr)" }}
+          style={{ gridTemplateColumns: `repeat(${colCount}, 1fr)` }}
         >
-          <a href={project.links.find((l) => l.text === "GitHub")?.url || "#"} target="_blank" rel="noopener noreferrer" className="modal-action-btn">
+          <a href={githubUrl} target="_blank" rel="noopener noreferrer" className="modal-action-btn">
             <Github size={18} />
             Github
           </a>
-          <a href={project.links.find((l) => l.primary)?.url || "#"} target="_blank" rel="noopener noreferrer" className="modal-action-btn">
-            <Globe size={18} />
-            Website
-          </a>
-          {project.launchTweetUrl && (
+          {hasWebsite ? (
+            <a href={websiteUrl} target="_blank" rel="noopener noreferrer" className="modal-action-btn">
+              <Globe size={18} />
+              Website
+            </a>
+          ) : (
+            <span className="modal-action-btn modal-action-btn--disabled">
+              <Globe size={18} />
+              Coming Soon
+            </span>
+          )}
+          {hasLaunchTweet && (
             <a href={project.launchTweetUrl} target="_blank" rel="noopener noreferrer" className="modal-action-btn">
               <ExternalLink size={18} />
               Launch Tweet
@@ -93,6 +108,8 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
             Share
           </button>
         </div>
+          );
+        })()}
 
         <div className="modal-title-row">
           <h2 className="modal-title">{project.title}</h2>
@@ -104,9 +121,13 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
 
         <p className="modal-description">
           {project.fullDescription}
-          <br />
-          <br />
-          For early access, please <strong>contact me!</strong>
+          {project.status !== "Live" && (
+            <>
+              <br />
+              <br />
+              For early access, please <strong>contact me!</strong>
+            </>
+          )}
         </p>
 
         <div className="modal-case-study">
@@ -135,17 +156,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
           <h3 className="modal-stack-title">Stack used</h3>
           <div className="stack-pill-grid">
             {project.techStack.map((tech) => {
-              const techImages: Record<string, string> = {
-                TypeScript: "/tags/typescript.png",
-                React: "/tags/react.png",
-                "Next.js": "/tags/nextjs.png",
-                Solana: "/tags/solana.png",
-                "Node.js": "/tags/nodejs.png",
-                "Tailwind CSS": "/tags/tailwind.png",
-                Rust: "/tags/rust.png",
-              };
-              const imageSrc = techImages[tech];
-
+              const imageSrc = TECH_ICONS[tech];
               return (
                 <span key={tech} className="stack-pill">
                   {imageSrc ? <HoverTag text={tech} imageSrc={imageSrc} /> : tech}

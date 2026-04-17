@@ -1,8 +1,10 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Github, Globe, FileText } from "lucide-react";
 import { projects } from "@/data/projects";
+import { TECH_ICONS } from "@/data/tech-icons";
 
 interface ProjectPageProps {
   params: Promise<{ id: string }>;
@@ -14,22 +16,27 @@ export function generateStaticParams() {
   return projects.map((project) => ({ id: project.id }));
 }
 
-const techIconMap: Record<string, string> = {
-  TypeScript: "/tags/typescript.png",
-  React: "/tags/react.png",
-  "Next.js": "/tags/nextjs.png",
-  "Node.js": "/tags/nodejs.png",
-  "Tailwind CSS": "/tags/tailwind.png",
-  Tailwind: "/tags/tailwind.png",
-  Solana: "/tags/solana.png",
-  Rust: "/tags/rust.png",
-  PostgreSQL: "/tags/postgresql.svg",
-  MongoDB: "/tags/mongodb.svg",
-  Docker: "/tags/docker.svg",
-  Git: "/tags/git.svg",
-  Redis: "/tags/redis.svg",
-  Figma: "/tags/figma.svg",
-};
+export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
+  const { id } = await params;
+  const project = projects.find((p) => p.id === id);
+  if (!project) return {};
+  return {
+    title: `${project.title} — Abhijitam Dubey`,
+    description: project.description,
+    openGraph: {
+      title: `${project.title} — Abhijitam Dubey`,
+      description: project.description,
+      images: [{ url: project.image }],
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.title} — Abhijitam Dubey`,
+      description: project.description,
+      images: [project.image],
+    },
+  };
+}
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const { id } = await params;
@@ -46,7 +53,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   return (
     <main className="project-page">
       <div className="project-page-shell">
-        <Link href="/" className="project-page-back">
+        <Link href="/projects" className="project-page-back">
           <ArrowLeft size={16} />
           Projects
         </Link>
@@ -132,7 +139,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           <h2 className="project-page-stack-title">Stack used</h2>
           <div className="stack-pill-grid">
             {project.techStack.map((tech) => {
-              const iconSrc = techIconMap[tech];
+              const iconSrc = TECH_ICONS[tech];
               return (
                 <span key={tech} className="stack-pill">
                   {iconSrc && (

@@ -13,12 +13,26 @@ const comingSoon = Coming_Soon({ subsets: ["latin"], weight: ["400"], variable: 
 export const metadata: Metadata = {
   title: "Abhijitam Dubey - Developer",
   description: "Software Developer focused on building tools and platforms that make developers' lives easier.",
+  metadataBase: new URL("https://abhijitamdubey.site"),
   icons: {
-    icon: [
-      { url: "/icon.svg", type: "image/svg+xml" },
-    ],
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
     shortcut: "/icon.svg",
     apple: "/icon.svg",
+  },
+  openGraph: {
+    title: "Abhijitam Dubey - Developer",
+    description: "Software Developer focused on building tools and platforms that make developers' lives easier.",
+    url: "https://abhijitamdubey.site",
+    siteName: "Abhijitam Dubey",
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Abhijitam Dubey" }],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Abhijitam Dubey - Developer",
+    description: "Software Developer focused on building tools and platforms that make developers' lives easier.",
+    creator: "@abhijitam_tw",
+    images: ["/og.png"],
   },
 };
 

@@ -2218,6 +2218,12 @@ body {
     color: var(--text-primary);
 }
 
+.modal-action-btn--disabled {
+    opacity: 0.45;
+    cursor: default;
+    pointer-events: none;
+}
+
 .project-page {
     min-height: 100vh;
     padding: 1rem 0 2rem;

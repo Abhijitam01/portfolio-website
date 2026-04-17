@@ -15,9 +15,9 @@ export function SiteNav() {
   const [followers, setFollowers] = useState<number | null>(null);
 
   useEffect(() => {
-    fetch("https://api.github.com/users/Abhijitam01")
+    fetch("/api/github/followers")
       .then((r) => r.json())
-      .then((d) => setFollowers(d.followers))
+      .then((d) => { if (typeof d.followers === "number") setFollowers(d.followers); })
       .catch(() => {});
   }, []);
 
