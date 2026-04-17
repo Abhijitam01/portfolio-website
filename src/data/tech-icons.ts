@@ -21,7 +21,6 @@ export const TECH_ICONS: Record<string, string> = {
   Turborepo: "/tags/turborepo.svg",
   WebSockets: "/tags/websockets.svg",
   "Canvas API": "/tags/html5.svg",
-  "Tailwind CSS": "/tags/tailwind.png",
   Express: "/tags/express.svg",
   Vite: "/tags/vite.svg",
   Zod: "/tags/zod.svg",
