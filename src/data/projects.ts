@@ -29,14 +29,14 @@ export const projects: Project[] = [
   {
     id: "chess",
     title: "Chess Platform",
-    status: "Building",
-    statusClass: "badge-building",
+    status: "Live",
+    statusClass: "badge-live",
     image: "/projects/chess.png",
     description: "A real-time chess platform focused on performance, competitive play, and deep analysis.",
     fullDescription: "This chess platform is designed for players who want competitive matchmaking, fast move latency, and serious analysis tools. Built with WebSockets for real-time synchronization, it supports ranked multiplayer, tactical puzzles, and advanced engine-backed analysis. The goal is to combine performance-grade infrastructure with a clean, distraction-free playing experience.",
     techStack: ["TypeScript", "Next.js", "WebSockets", "Redis", "chess.js", "Tailwind CSS", "Turborepo", "Docker"],
     links: [
-      { url: "#", text: "Coming Soon", primary: true },
+      { url: "https://chess.abhijitamdubey.site", text: "Visit Site", primary: true },
       { url: "https://github.com/Abhijitam01/chess", text: "GitHub", primary: false }
     ],
     caseStudy: {
@@ -77,7 +77,7 @@ export const projects: Project[] = [
     fullDescription: "Sketchy is a canvas-based drawing system built around performance and intuitive visual interaction. It supports real-time shape rendering with smooth, responsive input handling — giving it the feel of drawing on actual paper. The focus throughout was on keeping the rendering loop fast and the interaction model simple enough that the tool stays out of the way.",
     techStack: ["TypeScript", "React", "Next.js", "WebSockets", "PostgreSQL", "Rough.js", "Tailwind CSS", "Canvas API"],
     links: [
-      { url: "https://github.com/Abhijitam01/sketchy", text: "Visit Site", primary: true },
+      { url: "https://sketchy.abhijitamdubey.site", text: "Visit Site", primary: true },
       { url: "https://github.com/Abhijitam01/sketchy", text: "GitHub", primary: false }
     ],
     caseStudy: {
