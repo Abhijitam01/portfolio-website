@@ -23,6 +23,7 @@ export interface Project {
   links: ProjectLink[];
   caseStudy: ProjectCaseStudy;
   launchTweetUrl?: string;
+  category: "systems" | "frontend" | "web3";
 }
 
 export const projects: Project[] = [
@@ -44,7 +45,8 @@ export const projects: Project[] = [
       useCase: "Players join ranked queues, play live multiplayer games with move timers, and review completed games with engine-backed annotations. The platform targets serious players who want speed and clarity over gamified noise.",
       learned: "Server authority is everything in multiplayer. Trusting the client for move validation feels fine until someone sends an illegal move. Centralizing game logic on the server and treating the client as a pure view eliminated an entire class of bugs.",
       stuck: "Keeping game state synchronized across unreliable connections was the hardest problem. A player dropping mid-game, then reconnecting, needs to see the exact board state without the server replaying the entire event log. Getting the reconnect reconciliation right took several redesigns."
-    }
+    },
+    category: "systems",
   },
   {
     id: "betteruptime",
@@ -64,7 +66,8 @@ export const projects: Project[] = [
       useCase: "Developers and small teams monitoring their own APIs, web apps, and services. You get the full picture: live status, response time history, automatic incident tracking, and a public status page you can share with users — without handing your uptime data to a third-party SaaS.",
       learned: "Reliability in a monitoring system is recursive — the tool that watches your uptime has to be more reliable than the things it watches. I learned how much architectural discipline goes into building a worker pipeline that handles flaky networks, slow responses, and partial failures gracefully without producing false positives.",
       stuck: "Incident state management was the subtlest problem. Deciding when a site is 'down' versus temporarily slow, when to open an incident, and when to confidently close it required building hysteresis into the state machine — a single failed ping shouldn't page anyone, but three consecutive failures definitely should. Getting that threshold logic right without making it noisy took significant iteration."
-    }
+    },
+    category: "systems",
   },
   {
     id: "eyeswitch",
@@ -85,7 +88,8 @@ export const projects: Project[] = [
       useCase: "Valuable for accessibility research, HCI exploration, and environments where traditional input devices are impractical or unavailable. It demonstrates that gaze-based control can feel natural and responsive — not gimmicky — when the signal processing is done right.",
       learned: "Removing friction is architecturally harder than adding features. Every added affordance — a hover state, a transition, a confirmation prompt — is friction in disguise. The entire design had to be measured by a single question: does this make the interface more invisible?",
       stuck: "Raw gaze data is noisy. The difference between intentional focus and casual glance is milliseconds of signal pattern, not absolute position. Building a smoothing layer that felt responsive without feeling jittery required extensive tuning of prediction windows and confidence thresholds."
-    }
+    },
+    category: "frontend",
   },
   {
     id: "sketchy",
@@ -105,7 +109,8 @@ export const projects: Project[] = [
       useCase: "Fast wireframes, architecture diagrams, and visual brainstorming. The hand-drawn aesthetic keeps things loose and collaborative — it signals that ideas are still in flux, which removes the pressure that comes with polished diagrams.",
       learned: "Canvas performance is all about minimizing unnecessary redraws. I learned to track dirty regions, batch paint calls, and use requestAnimationFrame correctly — and how each of those decisions compounds. A 5ms unnecessary repaint feels fine until you have 50 shapes and a 60Hz loop.",
       stuck: "Hit testing — determining which shape the cursor is over — sounds trivial until shapes overlap, have transparent fills, or sit on top of each other in non-obvious z-order. Naive bounding-box iteration breaks down fast. Building a proper scene graph with per-shape hit detection was the most technically demanding part of the project."
-    }
+    },
+    category: "frontend",
   },
   {
     id: "solana-atlas",
@@ -125,7 +130,8 @@ export const projects: Project[] = [
       useCase: "Developers can inspect the layout of any account, trace how an instruction mutates state, analyze transaction composition, and test program behavior against devnet before deploying to mainnet. It's equally useful for beginners building intuition and for teams debugging a misbehaving program.",
       learned: "Designing for observability changes how you think about data. It's not enough to surface the right values — you have to surface them in the right context, in the right order, with enough surrounding state that the cause-and-effect is obvious. That discipline made me a better systems thinker.",
       stuck: "Solana RPC endpoints are inconsistent about what they return and when. A transaction that confirms on-chain may still return stale data from the same RPC call seconds later. Building a reliable UI on top of eventually-consistent network state required defensive data fetching and careful handling of loading states that don't lie to the user."
-    }
+    },
+    category: "web3",
   },
   {
     id: "vizzy",
@@ -146,7 +152,8 @@ export const projects: Project[] = [
       useCase: "Junior developers and bootcamp students learning backend fundamentals for the first time. Vizzy lets them build intuition by assembling, not copying — and the generated code gives them a real artifact to study, modify, and run.",
       learned: "The code output is the product, not the canvas. Beginners don't just need working code — they need code they can actually read and modify. Writing the annotated code generation logic turned out to be the hardest and most important design decision in the entire project.",
       stuck: "Keeping three pieces of state in sync — the canvas node positions, the wire connections, and the generated code output — without any of them drifting out of sync was harder than expected. Any inconsistency between what the canvas shows and what the code panel renders completely breaks the learning experience. Getting the Zustand store design right took multiple refactors."
-    }
+    },
+    category: "frontend",
   },
   {
     id: "photobooth",
@@ -167,7 +174,8 @@ export const projects: Project[] = [
       useCase: "Parties, events, friend groups, team meetups — any moment where you want a shareable memory with zero setup. The zero-friction constraint is the entire product vision: if someone has to create an account, the spontaneity that makes it fun is already gone.",
       learned: "Simplicity is an active discipline, not a default state. Removing every non-essential step means each remaining step has to be perfect — camera access, capture timing, strip layout, share interaction. When there are no features to hide behind, the experience of each individual moment becomes the product.",
       stuck: "Camera access via the MediaDevices API behaves inconsistently across browsers and devices. Safari on iOS, Chrome on Android, and desktop browsers all handle constraints, permissions, and resolution negotiation differently. Getting reliable, high-quality capture everywhere without a native SDK required careful testing and a lot of defensive constraint handling."
-    }
+    },
+    category: "frontend",
   },
   {
     id: "snippet-vault",
@@ -187,7 +195,8 @@ export const projects: Project[] = [
       useCase: "Developers store reusable logic, boilerplate patterns, and language-specific utilities, then retrieve them by intent — 'debounce hook', 'postgres upsert', 'zod email schema' — rather than by filename or exact syntax. Especially useful during fast-moving sprints and for onboarding teammates to shared patterns.",
       learned: "Search relevance is the product. A snippet manager that returns the wrong result, or returns the right result third, is worse than no tool at all. I spent more time on indexing strategy, tagging structure, and result ranking than on any other part of the system — and that's exactly the right priority.",
       stuck: "Preserving code formatting across languages was genuinely difficult. Indentation, special characters, and copy behavior interact differently depending on the language, the browser, and whether the code was pasted in or typed. Getting reliable, round-trip faithful storage and copy-to-clipboard behavior required far more edge case handling than expected."
-    }
+    },
+    category: "systems",
   },
   {
     id: "errika",
@@ -207,7 +216,8 @@ export const projects: Project[] = [
       useCase: "Developers and teams spinning up a new Next.js monorepo for a side project, internal tool, MVP, or client engagement. It's particularly useful at hackathons where the first hour is usually wasted on boilerplate that doesn't differentiate the product.",
       learned: "Great CLI tools prioritize predictability above everything else. Users should know exactly what they're going to get before they run the command — and get exactly that every time. Clear prompts, deterministic output, and safe re-runs matter more than offering configuration flexibility that most users never need.",
       stuck: "Template evolution without breaking existing generated projects is a genuinely hard problem. When the scaffold changes, what happens to projects already generated from an older version? Handling upgrade paths, respecting user customizations, and versioning templates forced me to think about the tool's maintenance story as seriously as its initial design."
-    }
+    },
+    category: "systems",
   },
   {
     id: "antimetal",
@@ -227,7 +237,8 @@ export const projects: Project[] = [
       useCase: "Engineers preparing for system design interviews, developers learning distributed systems fundamentals, and teams onboarding new hires to architectural thinking. The AI feedback loop lets learners get immediate, specific critiques on their own designs rather than comparing against a static 'correct' answer.",
       learned: "AI feedback has to be grounded in what the user actually built, not what a generic prompt produces. Serializing the React Flow canvas state into a structured representation the model can reason about — nodes, edges, component types, data flows — was the most important engineering decision in the project. The quality of the feedback is entirely a function of the quality of that representation.",
       stuck: "React Flow's state model and Zustand's store needed to stay perfectly in sync — canvas moves, edge connections, and node configurations all had to reflect in the store immediately and accurately, since the store is what gets serialized for AI analysis. Any drift between what the canvas shows and what the store holds produces garbage feedback, which breaks user trust instantly."
-    }
+    },
+    category: "frontend",
   },
   {
     id: "loadzen",
@@ -248,6 +259,7 @@ export const projects: Project[] = [
       useCase: "Developers and small engineering teams testing endpoints before a launch, after a significant deploy, or when diagnosing a performance regression in production. The AI diagnosis layer is the differentiator — instead of staring at a p95 latency chart, you get a written interpretation of what the results mean and what to investigate next.",
       learned: "Subprocess orchestration has failure modes you don't think about until they happen in production. What happens when k6 crashes mid-test? When Redis goes down during a run? When the job queue restarts while a test is active? Building resilient error handling around a child process required thinking carefully about partial failure states and what the user should see in each scenario.",
       stuck: "Cloudflare Workers seemed like the ideal deployment target — cheap, globally distributed, easy to manage. But k6 requires child_process.spawn, a Node.js primitive that doesn't exist in the Workers runtime. That constraint ruled out the serverless deployment model entirely and forced a traditional server architecture, which shaped every infrastructure decision that followed."
-    }
+    },
+    category: "systems",
   }
 ];

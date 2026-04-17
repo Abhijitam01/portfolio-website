@@ -4,7 +4,7 @@ import { Section } from "@/components/section";
 import { GitHubGraph } from "@/components/github-graph";
 import { ProjectList, ProjectItem } from "@/components/project";
 import { Footer } from "@/components/footer";
-import { projects } from "@/data/projects";
+import { projects, Project } from "@/data/projects";
 import { AboutSection } from "@/components/about-section";
 import { TechStack } from "@/components/tech-stack";
 import { Experience } from "@/components/experience";
@@ -13,6 +13,11 @@ import { ReadingSection } from "@/components/reading";
 import { PageContent } from "@/components/page-content";
 import { VisitorsMap } from "@/components/visitors-map";
 import { CountryList } from "@/components/country-list";
+
+const HOME_PROJECT_IDS = ["chess", "antimetal", "betteruptime", "sketchy", "solana-atlas", "eyeswitch"];
+const homeProjects = HOME_PROJECT_IDS
+  .map((id) => projects.find((p) => p.id === id))
+  .filter(Boolean) as Project[];
 
 export default function Home() {
   return (
@@ -33,7 +38,7 @@ export default function Home() {
 
         <Section title="Projects">
           <ProjectList>
-            {projects.slice(0, 4).map((project) => (
+            {homeProjects.map((project) => (
               <ProjectItem
                 key={project.id}
                 project={project}

@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { SiteNav } from "@/components/site-nav";
-import { ProjectItem } from "@/components/project";
-import { projects } from "@/data/projects";
+import { ProjectsGrid } from "@/components/projects-grid";
 import { Footer } from "@/components/footer";
 
 export default function ProjectsPage() {
@@ -19,11 +18,7 @@ export default function ProjectsPage() {
         <h1 className="projects-page-title">Projects</h1>
       </div>
 
-      <div className="projects-page-grid">
-        {projects.map((project) => (
-          <ProjectItem key={project.id} project={project} />
-        ))}
-      </div>
+      <ProjectsGrid />
 
       <Footer />
     </main>

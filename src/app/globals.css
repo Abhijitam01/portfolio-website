@@ -1931,8 +1931,17 @@ body {
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.project-card-image-inner img {
+    filter: grayscale(1);
+    transition: filter 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 .project-card-link:hover .project-card-image-inner {
     transform: scale(1.03);
+}
+
+.project-card-link:hover .project-card-image-inner img {
+    filter: grayscale(0);
 }
 
 .project-card-screen-label {
@@ -2031,7 +2040,7 @@ body {
 .project-card-tag {
     font-size: 0.7rem;
     font-family: 'Courier New', monospace;
-    color: var(--text-gray);
+    color: var(--text-primary);
     background: var(--bg-secondary);
     border: 1px solid var(--border-color);
     border-radius: 4px;
@@ -2092,6 +2101,33 @@ body {
     letter-spacing: -0.02em;
 }
 
+.projects-filter-tabs {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 1.5rem 1.5rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.projects-filter-tab {
+    padding: 0.35rem 0.9rem;
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    background: transparent;
+    color: var(--text-gray);
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.projects-filter-tab.active,
+.projects-filter-tab:hover {
+    background: var(--text-primary);
+    color: var(--bg-primary);
+    border-color: var(--text-primary);
+}
+
 .projects-page-grid {
     max-width: 760px;
     margin: 0 auto;
@@ -2102,6 +2138,7 @@ body {
 }
 
 @media (max-width: 600px) {
+    .projects-filter-tabs { padding: 0 1rem 1.25rem; }
     .projects-page-grid { grid-template-columns: 1fr; gap: 1rem; }
     .projects-page-header { padding: 1.5rem 1rem 1rem; }
 }
