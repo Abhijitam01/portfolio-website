@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { Redis } from "@upstash/redis";
 
 const redis = new Redis({
-  url: process.env.UPSTASH_REDIS_REST_URL!,
-  token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+  url: (process.env.UPSTASH_REDIS_REST_URL ?? process.env.KV_REST_API_URL)!,
+  token: (process.env.UPSTASH_REDIS_REST_TOKEN ?? process.env.KV_REST_API_TOKEN)!,
 });
 
 const DB_KEY = "portfolio:visitors";
@@ -52,12 +52,20 @@ const EMPTY_DB: VisitorDB = {
 };
 
 async function readDB(): Promise<VisitorDB> {
-  const data = await redis.get<VisitorDB>(DB_KEY);
-  return data ?? EMPTY_DB;
+  try {
+    const data = await redis.get<VisitorDB>(DB_KEY);
+    return data ?? EMPTY_DB;
+  } catch {
+    return EMPTY_DB;
+  }
 }
 
 async function writeDB(db: VisitorDB): Promise<void> {
-  await redis.set(DB_KEY, db);
+  try {
+    await redis.set(DB_KEY, db);
+  } catch {
+    // non-fatal — visitor data is best-effort
+  }
 }
 
 const COUNTRY_NAMES: Record<string, string> = {
@@ -150,7 +158,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   }
 
   const seenKey = `${SEEN_KEY}:${ip}`;
-  const alreadySeen = await redis.exists(seenKey);
+  const alreadySeen = await redis.exists(seenKey).catch(() => 0);
   const isNew = !alreadySeen;
 
   const db = await readDB();
@@ -165,7 +173,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   };
 
   if (isNew && !LOCAL_IPS.has(ip)) {
-    await redis.set(seenKey, 1, { ex: DAY_S });
+    await redis.set(seenKey, 1, { ex: DAY_S }).catch(() => {});
   }
 
   const geo = await geoLocate(req, ip);

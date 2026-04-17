@@ -78,11 +78,11 @@ function useISTTime() {
     minute: "2-digit",
     hour12: false,
   });
-  const [time, setTime] = useState(() => fmt.format(new Date()));
+  const [time, setTime] = useState<string | null>(null);
 
   useEffect(() => {
-    const tick = () => setTime(fmt.format(new Date()));
-    const id = setInterval(tick, 60_000);
+    setTime(fmt.format(new Date()));
+    const id = setInterval(() => setTime(fmt.format(new Date())), 60_000);
     return () => clearInterval(id);
   }, []);
 
@@ -164,7 +164,7 @@ export function Header() {
         <div className="hero-info-divider" />
         <div className="hero-info-grid">
           <InfoRow icon={<MapPin size={13} />} text="New Delhi, India" />
-          <InfoRow icon={<Clock size={13} />} text={<><span className="info-time">{istTime}</span> IST (UTC+5:30)</>} />
+          <InfoRow icon={<Clock size={13} />} text={<><span className="info-time" suppressHydrationWarning>{istTime ?? "--:--"}</span> IST (UTC+5:30)</>} />
         </div>
         <div className="hero-info-grid">
           <InfoRow icon={<Mail size={13} />} text={<a href="mailto:work.abhijitam@gmail.com" className="info-link">work.abhijitam@gmail.com</a>} />
