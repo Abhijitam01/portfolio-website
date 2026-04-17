@@ -47,6 +47,26 @@ export const projects: Project[] = [
     }
   },
   {
+    id: "betteruptime",
+    title: "BetterUptime",
+    status: "Live",
+    statusClass: "badge-live",
+    image: "/projects/betteruptime.png",
+    description: "A self-hosted uptime monitoring platform. Add URLs, get alerted when they go down, track response times, manage incidents, and share public status pages.",
+    fullDescription: "BetterUptime is a full-stack alternative to expensive SaaS uptime monitors — self-hosted, fully owned, and built for teams who want real control over their monitoring stack. A Pusher-powered scheduler ticks every 30 seconds, enqueuing monitored URLs into a Redis stream. A dedicated worker reads the stream, pings each URL, records status and response time to PostgreSQL, and automatically opens or closes incidents on state transitions. When something goes down, alerts fire via Resend email or generic HTTP webhooks with Slack-compatible payloads. The Next.js dashboard handles everything: adding monitors, viewing response time history, managing incidents, and generating shareable public status pages. Built as a Turborepo monorepo running on Bun for fast startup and lean scripts.",
+    techStack: ["TypeScript", "Next.js 15", "Express", "Bun", "Turborepo", "PostgreSQL", "Prisma", "Redis Streams", "Zod", "JWT", "Resend", "Tailwind CSS"],
+    links: [
+      { url: "https://betteruptime.abhijitamdubey.site", text: "Visit Site", primary: true },
+      { url: "https://github.com/Abhijitam01/betterUptime", text: "GitHub", primary: false }
+    ],
+    caseStudy: {
+      why: "Every uptime monitoring tool worth using costs money. The free tiers are too limited and the paid tiers are priced for enterprise. I wanted to build a genuinely complete alternative — one you could self-host, own entirely, and configure exactly how you want without a monthly bill.",
+      useCase: "Developers and small teams monitoring their own APIs, web apps, and services. You get the full picture: live status, response time history, automatic incident tracking, and a public status page you can share with users — without handing your uptime data to a third-party SaaS.",
+      learned: "Reliability in a monitoring system is recursive — the tool that watches your uptime has to be more reliable than the things it watches. I learned how much architectural discipline goes into building a worker pipeline that handles flaky networks, slow responses, and partial failures gracefully without producing false positives.",
+      stuck: "Incident state management was the subtlest problem. Deciding when a site is 'down' versus temporarily slow, when to open an incident, and when to confidently close it required building hysteresis into the state machine — a single failed ping shouldn't page anyone, but three consecutive failures definitely should. Getting that threshold logic right without making it noisy took significant iteration."
+    }
+  },
+  {
     id: "eyeswitch",
     title: "EyeSwitch",
     status: "Live",
@@ -195,19 +215,19 @@ export const projects: Project[] = [
     status: "Building",
     statusClass: "badge-building",
     image: "/projects/loadzen.png",
-    description: "Self-hosted load testing — enter a URL, set concurrent users and duration, get real-time metrics and AI-powered diagnosis.",
-    fullDescription: "LoadZen is a self-hosted load testing tool designed for developers who want real answers about their system's limits. Enter a URL, configure concurrent users and test duration, and watch real-time metrics roll in as k6 runs load against your endpoint. When the test finishes, an AI-powered diagnosis interprets the results — surfacing bottlenecks, error patterns, and actionable recommendations. The stack is a pnpm monorepo: Next.js frontend, Fastify API, BullMQ + Redis worker queue, k6 spawned as a subprocess for the actual load generation, and PostgreSQL + Drizzle ORM for persistence. TanStack Query handles all server state on the frontend.",
-    techStack: ["TypeScript", "Next.js", "Fastify", "BullMQ", "Redis", "PostgreSQL", "k6"],
+    description: "Self-hosted load testing with real-time metrics and AI-powered diagnosis. Enter a URL, set your load parameters, and get actionable insights — not just raw numbers.",
+    fullDescription: "LoadZen is a self-hosted load testing platform built for developers who want production-quality performance insights without enterprise tooling overhead. Enter a target URL, configure concurrent users and test duration, and watch live metrics stream in as k6 runs the actual load generation as a managed subprocess. When the test completes, an AI diagnosis layer interprets the results — surfacing bottlenecks, error rate patterns, and specific recommendations rather than leaving raw p95 latency numbers for you to interpret. The architecture is a pnpm monorepo: Next.js frontend with TanStack Query for server state, a Fastify API, BullMQ and Redis for the job queue, k6 spawned as a subprocess, and PostgreSQL with Drizzle ORM for test history and result persistence.",
+    techStack: ["TypeScript", "Next.js", "Fastify", "BullMQ", "Redis", "PostgreSQL", "Drizzle ORM", "k6"],
     links: [
       { url: "#", text: "Coming Soon", primary: true },
       { url: "https://github.com/Abhijitam01", text: "GitHub", primary: false }
     ],
     launchTweetUrl: "#",
     caseStudy: {
-      why: "Load testing tools are either too complex (enterprise-grade overkill) or too limited (basic curl loops). I wanted something you could self-host in minutes that gives you production-quality insights without the setup tax.",
-      useCase: "Developers and small teams testing API endpoints before a launch, after a deploy, or when investigating a performance regression. The AI diagnosis layer means you get actionable output, not just raw numbers to interpret yourself.",
-      learned: "Orchestrating a subprocess-based test runner (k6) with a job queue and real-time metrics streaming required careful thinking about failure modes — what happens when k6 crashes mid-test, or when Redis goes down during a run.",
-      stuck: "Cloudflare Workers and D1 are a natural deployment target, but k6 needs child_process.spawn — a Node.js primitive that Workers doesn't support. This forced a traditional server deployment model and shaped the entire infrastructure design."
+      why: "Every load testing tool I tried was either too heavy — enterprise software requiring days of setup — or too light — a shell script that hits a URL and returns average latency. I wanted something that you could self-host in minutes and that gives you real, production-quality signal about what breaks under load and why.",
+      useCase: "Developers and small engineering teams testing endpoints before a launch, after a significant deploy, or when diagnosing a performance regression in production. The AI diagnosis layer is the differentiator — instead of staring at a p95 latency chart, you get a written interpretation of what the results mean and what to investigate next.",
+      learned: "Subprocess orchestration has failure modes you don't think about until they happen in production. What happens when k6 crashes mid-test? When Redis goes down during a run? When the job queue restarts while a test is active? Building resilient error handling around a child process required thinking carefully about partial failure states and what the user should see in each scenario.",
+      stuck: "Cloudflare Workers seemed like the ideal deployment target — cheap, globally distributed, easy to manage. But k6 requires child_process.spawn, a Node.js primitive that doesn't exist in the Workers runtime. That constraint ruled out the serverless deployment model entirely and forced a traditional server architecture, which shaped every infrastructure decision that followed."
     }
   }
 ];
