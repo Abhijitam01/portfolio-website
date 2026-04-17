@@ -210,6 +210,26 @@ export const projects: Project[] = [
     }
   },
   {
+    id: "antimetal",
+    title: "Antimetal",
+    status: "Live",
+    statusClass: "badge-live",
+    image: "/projects/antimetal.png",
+    description: "An AI-powered interactive system design learning platform. Build real architectures on a visual canvas, get instant AI feedback, and learn by doing — not by reading.",
+    fullDescription: "Antimetal is a hands-on system design education platform built around a React Flow canvas where learners actually draw and wire up architectures — databases, caches, load balancers, queues — rather than passively reading about them. After each design, an Anthropic Claude-powered analysis layer reviews the architecture and provides targeted feedback: what's missing, what would break under load, and what to improve. Authentication is handled via NextAuth v5, payments via DodoPayments, and the full data layer runs on PostgreSQL with Prisma. Built as a Turborepo monorepo with Framer Motion powering transitions throughout the UI. The core insight: system design interviews fail candidates who have read everything but built nothing — Antimetal closes that gap by making the canvas the teacher.",
+    techStack: ["Next.js 15", "React", "Tailwind CSS", "Framer Motion", "React Flow", "Anthropic Claude SDK", "NextAuth v5", "Prisma", "PostgreSQL", "DodoPayments", "Zustand", "Turborepo"],
+    links: [
+      { url: "https://antimetal.in", text: "Visit Site", primary: true },
+      { url: "https://github.com/Abhijitam01", text: "GitHub", primary: false }
+    ],
+    caseStudy: {
+      why: "System design is one of the hardest interview topics to prepare for because every resource teaches it the same way: diagrams in a PDF, theory without feedback. I wanted to build a tool where the act of designing is the lesson — draw an architecture, get told what's wrong, iterate. That loop doesn't exist anywhere else.",
+      useCase: "Engineers preparing for system design interviews, developers learning distributed systems fundamentals, and teams onboarding new hires to architectural thinking. The AI feedback loop lets learners get immediate, specific critiques on their own designs rather than comparing against a static 'correct' answer.",
+      learned: "AI feedback has to be grounded in what the user actually built, not what a generic prompt produces. Serializing the React Flow canvas state into a structured representation the model can reason about — nodes, edges, component types, data flows — was the most important engineering decision in the project. The quality of the feedback is entirely a function of the quality of that representation.",
+      stuck: "React Flow's state model and Zustand's store needed to stay perfectly in sync — canvas moves, edge connections, and node configurations all had to reflect in the store immediately and accurately, since the store is what gets serialized for AI analysis. Any drift between what the canvas shows and what the store holds produces garbage feedback, which breaks user trust instantly."
+    }
+  },
+  {
     id: "loadzen",
     title: "LoadZen",
     status: "Building",
