@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Briefcase, Code, MapPin, Clock, Mail, Globe, ArrowUpRight, Eye } from "lucide-react";
 import { RoleFlip } from "@/components/role-flip";
 import { useVisitors } from "@/contexts/visitor-context";
