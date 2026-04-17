@@ -32,18 +32,18 @@ export const projects: Project[] = [
     status: "Live",
     statusClass: "badge-live",
     image: "/projects/chess.png",
-    description: "A real-time chess platform focused on performance, competitive play, and deep analysis.",
-    fullDescription: "This chess platform is designed for players who want competitive matchmaking, fast move latency, and serious analysis tools. Built with WebSockets for real-time synchronization, it supports ranked multiplayer, tactical puzzles, and advanced engine-backed analysis. The goal is to combine performance-grade infrastructure with a clean, distraction-free playing experience.",
+    description: "Multiplayer chess with sub-100ms move sync, ranked matchmaking, and engine-backed analysis. Built for players who take the game seriously.",
+    fullDescription: "A full-stack chess platform engineered around low-latency real-time play. WebSockets handle live move synchronization between players, Redis manages active game state and matchmaking queues, and chess.js enforces strict server-side move validation so the game state is always authoritative. The UI is intentionally minimal — no distractions, just the board, the clock, and the analysis panel. Deployed via Docker with a Turborepo monorepo structure to keep the frontend, server, and shared logic cleanly separated.",
     techStack: ["TypeScript", "Next.js", "WebSockets", "Redis", "chess.js", "Tailwind CSS", "Turborepo", "Docker"],
     links: [
       { url: "https://chess.abhijitamdubey.site", text: "Visit Site", primary: true },
       { url: "https://github.com/Abhijitam01/chess", text: "GitHub", primary: false }
     ],
     caseStudy: {
-      why: "I wanted to build a real-time system where performance truly matters. Chess is a perfect environment to test matchmaking logic, latency optimization, state synchronization, and analytical tooling in one cohesive product.",
-      useCase: "Players can join ranked queues, play low-latency multiplayer games, review mistakes with engine insights, and train with tactical puzzles. The focus is on serious players who value clarity and speed over gamified distractions.",
-      learned: "Real-time systems expose edge cases quickly. I learned how critical server authority, strict move validation, and deterministic state modeling are in multiplayer environments.",
-      stuck: "Maintaining synchronized game state across unstable connections has been the biggest challenge. Preventing desync while keeping moves responsive required careful event ordering, reconciliation strategies, and robust reconnect logic."
+      why: "Chess is a perfect stress test for real-time systems — every move has to arrive in order, at low latency, with no room for ambiguity. I wanted to build something where performance wasn't an afterthought but the entire design constraint.",
+      useCase: "Players join ranked queues, play live multiplayer games with move timers, and review completed games with engine-backed annotations. The platform targets serious players who want speed and clarity over gamified noise.",
+      learned: "Server authority is everything in multiplayer. Trusting the client for move validation feels fine until someone sends an illegal move. Centralizing game logic on the server and treating the client as a pure view eliminated an entire class of bugs.",
+      stuck: "Keeping game state synchronized across unreliable connections was the hardest problem. A player dropping mid-game, then reconnecting, needs to see the exact board state without the server replaying the entire event log. Getting the reconnect reconciliation right took several redesigns."
     }
   },
   {
@@ -52,8 +52,8 @@ export const projects: Project[] = [
     status: "Live",
     statusClass: "badge-live",
     image: "/projects/eyeswitch.png",
-    description: "An interaction-first system exploring alternative human-computer interfaces — frictionless navigation without traditional input patterns.",
-    fullDescription: "EyeSwitch is an exploration of what human-computer interaction looks like when you strip away conventional input assumptions. Built around real-time responsiveness, it reimagines navigation as a seamless, low-friction experience. The architecture prioritizes experience over features — every design decision is measured by how invisible the interface feels during use.",
+    description: "Control your computer with your eyes. EyeSwitch uses real-time gaze tracking to replace mouse navigation with hands-free, frictionless interaction.",
+    fullDescription: "EyeSwitch rethinks the fundamental assumption behind human-computer interaction — that you need a keyboard or mouse to navigate software. Using TensorFlow.js for real-time facial landmark detection and the Canvas API for rendering feedback, it tracks gaze and translates it into navigation commands with minimal perceptible latency. The system is intentionally designed to disappear: when it works well, there's no interface — just intent and response. A lightweight CLI layer handles calibration and configuration without requiring a GUI wrapper.",
     techStack: ["TypeScript", "TensorFlow.js", "Node.js", "Canvas API", "CLI"],
     links: [
       { url: "https://eyeswitch.abhijitamdubey.site", text: "Visit Site", primary: true },
@@ -61,10 +61,10 @@ export const projects: Project[] = [
     ],
     launchTweetUrl: "https://x.com/abhijitam_tw",
     caseStudy: {
-      why: "I wanted to challenge the assumption that keyboards and mice are the only natural way to interact with software. EyeSwitch started as a question: what if the interface stepped out of the way entirely?",
-      useCase: "Useful for accessibility research, HCI experimentation, and any context where traditional input is limiting or unavailable. It demonstrates that frictionless interaction is achievable without sacrificing system responsiveness.",
-      learned: "I learned that removing friction is harder than adding features. Every millisecond of latency and every unnecessary affordance breaks the illusion of a transparent interface.",
-      stuck: "Calibrating real-time input to feel natural — not jittery or laggy — required deep iteration on signal smoothing and response curves. Getting the interaction to feel effortless took far more tuning than expected."
+      why: "I kept wondering what interaction looks like when you remove the physical layer entirely. Keyboards and mice are tools we've normalized — but they're not inevitable. EyeSwitch started as a genuine question: what if the only input required was attention?",
+      useCase: "Valuable for accessibility research, HCI exploration, and environments where traditional input devices are impractical or unavailable. It demonstrates that gaze-based control can feel natural and responsive — not gimmicky — when the signal processing is done right.",
+      learned: "Removing friction is architecturally harder than adding features. Every added affordance — a hover state, a transition, a confirmation prompt — is friction in disguise. The entire design had to be measured by a single question: does this make the interface more invisible?",
+      stuck: "Raw gaze data is noisy. The difference between intentional focus and casual glance is milliseconds of signal pattern, not absolute position. Building a smoothing layer that felt responsive without feeling jittery required extensive tuning of prediction windows and confidence thresholds."
     }
   },
   {
@@ -73,18 +73,18 @@ export const projects: Project[] = [
     status: "Live",
     statusClass: "badge-live",
     image: "/projects/sketchy.png",
-    description: "An Excalidraw-like canvas drawing tool with real-time rendering and interactive shape handling.",
-    fullDescription: "Sketchy is a canvas-based drawing system built around performance and intuitive visual interaction. It supports real-time shape rendering with smooth, responsive input handling — giving it the feel of drawing on actual paper. The focus throughout was on keeping the rendering loop fast and the interaction model simple enough that the tool stays out of the way.",
+    description: "A hand-drawn-feel canvas for wireframes, diagrams, and quick visual thinking. Fast, distraction-free, and genuinely satisfying to draw with.",
+    fullDescription: "Sketchy is a browser-based drawing tool that combines the immediacy of a whiteboard with a deliberate hand-drawn aesthetic powered by Rough.js. The Canvas API rendering loop is tuned for smooth, low-latency input — shapes appear as you draw them, not after. WebSockets enable real-time multiplayer collaboration, with board state persisted to PostgreSQL so sessions survive page refreshes. The interaction model is intentionally minimal: a small toolbar, a clean canvas, and shapes that feel like they were drawn by hand rather than generated by software.",
     techStack: ["TypeScript", "React", "Next.js", "WebSockets", "PostgreSQL", "Rough.js", "Tailwind CSS", "Canvas API"],
     links: [
       { url: "https://sketchy.abhijitamdubey.site", text: "Visit Site", primary: true },
       { url: "https://github.com/Abhijitam01/sketchy", text: "GitHub", primary: false }
     ],
     caseStudy: {
-      why: "I wanted to understand how tools like Excalidraw achieve their performance and feel. Building a drawing canvas from scratch forced me to reason about rendering pipelines, input latency, and visual feedback in ways no tutorial could.",
-      useCase: "Quick wireframes, diagrams, and visual thinking. The lightweight approach makes it fast to open and start sketching without the overhead of feature-heavy tools.",
-      learned: "Canvas rendering performance comes down to minimizing redraws and batching operations. I learned how small decisions in the event loop — debouncing, requestAnimationFrame placement, dirty region tracking — compound into a noticeably smoother or jankier experience.",
-      stuck: "Hit testing for shapes (knowing which shape the cursor is over) was harder than expected. Getting accurate, performant detection across overlapping shapes required implementing a proper scene graph rather than naive iteration."
+      why: "I'd used Excalidraw enough to be curious about how it actually works under the hood. Building a canvas drawing tool from scratch seemed like the fastest way to understand rendering performance, input latency, and scene management at a level you can't get from reading code.",
+      useCase: "Fast wireframes, architecture diagrams, and visual brainstorming. The hand-drawn aesthetic keeps things loose and collaborative — it signals that ideas are still in flux, which removes the pressure that comes with polished diagrams.",
+      learned: "Canvas performance is all about minimizing unnecessary redraws. I learned to track dirty regions, batch paint calls, and use requestAnimationFrame correctly — and how each of those decisions compounds. A 5ms unnecessary repaint feels fine until you have 50 shapes and a 60Hz loop.",
+      stuck: "Hit testing — determining which shape the cursor is over — sounds trivial until shapes overlap, have transparent fills, or sit on top of each other in non-obvious z-order. Naive bounding-box iteration breaks down fast. Building a proper scene graph with per-shape hit detection was the most technically demanding part of the project."
     }
   },
   {
@@ -93,18 +93,18 @@ export const projects: Project[] = [
     status: "Live",
     statusClass: "badge-live",
     image: "/projects/solana-atlas.png",
-    description: "An interactive Solana playground that makes blockchain mechanics visible, testable, and understandable.",
-    fullDescription: "Solana Atlas bridges the gap between low-level blockchain concepts and real developer workflows. Instead of reading fragmented documentation, developers can experiment with accounts, instructions, and transactions in a live environment. It exposes internal state in a way that makes Solana programs easier to reason about — whether you're learning fundamentals or validating production ideas.",
-    techStack: ["TypeScript", "Solana", "Anchor", "Web3.js", "React", "developer-tools"],
+    description: "An interactive Solana developer playground. Inspect accounts, trace transactions, and experiment with on-chain program logic in a live visual environment.",
+    fullDescription: "Solana Atlas is a developer tool that makes the internals of Solana programs visible and explorable. Rather than piecing together behavior from fragmented RPC responses and documentation, developers can inspect account data layouts, trace instruction execution, and simulate transaction flows in a single unified interface built on Web3.js and Anchor. The tool is designed around observability — surfacing the state that matters, in the order it matters, so Solana's execution model becomes intuitive rather than opaque. Useful for developers learning Solana fundamentals and for teams auditing or debugging deployed programs.",
+    techStack: ["TypeScript", "Solana", "Anchor", "Web3.js", "React", "Developer Tools"],
     links: [
       { url: "https://solana-atlas.xyz", text: "Visit Site", primary: true },
       { url: "https://github.com/Abhijitam01", text: "GitHub", primary: false }
     ],
     caseStudy: {
-      why: "Most blockchain documentation explains pieces in isolation — accounts here, transactions there. I built Solana Atlas to connect those pieces in a single interactive flow so developers can understand how everything works together.",
-      useCase: "Developers can inspect account layouts, simulate instruction flows, analyze transaction behavior, and debug program logic before deploying. It's useful for both beginners learning Solana and teams validating architectural decisions.",
-      learned: "I learned to design for observability. When internal system state is visible and structured clearly, complex blockchain interactions become approachable and predictable.",
-      stuck: "Coordinating wallet interactions, RPC calls, and program execution while maintaining a smooth UX was the hardest part. Handling inconsistent network states without overwhelming users required defensive design and strong error abstraction."
+      why: "Solana's programming model is genuinely different — accounts are separated from programs, instructions compose unexpectedly, and the runtime is strict about compute. Most documentation explains each concept in isolation. I built Solana Atlas to show how they fit together in a single interactive flow.",
+      useCase: "Developers can inspect the layout of any account, trace how an instruction mutates state, analyze transaction composition, and test program behavior against devnet before deploying to mainnet. It's equally useful for beginners building intuition and for teams debugging a misbehaving program.",
+      learned: "Designing for observability changes how you think about data. It's not enough to surface the right values — you have to surface them in the right context, in the right order, with enough surrounding state that the cause-and-effect is obvious. That discipline made me a better systems thinker.",
+      stuck: "Solana RPC endpoints are inconsistent about what they return and when. A transaction that confirms on-chain may still return stale data from the same RPC call seconds later. Building a reliable UI on top of eventually-consistent network state required defensive data fetching and careful handling of loading states that don't lie to the user."
     }
   },
   {
@@ -113,8 +113,8 @@ export const projects: Project[] = [
     status: "Building",
     statusClass: "badge-building",
     image: "/projects/vizzy.png",
-    description: "A drag-and-drop canvas that turns Express.js from intimidating code into a visual flow — and generates a working server.js as you build.",
-    fullDescription: "Vizzy is a visual learning tool for Express.js. Every endpoint is a linear chain — Route, Middleware, Handler, Response — and Vizzy makes that chain literal. You drag four block types onto a canvas, connect them with wires, and a live code panel generates real, annotated server.js code as you build. The generated code includes comments that explain req, res, what each block does, and how to run it. Hit Export and the browser downloads a server.js and package.json. Open a terminal, run npm install && node server.js, and you have a working server on port 3000. The goal: a junior dev who has never written Express ships a working GET endpoint in under 5 minutes. There's also a Run button that simulates a request traveling through your route — blocks light up in sequence so you can see the flow before exporting.",
+    description: "Drag Route, Middleware, Handler, and Response blocks onto a canvas — Vizzy wires them together and generates a real, annotated Express server as you build.",
+    fullDescription: "Vizzy is a visual learning tool that makes the Express.js request lifecycle tangible. Every endpoint is a linear chain of four block types — Route, Middleware, Handler, Response — and Vizzy makes that chain literal on a ReactFlow canvas. As you connect blocks with wires, a live code panel generates annotated server.js code in real time, with comments explaining req, res, and what each block does. Hit Export and you get a ready-to-run server.js and package.json. There's also a Run mode that animates a request traveling through your route — blocks light up in sequence so you can see the flow before ever writing a line of code. The goal: a developer who has never touched Express ships a working GET endpoint in under five minutes.",
     techStack: ["TypeScript", "React", "ReactFlow", "Zustand", "Vite"],
     links: [
       { url: "#", text: "Coming Soon", primary: true },
@@ -122,10 +122,10 @@ export const projects: Project[] = [
     ],
     launchTweetUrl: "#",
     caseStudy: {
-      why: "Most Express tutorials throw a wall of code at beginners with no visual map of what's happening. I built Vizzy to make the mental model literal — if you can see the chain, you can understand it.",
-      useCase: "Junior developers and students learning backend development for the first time. Vizzy lets them build a working Express server without memorizing syntax first — they learn by assembling, not by copying.",
-      learned: "I learned that the code output matters as much as the canvas interaction. Beginners don't just need working code — they need code they can read. Writing annotated generation logic was the core design challenge.",
-      stuck: "Keeping the canvas state, the wire connections, and the code panel in perfect sync required careful Zustand store design. Any inconsistency between what's on canvas and what's in the output breaks the learning experience entirely."
+      why: "Express.js is simple once you understand the mental model, but most tutorials skip to the code before establishing that model. I built Vizzy to make the chain literal — route hits middleware, middleware calls next, handler builds the response. If you can see it, you can reason about it.",
+      useCase: "Junior developers and bootcamp students learning backend fundamentals for the first time. Vizzy lets them build intuition by assembling, not copying — and the generated code gives them a real artifact to study, modify, and run.",
+      learned: "The code output is the product, not the canvas. Beginners don't just need working code — they need code they can actually read and modify. Writing the annotated code generation logic turned out to be the hardest and most important design decision in the entire project.",
+      stuck: "Keeping three pieces of state in sync — the canvas node positions, the wire connections, and the generated code output — without any of them drifting out of sync was harder than expected. Any inconsistency between what the canvas shows and what the code panel renders completely breaks the learning experience. Getting the Zustand store design right took multiple refactors."
     }
   },
   {
@@ -134,8 +134,8 @@ export const projects: Project[] = [
     status: "Building",
     statusClass: "badge-building",
     image: "/projects/photobooth.png",
-    description: "Walk up, take 4 shots, get a beautiful film strip in seconds. No signup, no install — just a URL.",
-    fullDescription: "Photobooth is as simple as it sounds: open a URL, take four shots with your camera, and walk away with a beautiful film strip. No account required, no app to install, no friction. The entire experience is designed around the joy of the moment — you show up, click, and share. The output is a classic photo strip layout, instantly shareable with one tap.",
+    description: "Open the URL, take four shots, download a retro film strip. No account, no install, no friction — just your camera and the moment.",
+    fullDescription: "Photobooth strips the photo booth experience down to its essence: a URL, a camera, and a film strip. Open it on any device, take four shots with your camera, and the app composites them into a classic vertical strip layout using html2canvas — ready to download and share in seconds. No signup, no cloud storage, no app required. It works as a PWA, so it installs and runs offline when needed. The entire product is defined by a single constraint: if any step requires an account or a form, the experience is already broken.",
     techStack: ["TypeScript", "React", "Vite", "Tailwind CSS", "PWA", "html2canvas"],
     links: [
       { url: "#", text: "Coming Soon", primary: true },
@@ -143,10 +143,10 @@ export const projects: Project[] = [
     ],
     launchTweetUrl: "#",
     caseStudy: {
-      why: "I wanted to build something joyful and immediate. Most photo booth apps require accounts, downloads, or subscriptions. The premise is simple: the whole experience should fit in a single URL.",
-      useCase: "Events, parties, friend groups — any moment where you want a quick, shareable memory. The zero-friction constraint is the core product decision: if there's a signup screen, the magic is gone.",
-      learned: "Simplicity is a design discipline. Removing every non-essential step means each remaining step has to be perfect. Camera access, capture timing, strip layout, and share UX each needed to be invisible.",
-      stuck: "Cross-device camera access is inconsistently implemented across browsers. Getting reliable, high-quality capture on both desktop and mobile without specialized SDKs required careful constraint negotiation with the MediaDevices API."
+      why: "I kept noticing that photo booth apps all have the same problem: they ask for something before they give you anything. An email, an account, a subscription. I wanted to build the opposite — a tool that delivers the whole value in under 30 seconds with nothing asked in return.",
+      useCase: "Parties, events, friend groups, team meetups — any moment where you want a shareable memory with zero setup. The zero-friction constraint is the entire product vision: if someone has to create an account, the spontaneity that makes it fun is already gone.",
+      learned: "Simplicity is an active discipline, not a default state. Removing every non-essential step means each remaining step has to be perfect — camera access, capture timing, strip layout, share interaction. When there are no features to hide behind, the experience of each individual moment becomes the product.",
+      stuck: "Camera access via the MediaDevices API behaves inconsistently across browsers and devices. Safari on iOS, Chrome on Android, and desktop browsers all handle constraints, permissions, and resolution negotiation differently. Getting reliable, high-quality capture everywhere without a native SDK required careful testing and a lot of defensive constraint handling."
     }
   },
   {
@@ -155,18 +155,18 @@ export const projects: Project[] = [
     status: "Live",
     statusClass: "badge-live",
     image: "/projects/snippet-vault.png",
-    description: "Your personal code memory system. Save, tag, and instantly retrieve battle-tested snippets without digging through chats or old repos.",
-    fullDescription: "Snippet Vault is a high-performance snippet management system built for developers who value speed and mental clarity. Instead of losing reusable code across notes, chats, and repositories, Snippet Vault centralizes your proven patterns in a searchable, structured vault. It prioritizes retrieval speed, relevance ranking, and distraction-free UI — turning repeated coding tasks into instant actions.",
+    description: "A searchable vault for the code you actually reuse. Tag by language and intent, find by meaning — not by remembering the exact file it was buried in.",
+    fullDescription: "Snippet Vault is a personal code library built around fast, intent-based retrieval. Snippets are stored with CodeMirror for syntax-highlighted editing, tagged by language and use case, and indexed with SQLite full-text search so you can find them by what they do — not what they're named. Prisma handles the data layer cleanly, and Zustand keeps the UI state lightweight and predictable. The design philosophy is aggressively minimal: no folders, no nested hierarchies, no bloat — just a search bar and a vault of code that works.",
     techStack: ["TypeScript", "Next.js", "Prisma", "SQLite", "CodeMirror", "Tailwind CSS", "Zustand"],
     links: [
       { url: "https://snippetvault.abhijitamdubey.site", text: "Visit Site", primary: true },
       { url: "https://github.com/Abhijitam01", text: "GitHub", primary: false }
     ],
     caseStudy: {
-      why: "I built Snippet Vault after realizing that most developer time is lost not writing code — but searching for code. My snippets were scattered across Notion, GitHub, and chats. I wanted a structured, searchable memory system for proven solutions.",
-      useCase: "Developers can store reusable logic, tag snippets by language or framework, and retrieve them by intent rather than exact keywords. It's especially useful during feature sprints, debugging sessions, and onboarding new team members to shared patterns.",
-      learned: "I learned that search relevance builds trust. A tool like this lives or dies by how quickly it returns the right result. Indexing strategy, tagging structure, and preview clarity mattered more than adding extra features.",
-      stuck: "Handling formatting edge cases across languages was difficult. Preserving indentation, escaping characters safely, and ensuring consistent copy behavior across browsers required multiple iterations and careful testing."
+      why: "I kept rewriting the same utility functions, regex patterns, and config blocks across projects because my snippets were scattered across Notion, old repos, and Slack messages. I wanted a single, fast place to store proven code and retrieve it in seconds — not minutes.",
+      useCase: "Developers store reusable logic, boilerplate patterns, and language-specific utilities, then retrieve them by intent — 'debounce hook', 'postgres upsert', 'zod email schema' — rather than by filename or exact syntax. Especially useful during fast-moving sprints and for onboarding teammates to shared patterns.",
+      learned: "Search relevance is the product. A snippet manager that returns the wrong result, or returns the right result third, is worse than no tool at all. I spent more time on indexing strategy, tagging structure, and result ranking than on any other part of the system — and that's exactly the right priority.",
+      stuck: "Preserving code formatting across languages was genuinely difficult. Indentation, special characters, and copy behavior interact differently depending on the language, the browser, and whether the code was pasted in or typed. Getting reliable, round-trip faithful storage and copy-to-clipboard behavior required far more edge case handling than expected."
     }
   },
   {
@@ -175,18 +175,18 @@ export const projects: Project[] = [
     status: "Live",
     statusClass: "badge-live",
     image: "/projects/errika.png",
-    description: "A zero-friction CLI that scaffolds production-ready Turborepo + Next.js workspaces in seconds.",
-    fullDescription: "Errika is an opinionated CLI tool built to eliminate repetitive project setup. With a single command, it scaffolds a fully configured Turborepo workspace powered by Next.js, Tailwind, and Prisma. It automates shared UI layers, API foundations, and sensible defaults — allowing developers to skip boilerplate and start building immediately.",
+    description: "One command to scaffold a production-ready Turborepo + Next.js monorepo — shared UI, Tailwind, Prisma, and sensible defaults already wired up.",
+    fullDescription: "Errika is an opinionated CLI scaffolding tool that eliminates the repetitive work of setting up a Turborepo monorepo from scratch. A single command generates a fully configured workspace: Next.js app, shared component library, Tailwind setup, Prisma with a base schema, TypeScript project references, and ESLint config — all pre-wired and building from the start. Templates are rendered via Handlebars, and Commander.js handles the interactive prompt flow. The tool is designed to be deterministic: run it twice with the same inputs, get the same output, no surprises.",
     techStack: ["TypeScript", "Node.js", "CLI", "Commander.js", "Handlebars"],
     links: [
-      { url: "https://github.com/Abhijitam01", text: "Visit Site", primary: true },
+      { url: "https://github.com/Abhijitam01", text: "GitHub", primary: true },
       { url: "https://github.com/Abhijitam01", text: "GitHub", primary: false }
     ],
     caseStudy: {
-      why: "I was repeatedly bootstrapping monorepo setups for side projects and client work. The process was predictable but time-consuming. Erica was built to compress that setup time into a single reliable command.",
-      useCase: "Teams can instantly spin up structured Turborepo + Next.js environments with shared configs and production-ready defaults. It's ideal for hackathons, internal tooling, MVPs, and client projects.",
-      learned: "I learned that great CLI tools prioritize predictability over complexity. Clear prompts, deterministic output, and safe re-runs matter more than offering too many configuration options.",
-      stuck: "Managing template evolution without breaking previously generated projects was challenging. Balancing upgrade paths with user customization forced me to think carefully about versioning and maintainability."
+      why: "I was setting up the same Turborepo structure for every new project — same folder layout, same shared packages, same config files copied and adjusted. The process was predictable enough to automate, so I did. Errika compresses two hours of setup into 30 seconds.",
+      useCase: "Developers and teams spinning up a new Next.js monorepo for a side project, internal tool, MVP, or client engagement. It's particularly useful at hackathons where the first hour is usually wasted on boilerplate that doesn't differentiate the product.",
+      learned: "Great CLI tools prioritize predictability above everything else. Users should know exactly what they're going to get before they run the command — and get exactly that every time. Clear prompts, deterministic output, and safe re-runs matter more than offering configuration flexibility that most users never need.",
+      stuck: "Template evolution without breaking existing generated projects is a genuinely hard problem. When the scaffold changes, what happens to projects already generated from an older version? Handling upgrade paths, respecting user customizations, and versioning templates forced me to think about the tool's maintenance story as seriously as its initial design."
     }
   },
   {
