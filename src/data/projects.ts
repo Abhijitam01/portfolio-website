@@ -28,8 +28,8 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    id: "chess",
-    title: "Chess Platform",
+    id: "chessable",
+    title: "Chessable",
     status: "Live",
     statusClass: "badge-live",
     image: "/projects/chess.png",
@@ -37,7 +37,7 @@ export const projects: Project[] = [
     fullDescription: "A full-stack chess platform engineered around low-latency real-time play. WebSockets handle live move synchronization between players, Redis manages active game state and matchmaking queues, and chess.js enforces strict server-side move validation so the game state is always authoritative. The UI is intentionally minimal — no distractions, just the board, the clock, and the analysis panel. Deployed via Docker with a Turborepo monorepo structure to keep the frontend, server, and shared logic cleanly separated.",
     techStack: ["TypeScript", "Next.js", "WebSockets", "Redis", "chess.js", "Tailwind CSS", "Turborepo", "Docker"],
     links: [
-      { url: "https://chess.abhijitamdubey.site", text: "Visit Site", primary: true },
+      { url: "https://chessable.space", text: "Visit Site", primary: true },
       { url: "https://github.com/Abhijitam01/chess", text: "GitHub", primary: false }
     ],
     caseStudy: {
