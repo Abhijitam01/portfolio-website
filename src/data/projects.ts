@@ -49,16 +49,16 @@ export const projects: Project[] = [
     category: "systems",
   },
   {
-    id: "betteruptime",
-    title: "BetterUptime",
+    id: "pingard",
+    title: "Pingard",
     status: "Live",
     statusClass: "badge-live",
     image: "/projects/betteruptime.png",
     description: "A self-hosted uptime monitoring platform. Add URLs, get alerted when they go down, track response times, manage incidents, and share public status pages.",
-    fullDescription: "BetterUptime is a full-stack alternative to expensive SaaS uptime monitors — self-hosted, fully owned, and built for teams who want real control over their monitoring stack. A Pusher-powered scheduler ticks every 30 seconds, enqueuing monitored URLs into a Redis stream. A dedicated worker reads the stream, pings each URL, records status and response time to PostgreSQL, and automatically opens or closes incidents on state transitions. When something goes down, alerts fire via Resend email or generic HTTP webhooks with Slack-compatible payloads. The Next.js dashboard handles everything: adding monitors, viewing response time history, managing incidents, and generating shareable public status pages. Built as a Turborepo monorepo running on Bun for fast startup and lean scripts.",
+    fullDescription: "Pingard is a full-stack alternative to expensive SaaS uptime monitors — self-hosted, fully owned, and built for teams who want real control over their monitoring stack. A Pusher-powered scheduler ticks every 30 seconds, enqueuing monitored URLs into a Redis stream. A dedicated worker reads the stream, pings each URL, records status and response time to PostgreSQL, and automatically opens or closes incidents on state transitions. When something goes down, alerts fire via Resend email or generic HTTP webhooks with Slack-compatible payloads. The Next.js dashboard handles everything: adding monitors, viewing response time history, managing incidents, and generating shareable public status pages. Built as a Turborepo monorepo running on Bun for fast startup and lean scripts.",
     techStack: ["TypeScript", "Next.js 15", "Express", "Bun", "Turborepo", "PostgreSQL", "Prisma", "Redis Streams", "Zod", "JWT", "Resend", "Tailwind CSS"],
     links: [
-      { url: "https://betteruptime.abhijitamdubey.site", text: "Visit Site", primary: true },
+      { url: "https://pingGod.xyz", text: "Visit Site", primary: true },
       { url: "https://github.com/Abhijitam01/betterUptime", text: "GitHub", primary: false }
     ],
     caseStudy: {
