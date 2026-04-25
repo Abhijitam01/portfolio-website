@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { GitHubCalendar } from "react-github-calendar";
 import { useTheme } from "next-themes";
 
@@ -12,7 +12,10 @@ interface TooltipState {
 
 export function GitHubGraph() {
   const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
   const [tooltip, setTooltip] = useState<TooltipState | null>(null);
+
+  useEffect(() => setMounted(true), []);
 
   const currentYear = new Date().getFullYear();
   const colorScheme = resolvedTheme === "dark" ? "dark" : "light";
@@ -47,28 +50,30 @@ export function GitHubGraph() {
 
       <div className="github-calendar-wrap">
         <div className="github-calendar-scroll">
-          <GitHubCalendar
-            username="Abhijitam01"
-            year={currentYear}
-            theme={theme}
-            colorScheme={colorScheme}
-            fontSize={12}
-            blockSize={11}
-            blockMargin={4}
-            renderBlock={(block, activity) =>
-              React.cloneElement(block, {
-                onMouseEnter: (e: React.MouseEvent<SVGRectElement>) => {
-                  const rect = (e.currentTarget as SVGRectElement).getBoundingClientRect();
-                  setTooltip({
-                    text: tooltipText(activity),
-                    x: rect.left + rect.width / 2,
-                    y: rect.top - 8,
-                  });
-                },
-                onMouseLeave: () => setTooltip(null),
-              })
-            }
-          />
+          {mounted && (
+            <GitHubCalendar
+              username="Abhijitam01"
+              year={currentYear}
+              theme={theme}
+              colorScheme={colorScheme}
+              fontSize={12}
+              blockSize={11}
+              blockMargin={4}
+              renderBlock={(block, activity) =>
+                React.cloneElement(block, {
+                  onMouseEnter: (e: React.MouseEvent<SVGRectElement>) => {
+                    const rect = (e.currentTarget as SVGRectElement).getBoundingClientRect();
+                    setTooltip({
+                      text: tooltipText(activity),
+                      x: rect.left + rect.width / 2,
+                      y: rect.top - 8,
+                    });
+                  },
+                  onMouseLeave: () => setTooltip(null),
+                })
+              }
+            />
+          )}
         </div>
       </div>
 

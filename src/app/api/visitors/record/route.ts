@@ -1,10 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Redis } from "@upstash/redis";
 
-const redis = new Redis({
-  url: (process.env.UPSTASH_REDIS_REST_URL ?? process.env.KV_REST_API_URL)!,
-  token: (process.env.UPSTASH_REDIS_REST_TOKEN ?? process.env.KV_REST_API_TOKEN)!,
-});
+let _redis: Redis | null = null;
+
+function getRedis(): Redis | null {
+  if (_redis) return _redis;
+  const url = process.env.UPSTASH_REDIS_REST_URL ?? process.env.KV_REST_API_URL;
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN ?? process.env.KV_REST_API_TOKEN;
+  if (!url || !token) return null;
+  _redis = new Redis({ url, token });
+  return _redis;
+}
 
 const DB_KEY = "portfolio:visitors";
 const SEEN_KEY = "portfolio:seen_ips";
@@ -53,6 +59,8 @@ const EMPTY_DB: VisitorDB = {
 
 async function readDB(): Promise<VisitorDB> {
   try {
+    const redis = getRedis();
+    if (!redis) return EMPTY_DB;
     const data = await redis.get<VisitorDB>(DB_KEY);
     return data ?? EMPTY_DB;
   } catch {
@@ -62,6 +70,8 @@ async function readDB(): Promise<VisitorDB> {
 
 async function writeDB(db: VisitorDB): Promise<void> {
   try {
+    const redis = getRedis();
+    if (!redis) return;
     await redis.set(DB_KEY, db);
   } catch {
     // non-fatal — visitor data is best-effort
@@ -158,7 +168,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   }
 
   const seenKey = `${SEEN_KEY}:${ip}`;
-  const alreadySeen = await redis.exists(seenKey).catch(() => 0);
+  const redis = getRedis();
+  const alreadySeen = redis ? await redis.exists(seenKey).catch(() => 0) : 0;
   const isNew = !alreadySeen;
 
   const db = await readDB();
@@ -172,7 +183,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     recentVisitors: [...db.recentVisitors],
   };
 
-  if (isNew && !LOCAL_IPS.has(ip)) {
+  if (isNew && !LOCAL_IPS.has(ip) && redis) {
     await redis.set(seenKey, 1, { ex: DAY_S }).catch(() => {});
   }
 

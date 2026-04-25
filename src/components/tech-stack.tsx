@@ -8,7 +8,6 @@ const techs = [
   { name: "MongoDB", icon: "https://cdn.simpleicons.org/mongodb/000000", darkIcon: "https://cdn.simpleicons.org/mongodb/ffffff", url: "https://www.mongodb.com" },
   { name: "Redis", icon: "https://cdn.simpleicons.org/redis/000000", darkIcon: "https://cdn.simpleicons.org/redis/ffffff", url: "https://redis.io" },
   { name: "Prisma", icon: "https://cdn.simpleicons.org/prisma/000000", darkIcon: "https://cdn.simpleicons.org/prisma/ffffff", url: "https://www.prisma.io" },
-  { name: "Zustand", icon: "https://cdn.simpleicons.org/zustand/000000", darkIcon: "https://cdn.simpleicons.org/zustand/ffffff", url: "https://zustand-demo.pmnd.rs" },
   { name: "Tanstack Query", icon: "https://cdn.simpleicons.org/reactquery/000000", darkIcon: "https://cdn.simpleicons.org/reactquery/ffffff", url: "https://tanstack.com/query" },
   { name: "Tailwind", icon: "https://cdn.simpleicons.org/tailwindcss/000000", darkIcon: "https://cdn.simpleicons.org/tailwindcss/ffffff", url: "https://tailwindcss.com" },
   { name: "shadcn", icon: "https://cdn.simpleicons.org/shadcnui/000000", darkIcon: "https://cdn.simpleicons.org/shadcnui/ffffff", url: "https://ui.shadcn.com" },
