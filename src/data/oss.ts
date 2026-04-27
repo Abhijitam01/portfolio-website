@@ -9,6 +9,27 @@ export type PR = {
 
 export const openPRs: PR[] = [
   {
+    title: "feat: add chat outline navigation strip",
+    repo: "pingdotgg/t3code",
+    number: 1917,
+    url: "https://github.com/pingdotgg/t3code/pull/1917",
+    date: "Apr 2026",
+  },
+  {
+    title: "feat: add Trigger.dev v3 workspace with health-check task",
+    repo: "PrettiFlow/prettiflow-core",
+    number: 20,
+    url: "https://github.com/PrettiFlow/prettiflow-core/pull/20",
+    date: "Apr 2026",
+  },
+  {
+    title: "feat: add context memory architecture with pgvector smart retrieval",
+    repo: "PrettiFlow/prettiflow-core",
+    number: 19,
+    url: "https://github.com/PrettiFlow/prettiflow-core/pull/19",
+    date: "Apr 2026",
+  },
+  {
     title: "fix: detect wrong-platform binary in nao chat and show actionable err…",
     repo: "getnao/nao",
     number: 577,
