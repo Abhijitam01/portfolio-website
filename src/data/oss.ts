@@ -72,6 +72,27 @@ export const openPRs: PR[] = [
     date: "Apr 2026",
   },
   {
+    title: "Let templates read local project files via nao.file",
+    repo: "getnao/nao",
+    number: 599,
+    url: "https://github.com/getnao/nao/pull/599",
+    date: "Apr 2026",
+  },
+  {
+    title: "Notion easy add integration",
+    repo: "getnao/nao",
+    number: 598,
+    url: "https://github.com/getnao/nao/pull/598",
+    date: "Apr 2026",
+  },
+  {
+    title: "From CSS to Tailwind and reusable UI",
+    repo: "Abhijitam01/antimetal",
+    number: 1,
+    url: "https://github.com/Abhijitam01/antimetal/pull/1",
+    date: "Apr 2026",
+  },
+  {
     title: "fix: detect wrong-platform binary in nao chat and show actionable err…",
     repo: "getnao/nao",
     number: 577,
