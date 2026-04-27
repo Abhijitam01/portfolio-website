@@ -58,6 +58,20 @@ export const openPRs: PR[] = [
     date: "Apr 2026",
   },
   {
+    title: "feat: auto-mount ~/.claude/ directory into sandboxes",
+    repo: "gofixpoint/amika",
+    number: 179,
+    url: "https://github.com/gofixpoint/amika/pull/179",
+    date: "Apr 2026",
+  },
+  {
+    title: "feat: allow modifying sandbox metadata after creation",
+    repo: "gofixpoint/amika",
+    number: 178,
+    url: "https://github.com/gofixpoint/amika/pull/178",
+    date: "Apr 2026",
+  },
+  {
     title: "fix: detect wrong-platform binary in nao chat and show actionable err…",
     repo: "getnao/nao",
     number: 577,
