@@ -7,23 +7,23 @@ export function ReadingSection() {
     {
       type: "Book",
       icon: <BookOpen size={18} />,
-      title: "It Doesn't Have to Be Crazy at Work",
-      author: "Jason Fried & David Heinemeier Hansson",
-      url: "https://basecamp.com/books/calm",
+      title: "Nexus",
+      author: "Yuval Noah Harari",
+      url: "https://www.ynharari.com/book/nexus/",
     },
     {
       type: "Thread",
       icon: <FileText size={18} />,
-      title: "Interesting Thread",
-      author: "@Baheet_",
-      url: "https://x.com/Baheet_/status/1965758390430208066",
+      title: "Thread by Garry Tan",
+      author: "@garrytan",
+      url: "https://x.com/garrytan/status/2046876981711769720?s=20",
     },
     {
       type: "Video",
       icon: <Youtube size={18} />,
       title: "YouTube Video",
       author: "YouTube",
-      url: "https://www.youtube.com/watch?v=odP153inZUo",
+      url: "https://youtu.be/7xTGNNLPyMI",
     }
   ];
 
