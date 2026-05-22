@@ -57,12 +57,27 @@ const EMPTY_DB: VisitorDB = {
   recentVisitors: [],
 };
 
+function normalizeDB(data: unknown): VisitorDB {
+  if (!data || typeof data !== "object") return { ...EMPTY_DB };
+
+  const raw = data as Partial<VisitorDB>;
+  return {
+    totalVisits:
+      typeof raw.totalVisits === "number" ? raw.totalVisits : SEED_COUNT,
+    uniqueVisitors:
+      typeof raw.uniqueVisitors === "number" ? raw.uniqueVisitors : SEED_COUNT,
+    countries:
+      raw.countries && typeof raw.countries === "object" ? raw.countries : {},
+    recentVisitors: Array.isArray(raw.recentVisitors) ? raw.recentVisitors : [],
+  };
+}
+
 async function readDB(): Promise<VisitorDB> {
   try {
     const redis = getRedis();
     if (!redis) return EMPTY_DB;
-    const data = await redis.get<VisitorDB>(DB_KEY);
-    return data ?? EMPTY_DB;
+    const data = await redis.get(DB_KEY);
+    return normalizeDB(data);
   } catch {
     return EMPTY_DB;
   }
@@ -141,7 +156,7 @@ async function geoLocate(req: NextRequest, ip: string): Promise<GeoData | null> 
 }
 
 function buildResponse(db: VisitorDB) {
-  const publicVisitors = db.recentVisitors.map(({ lat, lon, city, country }) => ({
+  const publicVisitors = (db.recentVisitors ?? []).map(({ lat, lon, city, country }) => ({
     lat,
     lng: lon,
     city,
@@ -194,7 +209,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     if (geo && !LOCAL_IPS.has(ip)) {
       const code = geo.countryCode;
       const existing = updatedDB.countries[code];
-      const cities = existing ? [...existing.cities] : [];
+      const cities = existing?.cities ? [...existing.cities] : [];
       if (geo.city && !cities.includes(geo.city)) cities.push(geo.city);
 
       updatedDB.countries = {
