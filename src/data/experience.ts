@@ -8,9 +8,18 @@ export interface ExperienceItem {
 
 export const experience: ExperienceItem[] = [
   {
+    role: "AI Native Full Stack Developer",
+    company: "Inovara.ai",
+    period: "May 2026 — Present",
+    bullets: [
+      "Building AI-native products end-to-end across frontend, backend, and LLM integrations",
+      "Architecting and shipping production systems with modern AI tooling and full-stack ownership",
+    ],
+  },
+  {
     role: "Software Engineer",
-    company: "Abu Dhabi-based Startup",
-    period: "Feb 2026 — Present",
+    company: "Sylus.ai",
+    period: "Feb 2026 — Apr 2026",
     bullets: [
       "Shipped full-stack features across frontend, backend, and infrastructure with end-to-end ownership",
       "Designed scalable APIs and systems, turning ambiguous product ideas into reliable production flows",
