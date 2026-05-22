@@ -96,7 +96,8 @@ const COUNTRY_NAMES: Record<string, string> = {
 function geoFromVercelHeaders(req: NextRequest): GeoData | null {
   const countryCode = req.headers.get("x-vercel-ip-country") ?? "";
   if (!countryCode) return null;
-  const city = decodeURIComponent(req.headers.get("x-vercel-ip-city") ?? "");
+  const rawCity = req.headers.get("x-vercel-ip-city") ?? "";
+  const city = (() => { try { return decodeURIComponent(rawCity); } catch { return rawCity; } })();
   const lat = parseFloat(req.headers.get("x-vercel-ip-latitude") ?? "0");
   const lon = parseFloat(req.headers.get("x-vercel-ip-longitude") ?? "0");
   const country = COUNTRY_NAMES[countryCode] ?? countryCode;
@@ -155,67 +156,72 @@ function buildResponse(db: VisitorDB) {
 }
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
-  const forwarded = req.headers.get("x-forwarded-for");
-  const ip =
-    (forwarded ? forwarded.split(",")[0].trim() : null) ??
-    req.headers.get("x-real-ip") ??
-    (req as unknown as { ip?: string }).ip ??
-    "unknown";
+  try {
+    const forwarded = req.headers.get("x-forwarded-for");
+    const ip =
+      (forwarded ? forwarded.split(",")[0].trim() : null) ??
+      req.headers.get("x-real-ip") ??
+      (req as unknown as { ip?: string }).ip ??
+      "unknown";
 
-  if (ip === "unknown") {
+    if (ip === "unknown") {
+      const db = await readDB();
+      return NextResponse.json(buildResponse(db));
+    }
+
+    const seenKey = `${SEEN_KEY}:${ip}`;
+    const redis = getRedis();
+    const alreadySeen = redis ? await redis.exists(seenKey).catch(() => 0) : 0;
+    const isNew = !alreadySeen;
+
     const db = await readDB();
+
+    const updatedDB: VisitorDB = {
+      ...db,
+      totalVisits: db.totalVisits + 1,
+      uniqueVisitors:
+        isNew && !LOCAL_IPS.has(ip) ? db.uniqueVisitors + 1 : db.uniqueVisitors,
+      countries: { ...db.countries },
+      recentVisitors: [...db.recentVisitors],
+    };
+
+    if (isNew && !LOCAL_IPS.has(ip) && redis) {
+      await redis.set(seenKey, 1, { ex: DAY_S }).catch(() => {});
+    }
+
+    const geo = await geoLocate(req, ip);
+
+    if (geo && !LOCAL_IPS.has(ip)) {
+      const code = geo.countryCode;
+      const existing = updatedDB.countries[code];
+      const cities = existing ? [...existing.cities] : [];
+      if (geo.city && !cities.includes(geo.city)) cities.push(geo.city);
+
+      updatedDB.countries = {
+        ...updatedDB.countries,
+        [code]: {
+          name: geo.country,
+          flag: geo.flag,
+          count: (existing?.count ?? 0) + 1,
+          cities,
+        },
+      };
+
+      const visitor: RecentVisitor = {
+        ip: ip.slice(0, 8) + "***",
+        ...geo,
+        time: new Date().toISOString(),
+      };
+      updatedDB.recentVisitors = [visitor, ...updatedDB.recentVisitors].slice(0, 200);
+    }
+
+    await writeDB(updatedDB);
+
+    return NextResponse.json(buildResponse(updatedDB));
+  } catch {
+    const db = await readDB().catch(() => EMPTY_DB);
     return NextResponse.json(buildResponse(db));
   }
-
-  const seenKey = `${SEEN_KEY}:${ip}`;
-  const redis = getRedis();
-  const alreadySeen = redis ? await redis.exists(seenKey).catch(() => 0) : 0;
-  const isNew = !alreadySeen;
-
-  const db = await readDB();
-
-  const updatedDB: VisitorDB = {
-    ...db,
-    totalVisits: db.totalVisits + 1,
-    uniqueVisitors:
-      isNew && !LOCAL_IPS.has(ip) ? db.uniqueVisitors + 1 : db.uniqueVisitors,
-    countries: { ...db.countries },
-    recentVisitors: [...db.recentVisitors],
-  };
-
-  if (isNew && !LOCAL_IPS.has(ip) && redis) {
-    await redis.set(seenKey, 1, { ex: DAY_S }).catch(() => {});
-  }
-
-  const geo = await geoLocate(req, ip);
-
-  if (geo && !LOCAL_IPS.has(ip)) {
-    const code = geo.countryCode;
-    const existing = updatedDB.countries[code];
-    const cities = existing ? [...existing.cities] : [];
-    if (geo.city && !cities.includes(geo.city)) cities.push(geo.city);
-
-    updatedDB.countries = {
-      ...updatedDB.countries,
-      [code]: {
-        name: geo.country,
-        flag: geo.flag,
-        count: (existing?.count ?? 0) + 1,
-        cities,
-      },
-    };
-
-    const visitor: RecentVisitor = {
-      ip: ip.slice(0, 8) + "***",
-      ...geo,
-      time: new Date().toISOString(),
-    };
-    updatedDB.recentVisitors = [visitor, ...updatedDB.recentVisitors].slice(0, 200);
-  }
-
-  await writeDB(updatedDB);
-
-  return NextResponse.json(buildResponse(updatedDB));
 }
 
 export async function GET(): Promise<NextResponse> {

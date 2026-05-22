@@ -45,7 +45,9 @@ export function VisitorProvider({ children }: { children: ReactNode }) {
         if (d.countryCount !== undefined) setCountryCount(d.countryCount);
         if (d.countries) setCountries(d.countries);
       })
-      .catch(() => {});
+      .catch((err) => {
+        if (process.env.NODE_ENV === "development") console.error("[visitors]", err);
+      });
   }, []);
 
   return (
