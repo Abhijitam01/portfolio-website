@@ -71,9 +71,9 @@ const SwapIcon = () => (
   </svg>
 );
 
-function useISTTime() {
-  const fmt = new Intl.DateTimeFormat("en-IN", {
-    timeZone: "Asia/Kolkata",
+function useTime(timeZone: string) {
+  const fmt = new Intl.DateTimeFormat("en-GB", {
+    timeZone,
     hour: "2-digit",
     minute: "2-digit",
     hour12: false,
@@ -92,7 +92,9 @@ function useISTTime() {
 export function Header() {
   const [isTwitter, setIsTwitter] = useState(false);
   const { count } = useVisitors();
-  const istTime = useISTTime();
+  const istTime = useTime("Asia/Kolkata");
+  const dubaiTime = useTime("Asia/Dubai");
+  const londonTime = useTime("Europe/London");
 
   return (
     <header className="header-hero">
@@ -165,6 +167,8 @@ export function Header() {
         <div className="hero-info-grid">
           <InfoRow icon={<MapPin size={13} />} text="New Delhi, India" />
           <InfoRow icon={<Clock size={13} />} text={<><span className="info-time" suppressHydrationWarning>{istTime ?? "--:--"}</span> IST (UTC+5:30)</>} />
+          <InfoRow icon={<Clock size={13} />} text={<><span className="info-time" suppressHydrationWarning>{dubaiTime ?? "--:--"}</span> Dubai (UTC+4)</>} />
+          <InfoRow icon={<Clock size={13} />} text={<><span className="info-time" suppressHydrationWarning>{londonTime ?? "--:--"}</span> London (GMT)</>} />
         </div>
         <div className="hero-info-grid">
           <InfoRow icon={<Mail size={13} />} text={<a href="mailto:work.abhijitam@gmail.com" className="info-link">work.abhijitam@gmail.com</a>} />
