@@ -12,8 +12,8 @@ export const experience: ExperienceItem[] = [
     company: "Inovara.ai",
     period: "May 2026 — Present",
     bullets: [
-      "Building AI-native products end-to-end across frontend, backend, and LLM integrations",
-      "Architecting and shipping production systems with modern AI tooling and full-stack ownership",
+      "Owning AI-native product surfaces end-to-end: Next.js interfaces, backend workflows, prompt/data contracts, and production LLM integrations",
+      "Designing developer-facing systems where observability, eval loops, and fast iteration are part of the architecture from day one",
     ],
   },
   {
@@ -21,8 +21,8 @@ export const experience: ExperienceItem[] = [
     company: "Sylus.ai",
     period: "Feb 2026 — Apr 2026",
     bullets: [
-      "Shipped full-stack features across frontend, backend, and infrastructure with end-to-end ownership",
-      "Designed scalable APIs and systems, turning ambiguous product ideas into reliable production flows",
+      "Shipped full-stack product flows across frontend, API, database, and deployment boundaries with direct ownership from spec to release",
+      "Turned ambiguous AI product requirements into typed APIs, resilient backend flows, and measurable user-facing behavior",
     ],
   },
   {
@@ -31,8 +31,8 @@ export const experience: ExperienceItem[] = [
     period: "Feb 2025 — Oct 2025",
     location: "New Delhi",
     bullets: [
-      "Built a complete ticketing + booking system with integrated payments",
-      "Simplified backend flows and UX to improve reliability and conversion",
+      "Built the core ticketing and booking system, including payment integration, event inventory, checkout state, and admin workflows",
+      "Reduced operational friction by simplifying backend booking flows and tightening the user path from event discovery to confirmed payment",
     ],
   },
 ];

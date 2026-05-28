@@ -14,7 +14,7 @@ import { PageContent } from "@/components/page-content";
 import { VisitorsMap } from "@/components/visitors-map";
 import { CountryList } from "@/components/country-list";
 
-const HOME_PROJECT_IDS = ["chessable", "antimetal", "sketchable", "pinggod", "errika", "eyeswitch"];
+const HOME_PROJECT_IDS = ["chessable", "pinggod", "antimetal", "eyeswitch"];
 const homeProjects = HOME_PROJECT_IDS
   .map((id) => projects.find((p) => p.id === id))
   .filter(Boolean) as Project[];
@@ -36,7 +36,7 @@ export default function Home() {
           <Experience items={experience} />
         </Section>
 
-        <Section title="Projects">
+        <Section title="Featured Projects">
           <ProjectList>
             {homeProjects.map((project) => (
               <ProjectItem

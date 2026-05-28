@@ -11,6 +11,11 @@ export interface ProjectCaseStudy {
   stuck: string;
 }
 
+export interface ProjectArchitectureStep {
+  label: string;
+  detail: string;
+}
+
 export interface Project {
   id: string;
   title: string;
@@ -19,6 +24,8 @@ export interface Project {
   image: string;
   description: string;
   fullDescription: string;
+  metrics: string[];
+  architecture?: ProjectArchitectureStep[];
   techStack: string[];
   links: ProjectLink[];
   caseStudy: ProjectCaseStudy;
@@ -35,6 +42,14 @@ export const projects: Project[] = [
     image: "/projects/chess.png",
     description: "Multiplayer chess with sub-100ms move sync, ranked matchmaking, and engine-backed analysis. Built for players who take the game seriously.",
     fullDescription: "A full-stack chess platform engineered around low-latency real-time play. WebSockets handle live move synchronization between players, Redis manages active game state and matchmaking queues, and chess.js enforces strict server-side move validation so the game state is always authoritative. The UI is intentionally minimal — no distractions, just the board, the clock, and the analysis panel. Deployed via Docker with a Turborepo monorepo structure to keep the frontend, server, and shared logic cleanly separated.",
+    metrics: ["sub-100ms move sync", "server-authoritative validation", "Redis-backed matchmaking"],
+    architecture: [
+      { label: "Next.js Client", detail: "Board, clocks, analysis UI" },
+      { label: "WebSocket Gateway", detail: "Ordered move events + reconnects" },
+      { label: "Game Service", detail: "chess.js validation and timers" },
+      { label: "Redis", detail: "Active games and matchmaking queues" },
+      { label: "Docker Deploy", detail: "Frontend, server, shared logic" }
+    ],
     techStack: ["TypeScript", "Next.js", "WebSockets", "Redis", "chess.js", "Tailwind CSS", "Turborepo", "Docker"],
     links: [
       { url: "https://chessable.space", text: "Visit Site", primary: true },
@@ -56,6 +71,15 @@ export const projects: Project[] = [
     image: "/projects/betteruptime.png",
     description: "A self-hosted uptime monitoring platform. Add URLs, get alerted when they go down, track response times, manage incidents, and share public status pages.",
     fullDescription: "PingGod is a full-stack alternative to expensive SaaS uptime monitors — self-hosted, fully owned, and built for teams who want real control over their monitoring stack. A Pusher-powered scheduler ticks every 30 seconds, enqueuing monitored URLs into a Redis stream. A dedicated worker reads the stream, pings each URL, records status and response time to PostgreSQL, and automatically opens or closes incidents on state transitions. When something goes down, alerts fire via Resend email or generic HTTP webhooks with Slack-compatible payloads. The Next.js dashboard handles everything: adding monitors, viewing response time history, managing incidents, and generating shareable public status pages. Built as a Turborepo monorepo running on Bun for fast startup and lean scripts.",
+    metrics: ["30s monitor cadence", "3-failure incident hysteresis", "Redis Streams worker pipeline"],
+    architecture: [
+      { label: "Next.js Dashboard", detail: "Monitors, incidents, status pages" },
+      { label: "Scheduler", detail: "30-second URL enqueue loop" },
+      { label: "Redis Streams", detail: "Durable check queue" },
+      { label: "Worker", detail: "HTTP probes and state transitions" },
+      { label: "PostgreSQL", detail: "Latency history and incidents" },
+      { label: "Alerts", detail: "Resend email and webhooks" }
+    ],
     techStack: ["TypeScript", "Next.js 15", "Express", "Bun", "Turborepo", "PostgreSQL", "Prisma", "Redis Streams", "Zod", "JWT", "Resend", "Tailwind CSS"],
     links: [
       { url: "https://pingGod.xyz", text: "Visit Site", primary: true },
@@ -77,6 +101,7 @@ export const projects: Project[] = [
     image: "/projects/eyeswitch.png",
     description: "Control your computer with your eyes. EyeSwitch uses real-time gaze tracking to replace mouse navigation with hands-free, frictionless interaction.",
     fullDescription: "EyeSwitch rethinks the fundamental assumption behind human-computer interaction — that you need a keyboard or mouse to navigate software. Using TensorFlow.js for real-time facial landmark detection and the Canvas API for rendering feedback, it tracks gaze and translates it into navigation commands with minimal perceptible latency. The system is intentionally designed to disappear: when it works well, there's no interface — just intent and response. A lightweight CLI layer handles calibration and configuration without requiring a GUI wrapper.",
+    metrics: ["real-time landmark tracking", "confidence-window smoothing", "CLI calibration flow"],
     techStack: ["TypeScript", "TensorFlow.js", "Node.js", "Canvas API", "CLI"],
     links: [
       { url: "https://eyeswitch.abhijitamdubey.site", text: "Visit Site", primary: true },
@@ -99,6 +124,7 @@ export const projects: Project[] = [
     image: "/projects/sketchy.png",
     description: "A hand-drawn-feel canvas for wireframes, diagrams, and quick visual thinking. Fast, distraction-free, and genuinely satisfying to draw with.",
     fullDescription: "Sketchable is a browser-based drawing tool that combines the immediacy of a whiteboard with a deliberate hand-drawn aesthetic powered by Rough.js. The Canvas API rendering loop is tuned for smooth, low-latency input — shapes appear as you draw them, not after. WebSockets enable real-time multiplayer collaboration, with board state persisted to PostgreSQL so sessions survive page refreshes. The interaction model is intentionally minimal: a small toolbar, a clean canvas, and shapes that feel like they were drawn by hand rather than generated by software.",
+    metrics: ["60Hz canvas render loop", "dirty-region redraws", "persistent multiplayer boards"],
     techStack: ["TypeScript", "React", "Next.js", "WebSockets", "PostgreSQL", "Rough.js", "Tailwind CSS", "Canvas API"],
     links: [
       { url: "https://sketchable.space", text: "Visit Site", primary: true },
@@ -120,6 +146,7 @@ export const projects: Project[] = [
     image: "/projects/solana-atlas.png",
     description: "An interactive Solana developer playground. Inspect accounts, trace transactions, and experiment with on-chain program logic in a live visual environment.",
     fullDescription: "Solana Atlas is a developer tool that makes the internals of Solana programs visible and explorable. Rather than piecing together behavior from fragmented RPC responses and documentation, developers can inspect account data layouts, trace instruction execution, and simulate transaction flows in a single unified interface built on Web3.js and Anchor. The tool is designed around observability — surfacing the state that matters, in the order it matters, so Solana's execution model becomes intuitive rather than opaque. Useful for developers learning Solana fundamentals and for teams auditing or debugging deployed programs.",
+    metrics: ["account-layout inspection", "transaction-flow tracing", "devnet simulation loop"],
     techStack: ["TypeScript", "Solana", "Anchor", "Web3.js", "React", "Developer Tools"],
     links: [
       { url: "https://solana-atlas.xyz", text: "Visit Site", primary: true },
@@ -141,6 +168,7 @@ export const projects: Project[] = [
     image: "/projects/vizzy.png",
     description: "Drag Route, Middleware, Handler, and Response blocks onto a canvas — Vizzy wires them together and generates a real, annotated Express server as you build.",
     fullDescription: "Vizzy is a visual learning tool that makes the Express.js request lifecycle tangible. Every endpoint is a linear chain of four block types — Route, Middleware, Handler, Response — and Vizzy makes that chain literal on a ReactFlow canvas. As you connect blocks with wires, a live code panel generates annotated server.js code in real time, with comments explaining req, res, and what each block does. Hit Export and you get a ready-to-run server.js and package.json. There's also a Run mode that animates a request traveling through your route — blocks light up in sequence so you can see the flow before ever writing a line of code. The goal: a developer who has never touched Express ships a working GET endpoint in under five minutes.",
+    metrics: ["under-5-minute endpoint goal", "live code generation", "4-block request model"],
     techStack: ["TypeScript", "React", "ReactFlow", "Zustand", "Vite"],
     links: [
       { url: "#", text: "Coming Soon", primary: true },
@@ -163,6 +191,7 @@ export const projects: Project[] = [
     image: "/projects/photobooth.png",
     description: "Open the URL, take four shots, download a retro film strip. No account, no install, no friction — just your camera and the moment.",
     fullDescription: "Photobooth strips the photo booth experience down to its essence: a URL, a camera, and a film strip. Open it on any device, take four shots with your camera, and the app composites them into a classic vertical strip layout using html2canvas — ready to download and share in seconds. No signup, no cloud storage, no app required. It works as a PWA, so it installs and runs offline when needed. The entire product is defined by a single constraint: if any step requires an account or a form, the experience is already broken.",
+    metrics: ["4-shot film strip", "offline-capable PWA", "zero-account flow"],
     techStack: ["TypeScript", "React", "Vite", "Tailwind CSS", "PWA", "html2canvas"],
     links: [
       { url: "#", text: "Coming Soon", primary: true },
@@ -185,6 +214,7 @@ export const projects: Project[] = [
     image: "/projects/snippet-vault.png",
     description: "A searchable vault for the code you actually reuse. Tag by language and intent, find by meaning — not by remembering the exact file it was buried in.",
     fullDescription: "Snippet Vault is a personal code library built around fast, intent-based retrieval. Snippets are stored with CodeMirror for syntax-highlighted editing, tagged by language and use case, and indexed with SQLite full-text search so you can find them by what they do — not what they're named. Prisma handles the data layer cleanly, and Zustand keeps the UI state lightweight and predictable. The design philosophy is aggressively minimal: no folders, no nested hierarchies, no bloat — just a search bar and a vault of code that works.",
+    metrics: ["SQLite full-text search", "syntax-safe CodeMirror editor", "intent-based tagging"],
     techStack: ["TypeScript", "Next.js", "Prisma", "SQLite", "CodeMirror", "Tailwind CSS", "Zustand"],
     links: [
       { url: "https://snippetvault.abhijitamdubey.site", text: "Visit Site", primary: true },
@@ -206,6 +236,7 @@ export const projects: Project[] = [
     image: "/projects/errika.png",
     description: "One command to scaffold a production-ready Turborepo + Next.js monorepo — shared UI, Tailwind, Prisma, and sensible defaults already wired up.",
     fullDescription: "Errika is an opinionated CLI scaffolding tool that eliminates the repetitive work of setting up a Turborepo monorepo from scratch. A single command generates a fully configured workspace: Next.js app, shared component library, Tailwind setup, Prisma with a base schema, TypeScript project references, and ESLint config — all pre-wired and building from the start. Templates are rendered via Handlebars, and Commander.js handles the interactive prompt flow. The tool is designed to be deterministic: run it twice with the same inputs, get the same output, no surprises.",
+    metrics: ["30-second scaffold", "2-hour setup compressed", "deterministic template output"],
     techStack: ["TypeScript", "Node.js", "CLI", "Commander.js", "Handlebars"],
     links: [
       { url: "https://github.com/Abhijitam01", text: "GitHub", primary: true },
@@ -227,6 +258,14 @@ export const projects: Project[] = [
     image: "/projects/antimetal.png",
     description: "An AI-powered interactive system design learning platform. Build real architectures on a visual canvas, get instant AI feedback, and learn by doing — not by reading.",
     fullDescription: "Antimetal is a hands-on system design education platform built around a React Flow canvas where learners actually draw and wire up architectures — databases, caches, load balancers, queues — rather than passively reading about them. After each design, an Anthropic Claude-powered analysis layer reviews the architecture and provides targeted feedback: what's missing, what would break under load, and what to improve. Authentication is handled via NextAuth v5, payments via DodoPayments, and the full data layer runs on PostgreSQL with Prisma. Built as a Turborepo monorepo with Framer Motion powering transitions throughout the UI. The core insight: system design interviews fail candidates who have read everything but built nothing — Antimetal closes that gap by making the canvas the teacher.",
+    metrics: ["structured canvas serialization", "AI architecture critique loop", "NextAuth + payments + Postgres"],
+    architecture: [
+      { label: "React Flow Canvas", detail: "Learner builds architecture nodes" },
+      { label: "Zustand Store", detail: "Canonical graph state" },
+      { label: "Serializer", detail: "Nodes, edges, data-flow context" },
+      { label: "Claude Analysis", detail: "Targeted design critique" },
+      { label: "PostgreSQL", detail: "Users, attempts, subscriptions" }
+    ],
     techStack: ["Next.js 15", "React", "Tailwind CSS", "Framer Motion", "React Flow", "Anthropic Claude SDK", "NextAuth v5", "Prisma", "PostgreSQL", "DodoPayments", "Zustand", "Turborepo"],
     links: [
       { url: "https://antimetal.in", text: "Visit Site", primary: true },
@@ -249,6 +288,15 @@ export const projects: Project[] = [
     image: "/projects/loadzen.png",
     description: "Self-hosted load testing with real-time metrics and AI-powered diagnosis. Enter a URL, set your load parameters, and get actionable insights — not just raw numbers.",
     fullDescription: "LoadZen is a self-hosted load testing platform built for developers who want production-quality performance insights without enterprise tooling overhead. Enter a target URL, configure concurrent users and test duration, and watch live metrics stream in as k6 runs the actual load generation as a managed subprocess. When the test completes, an AI diagnosis layer interprets the results — surfacing bottlenecks, error rate patterns, and specific recommendations rather than leaving raw p95 latency numbers for you to interpret. The architecture is a pnpm monorepo: Next.js frontend with TanStack Query for server state, a Fastify API, BullMQ and Redis for the job queue, k6 spawned as a subprocess, and PostgreSQL with Drizzle ORM for test history and result persistence.",
+    metrics: ["k6 subprocess runner", "BullMQ job orchestration", "p95/error-rate diagnosis"],
+    architecture: [
+      { label: "Next.js Console", detail: "Load params and live results" },
+      { label: "Fastify API", detail: "Test creation and auth boundary" },
+      { label: "BullMQ + Redis", detail: "Queued test execution" },
+      { label: "k6 Runner", detail: "Managed subprocess load generation" },
+      { label: "PostgreSQL", detail: "History, metrics, reports" },
+      { label: "AI Diagnosis", detail: "Bottlenecks and next actions" }
+    ],
     techStack: ["TypeScript", "Next.js", "Fastify", "BullMQ", "Redis", "PostgreSQL", "Drizzle ORM", "k6"],
     links: [
       { url: "#", text: "Coming Soon", primary: true },

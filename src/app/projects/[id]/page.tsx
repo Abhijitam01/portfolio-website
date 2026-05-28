@@ -116,6 +116,31 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         <p className="project-page-description">{project.description}</p>
         <p className="project-page-description">{project.fullDescription}</p>
 
+        <div className="project-page-metrics">
+          {project.metrics.map((metric) => (
+            <div key={metric} className="project-page-metric">
+              <span className="project-page-metric-value">{metric}</span>
+            </div>
+          ))}
+        </div>
+
+        {project.architecture && (
+          <div className="project-page-architecture">
+            <h2 className="project-page-section-title">Architecture</h2>
+            <div className="architecture-flow">
+              {project.architecture.map((step, index) => (
+                <div key={step.label} className="architecture-step">
+                  <div className="architecture-step-index">{String(index + 1).padStart(2, "0")}</div>
+                  <div>
+                    <h3>{step.label}</h3>
+                    <p>{step.detail}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         <div className="project-page-case-study">
           <div className="case-study-block">
             <h2 className="case-study-title">Why I built this</h2>
