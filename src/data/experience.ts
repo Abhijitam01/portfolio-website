@@ -9,7 +9,7 @@ export interface ExperienceItem {
 export const experience: ExperienceItem[] = [
   {
     role: "AI Native Full Stack Developer",
-    company: "Inovara.ai",
+    company: "Dubai-based startup",
     period: "May 2026 — Present",
     bullets: [
       "Owning AI-native product surfaces end-to-end: Next.js interfaces, backend workflows, prompt/data contracts, and production LLM integrations",
